@@ -24,7 +24,13 @@
     </div>
   </div>
   <div class="branch-map">
-    <p>Karte</p>
+    <google-map
+      height="400px"
+      width="100%"
+      [center]="mapCenter"
+      [zoom]="15">
+      <map-marker [position]="mapCenter" [label]="branch().firma"></map-marker>
+    </google-map>
   </div>
   <div class="buttons">
     <a href="/">

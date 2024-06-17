@@ -48,4 +48,8 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   </table>
+
+  <a class="map-button" [routerLink]="['/filialen/karte']">
+    <button mat-button>Karte</button>
+  </a>
 </div>

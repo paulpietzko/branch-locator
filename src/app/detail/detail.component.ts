@@ -7,6 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
+import { GoogleMapsModule } from '@angular/google-maps';
 
 @Component({
   selector: 'app-detail',
@@ -18,10 +19,11 @@ import { MatIconModule } from '@angular/material/icon';
     MatTableModule,
     MatIconModule,
     MatButtonModule,
+    GoogleMapsModule,
   ],
   templateUrl: './detail.component.html',
   styleUrls: ['./detail.component.scss'],
-  providers: [BranchService, MatButtonModule],
+  providers: [BranchService],
 })
 export class DetailComponent implements OnInit {
   branchId = signal<number | null>(null);
@@ -32,6 +34,8 @@ export class DetailComponent implements OnInit {
     }
     return null;
   });
+
+  mapCenter = { lat: 0, lng: 0 };
 
   constructor(
     private route: ActivatedRoute,
@@ -44,6 +48,10 @@ export class DetailComponent implements OnInit {
       const id = params.get('id');
       if (id !== null) {
         this.branchId.set(+id);
+        const branch = this.branchService.getBranchById(+id);
+        if (branch) {
+          this.mapCenter = { lat: branch.lat, lng: branch.lng };
+        }
       } else {
         console.error('Invalid branch ID');
       }
