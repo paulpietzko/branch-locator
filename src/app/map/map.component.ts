@@ -2,7 +2,6 @@ import { Component, signal, inject, effect } from '@angular/core';
 import { BranchService } from '../services/branch-service/branch.service';
 import { CommonModule } from '@angular/common';
 import { GoogleMapsModule } from '@angular/google-maps';
-import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -10,7 +9,11 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-map',
   standalone: true,
-  imports: [CommonModule, GoogleMapsModule, HttpClientModule, RouterModule],
+  imports: [
+    CommonModule,
+    GoogleMapsModule,
+    RouterModule
+  ],
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss'],
   providers: [BranchService],

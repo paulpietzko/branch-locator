@@ -2,7 +2,6 @@ import { Component, OnInit, signal, computed, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BranchService } from '../services/branch-service/branch.service';
 import { CommonModule, Location } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 import { MatTableModule } from '@angular/material/table';
@@ -15,10 +14,9 @@ import { MapComponent } from "../map/map.component";
     standalone: true,
     templateUrl: './detail.component.html',
     styleUrls: ['./detail.component.scss'],
-    providers: [BranchService],
+    providers: [BranchService,],
     imports: [
         CommonModule,
-        HttpClientModule,
         RouterModule,
         MatTableModule,
         MatIconModule,

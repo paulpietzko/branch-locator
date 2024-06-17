@@ -5,7 +5,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { BranchService } from '../services/branch-service/branch.service';
 import { RouterModule } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
 import { signal } from '@angular/core';
 
 @Component({
@@ -16,7 +15,6 @@ import { signal } from '@angular/core';
     MatTableModule,
     MatIconModule,
     MatButtonModule,
-    HttpClientModule,
     RouterModule,
   ],
   templateUrl: './branches.component.html',
