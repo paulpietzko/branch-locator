@@ -1,10 +1,18 @@
-<google-map [center]="center" [zoom]="zoom" height="500px" width="100%">
-  <map-marker
-    *ngFor="let marker of markers"
-    [position]="marker.position"
-    [label]="marker.label"
-    [title]="marker.title"
-    [options]="marker.options"
-    (mapClick)="marker.click()">
-  </map-marker>
-</google-map>
+<div class="map">
+  <h3>Unsere Filialen</h3>
+  <p>
+    Hier kommt etwas Text... unsere Produkte gibt es natürlich auch im
+    Fachhandel. Hier finden Sie Verkaufsstellen in Ihrer Nähe.
+  </p>
+  <google-map [center]="center" [zoom]="zoom" height="500px" width="100%">
+    <map-marker
+      *ngFor="let marker of markers"
+      [position]="marker.position"
+      [label]="marker.label"
+      [title]="marker.title"
+      [options]="marker.options"
+      (mapClick)="marker.click()"
+    >
+    </map-marker>
+  </google-map>
+</div>

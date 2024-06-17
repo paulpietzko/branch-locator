@@ -1,3 +1,10 @@
+
+google-map {
+  height: 500px;
+  width: 100%;
+  margin: 2rem 0;
+}
+
 .detail {
   display: flex;
   flex-direction: column;
@@ -60,10 +67,5 @@
     a {
       display: inline-block;
     }
-  }
-
-  google-map {
-    height: 500px;
-    width: 100%;
   }
 }

@@ -6,14 +6,14 @@
         {{ branch().firma }}<br />
         {{ branch().plz }} {{ branch().ort }} {{ branch().kanton }}
       </p>
-      <br>
+      <br />
       <p>
         Telefon: {{ branch().phone }}<br />
         E-Mail: {{ branch().email }}<br />
         Web:
         <a [href]="branch().website" target="_blank">{{ branch().website }}</a>
       </p>
-      <br>
+      <br />
       <p>
         Öffnungszeiten<br />
         {{ branch().opening_hours }}
@@ -23,15 +23,12 @@
       <p>Hier kommt ein Foto/Aussenfoto von der Filiale</p>
     </div>
   </div>
-  <div class="branch-map">
-    <google-map
-      height="400px"
-      width="100%"
-      [center]="mapCenter"
-      [zoom]="15">
-      <map-marker [position]="mapCenter" [label]="branch().firma"></map-marker>
-    </google-map>
-  </div>
+  <google-map [center]="mapCenter" [zoom]="15" height="500px" width="100%">
+    <map-marker
+      *ngIf="branch()"
+      [position]="mapCenter"
+    ></map-marker>
+  </google-map>
   <div class="buttons">
     <a href="/">
       <button mat-button>← Zurück zur Übersicht</button>
