@@ -1,0 +1,29 @@
+<div class="detail" *ngIf="branch()">
+  <h3>Unsere Filiale in {{ branch().ort }}</h3>
+  <div class="branch-info">
+    <div class="info-text">
+      <p>
+        {{ branch().firma }}<br />
+        {{ branch().plz }} {{ branch().ort }} {{ branch().kanton }}
+      </p>
+      <p>
+        Telefon: {{ branch().phone }}<br />
+        E-Mail: {{ branch().email }}<br />
+        Web:
+        <a [href]="branch().website" target="_blank">{{ branch().website }}</a>
+      </p>
+      <p>Yankee Candle</p>
+      <p>
+        Öffnungszeiten<br />
+        {{ branch().opening_hours }}
+      </p>
+    </div>
+    <div class="branch-photo">
+      <p>Hier kommt ein Foto/Aussenfoto von der Filiale</p>
+    </div>
+  </div>
+  <div class="branch-map">
+    <p>Karte</p>
+  </div>
+  <a href="/">← Zurück zur Übersicht</a>
+</div>
