@@ -32,6 +32,6 @@ export class BranchesComponent implements OnInit {
   constructor(private branchService: BranchService) {}
 
   ngOnInit(): void {
-    this.branches = this.branchService.getBranches();
+    this.branches = this.branchService.branches;
   }
 }

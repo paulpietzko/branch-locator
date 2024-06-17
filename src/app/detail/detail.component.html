@@ -6,13 +6,14 @@
         {{ branch().firma }}<br />
         {{ branch().plz }} {{ branch().ort }} {{ branch().kanton }}
       </p>
+      <br>
       <p>
         Telefon: {{ branch().phone }}<br />
         E-Mail: {{ branch().email }}<br />
         Web:
         <a [href]="branch().website" target="_blank">{{ branch().website }}</a>
       </p>
-      <p>Yankee Candle</p>
+      <br>
       <p>
         Öffnungszeiten<br />
         {{ branch().opening_hours }}
@@ -25,5 +26,12 @@
   <div class="branch-map">
     <p>Karte</p>
   </div>
-  <a href="/">← Zurück zur Übersicht</a>
+  <div class="buttons">
+    <a href="/">
+      <button mat-button>← Zurück zur Übersicht</button>
+    </a>
+    <a [routerLink]="['/filialen/edit', branch().id]">
+      <button mat-button>Edit</button>
+    </a>
+  </div>
 </div>

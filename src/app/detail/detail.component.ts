@@ -4,15 +4,24 @@ import { BranchService } from '../services/branch-service/branch.service';
 import { CommonModule, Location } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { MatButtonModule } from '@angular/material/button';
+import { RouterModule } from '@angular/router';
+import { MatTableModule } from '@angular/material/table';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-detail',
   standalone: true,
-  imports: [CommonModule, HttpClientModule],
+  imports: [
+    CommonModule,
+    HttpClientModule,
+    RouterModule,
+    MatTableModule,
+    MatIconModule,
+    MatButtonModule,
+  ],
   templateUrl: './detail.component.html',
   styleUrls: ['./detail.component.scss'],
-  providers: [BranchService,
-    MatButtonModule,],
+  providers: [BranchService, MatButtonModule],
 })
 export class DetailComponent implements OnInit {
   branchId = signal<number | null>(null);
@@ -31,7 +40,7 @@ export class DetailComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe(params => {
+    this.route.paramMap.subscribe((params) => {
       const id = params.get('id');
       if (id !== null) {
         this.branchId.set(+id);
