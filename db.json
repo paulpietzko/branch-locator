@@ -1,8 +1,8 @@
 {
   "branches": [
     {
-      "id": 1,
-      "firma": "Manor Warenhaus Zürich",
+      "id": "1",
+      "firma": "Manor Warenhaus Zürich1",
       "plz": "8001",
       "ort": "Zürich",
       "kanton": "ZH",
@@ -14,7 +14,7 @@
       "lng": 8.541694
     },
     {
-      "id": 3,
+      "id": "2",
       "firma": "Manor Warenhaus Zürich Letzipark",
       "plz": "8048",
       "ort": "Zürich",
@@ -27,7 +27,7 @@
       "lng": 8.4961951
     },
     {
-      "id": 4,
+      "id": "3",
       "firma": "Coop City Annahof",
       "plz": "8000",
       "ort": "Zürich",
@@ -40,7 +40,7 @@
       "lng": 8.5401929
     },
     {
-      "id": 5,
+      "id": "4",
       "firma": "Blume3000 AG",
       "plz": "8001",
       "ort": "Zürich",
@@ -53,7 +53,7 @@
       "lng": 8.5404439
     },
     {
-      "id": 6,
+      "id": "5",
       "firma": "Blume3000",
       "plz": "8001",
       "ort": "Zürich",
@@ -66,7 +66,7 @@
       "lng": 8.5404439
     },
     {
-      "id": 7,
+      "id": "6",
       "firma": "Hundesalon Dolly",
       "plz": "8004",
       "ort": "Zürich",
@@ -79,7 +79,7 @@
       "lng": 8.5277864
     },
     {
-      "id": 8,
+      "id": "7",
       "firma": "Paracelsus Apotheke",
       "plz": "8004",
       "ort": "Zürich",
@@ -92,7 +92,7 @@
       "lng": 8.5277864
     },
     {
-      "id": 8,
+      "id": "8",
       "firma": "Paracelsus Apotheke1",
       "plz": "8004",
       "ort": "Zürich",
@@ -105,7 +105,7 @@
       "lng": 8.5277864
     },
     {
-      "id": 10,
+      "id": "9",
       "firma": "Toblerplatz Drogerie",
       "plz": "8044",
       "ort": "Zürich",
@@ -118,7 +118,7 @@
       "lng": 8.5667926
     },
     {
-      "id": 1718703173344,
+      "id": "1718703173344",
       "firma": "df",
       "kanton": "df",
       "phone": "044 241 91 33",
@@ -129,7 +129,7 @@
       "opening_hours": "sfsd"
     },
     {
-      "id": 1718704495638,
+      "id": "1718704495638",
       "firma": "dsfa",
       "kanton": "asdf",
       "phone": "044 241 91 22",
@@ -138,6 +138,17 @@
       "email": "s@r",
       "website": "https://df",
       "opening_hours": "dfgf"
+    },
+    {
+      "id": "1718709449629",
+      "firma": "fes",
+      "kanton": "sefes",
+      "phone": "044 241 91 20",
+      "plz": "ere",
+      "ort": "esf",
+      "email": "fe@z",
+      "website": "https://www.",
+      "opening_hours": "dsff"
     }
   ]
 }

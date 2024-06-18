@@ -1,6 +1,7 @@
 import { Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +25,7 @@ export class BranchService {
   }
 
   getBranchById(id: number) {
-    return this._branches().find(branch => branch.id === id);
+    return this._branches().find(branch => branch.id === id) || null;
   }
 
   updateBranch(updatedBranch: any): Observable<any> {
@@ -33,8 +34,12 @@ export class BranchService {
       const updatedBranches = [...this._branches()];
       updatedBranches[index] = updatedBranch;
       this._branches.set(updatedBranches);
-      console.log(`${this.dataUrl}/branches/${updatedBranch.id}`);
-      return this.http.patch<any>(`${this.dataUrl}/branches?id=${updatedBranch.id}`, updatedBranch);
+      return this.http.patch<any>(`${this.dataUrl}/branches/${updatedBranch.id}`, updatedBranch).pipe(
+        catchError(error => {
+          console.error('Update failed', error);
+          throw error;
+        })
+      );
     } else {
       throw new Error('Branch not found');
     }
@@ -43,7 +48,11 @@ export class BranchService {
   addBranch(newBranch: any): Observable<any> {
     const updatedBranches = [...this._branches(), newBranch];
     this._branches.set(updatedBranches);
-    // POST-Query to server
-    return this.http.post<any>(`${this.dataUrl}/branches`, newBranch);
+    return this.http.post<any>(`${this.dataUrl}/branches`, newBranch).pipe(
+      catchError(error => {
+        console.error('Add failed', error);
+        throw error;
+      })
+    );
   }
 }
