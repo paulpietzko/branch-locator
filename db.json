@@ -118,37 +118,17 @@
       "lng": 8.5667926
     },
     {
-      "id": "1718703173344",
-      "firma": "df",
-      "kanton": "df",
-      "phone": "044 241 91 33",
-      "plz": "2",
-      "ort": "2",
-      "email": "2@d",
-      "website": "https://jdsfösd",
-      "opening_hours": "sfsd"
-    },
-    {
-      "id": "1718704495638",
-      "firma": "dsfa",
-      "kanton": "asdf",
-      "phone": "044 241 91 22",
+      "id": "1718712916874",
+      "firma": "9876",
+      "kanton": "rse",
+      "phone": "044 241 91 18",
       "plz": "sd",
-      "ort": "sd",
-      "email": "s@r",
-      "website": "https://df",
-      "opening_hours": "dfgf"
-    },
-    {
-      "id": "1718709449629",
-      "firma": "fes",
-      "kanton": "sefes",
-      "phone": "044 241 91 20",
-      "plz": "ere",
-      "ort": "esf",
-      "email": "fe@z",
-      "website": "https://www.",
-      "opening_hours": "dsff"
+      "ort": "ssds",
+      "email": "d@d",
+      "website": "https://www",
+      "opening_hours": "sdfp",
+      "lat": null,
+      "lng": null
     }
   ]
 }

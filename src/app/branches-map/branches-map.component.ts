@@ -37,12 +37,16 @@ export class BranchesMapComponent {
   }
 
   updateMarkers(): void {
-    this.markers = this.branches().map((branch) => ({
-      position: { lat: branch.lat, lng: branch.lng },
-      title: branch.firma,
-      options: { animation: google.maps.Animation.DROP },
-      click: () => this.showInfoWindow(branch),
-    }));
+    this.markers = this.branches()
+      .map((branch) => ({
+        position: { lat: branch.lat, lng: branch.lng },
+        title: branch.firma,
+        options: { animation: google.maps.Animation.DROP },
+        click: () => this.showInfoWindow(branch),
+      }))
+      .filter(
+        (marker) => !isNaN(marker.position.lat) && !isNaN(marker.position.lng)
+      );
   }
 
   showInfoWindow(branch: any): void {

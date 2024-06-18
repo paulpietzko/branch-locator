@@ -2,40 +2,42 @@
   <h3 *ngIf="isEditMode(); else addMode">Filiale bearbeiten</h3>
   <ng-template #addMode><h3>Neue Filiale hinzufügen</h3></ng-template>
   <form [formGroup]="branchForm" (ngSubmit)="onSubmit()">
-    <mat-form-field
-      ><mat-label>Name</mat-label
-      ><input matInput formControlName="firma" required
-    /></mat-form-field>
-    <mat-form-field
-      ><mat-label>Kanton</mat-label
-      ><input matInput formControlName="kanton" required
-    /></mat-form-field>
-    <mat-form-field
-      ><mat-label>Telefon</mat-label
-      ><input matInput formControlName="phone" required
-    /></mat-form-field>
-    <mat-form-field
-      ><mat-label>PLZ</mat-label><input matInput formControlName="plz" required
-    /></mat-form-field>
-    <mat-form-field
-      ><mat-label>Ort</mat-label><input matInput formControlName="ort" required
-    /></mat-form-field>
-    <mat-form-field
-      ><mat-label>E-Mail</mat-label
-      ><input matInput formControlName="email" required
-    /></mat-form-field>
-    <mat-form-field
-      ><mat-label>Website</mat-label
-      ><input matInput formControlName="website" required
-    /></mat-form-field>
-    <mat-form-field
-      ><mat-label>Öffnungszeiten</mat-label
-      ><input matInput formControlName="opening_hours" required
-    /></mat-form-field>
+    <mat-form-field>
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="firma" required />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Kanton</mat-label>
+      <input matInput formControlName="kanton" required />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Telefon</mat-label>
+      <input matInput formControlName="phone" required />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>PLZ</mat-label>
+      <input matInput formControlName="plz" required />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Ort</mat-label>
+      <input matInput formControlName="ort" required />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>E-Mail</mat-label>
+      <input matInput formControlName="email" required />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Website</mat-label>
+      <input matInput formControlName="website" required />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Öffnungszeiten</mat-label>
+      <input matInput formControlName="opening_hours" required />
+    </mat-form-field>
     <div class="buttons">
-      <a [routerLink]="['/']"
-        ><button mat-button type="button">← Zurück zur Übersicht</button></a
-      >
+      <a [routerLink]="['/']">
+        <button mat-button type="button">← Zurück zur Übersicht</button>
+      </a>
       <button mat-button type="submit" [disabled]="!branchForm.valid">
         Speichern
       </button>

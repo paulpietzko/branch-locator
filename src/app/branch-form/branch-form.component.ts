@@ -16,7 +16,7 @@ import { BranchService } from '../services/branch-service/branch.service';
   selector: 'app-branch-form',
   standalone: true,
   templateUrl: './branch-form.component.html',
-  styleUrls: ['./branch-form.component.scss'],
+  styleUrl: './branch-form.component.scss',
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -51,9 +51,7 @@ export class BranchFormComponent {
         this.branchForm.markAllAsTouched();
       }
     });
-  }
 
-  ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
       const id = params.get('id');
       if (id !== null) {

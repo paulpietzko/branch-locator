@@ -8,12 +8,7 @@ import { BranchService } from '../services/branch-service/branch.service';
 @Component({
   selector: 'app-branch-detail',
   standalone: true,
-  imports: [
-    CommonModule,
-    RouterModule,
-    MatButtonModule,
-    GoogleMapsModule
-  ],
+  imports: [CommonModule, RouterModule, MatButtonModule, GoogleMapsModule],
   providers: [BranchService],
   templateUrl: './branch-detail.component.html',
   styleUrl: './branch-detail.component.scss',
@@ -22,7 +17,11 @@ export class BranchDetailComponent {
   branchId = signal<number | null>(null);
   branch = computed(() => {
     const id = this.branchId();
-    return id !== null ? this.branchService.getBranchById(id) : null;
+    const branchData = id !== null ? this.branchService.getBranchById(id) : null;
+    if (branchData) {
+      this.mapCenter = { lat: branchData.lat, lng: branchData.lng };
+    }
+    return branchData;
   });
   mapCenter = { lat: 0, lng: 0 };
 
@@ -38,6 +37,8 @@ export class BranchDetailComponent {
         const branch = this.branchService.getBranchById(branchId);
         if (branch) {
           this.mapCenter = { lat: branch.lat, lng: branch.lng };
+        } else {
+          console.error('Invalid branch data');
         }
       } else {
         console.error('Invalid branch ID');
