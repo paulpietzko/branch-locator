@@ -1,0 +1,88 @@
+<div class="add-branch">
+  <h3>Neue Filiale hinzufügen</h3>
+  <form [formGroup]="branchForm" (ngSubmit)="onSubmit()">
+    <mat-form-field>
+      <mat-label>Name</mat-label>
+      <input
+        matInput
+        formControlName="firma"
+        placeholder="z.B. Muster GmbH"
+        required
+      />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Kanton</mat-label>
+      <input
+        matInput
+        formControlName="kanton"
+        placeholder="z.B. Zürich"
+        required
+      />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Telefon</mat-label>
+      <input
+        matInput
+        formControlName="phone"
+        placeholder="123 456 78 90"
+        required
+      />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>PLZ</mat-label>
+      <input matInput formControlName="plz" placeholder="z.B. 8000" required />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Ort</mat-label>
+      <input
+        matInput
+        formControlName="ort"
+        placeholder="z.B. Zürich"
+        required
+      />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>E-Mail</mat-label>
+      <input
+        matInput
+        formControlName="email"
+        placeholder="z.B. info@muster.ch"
+        required
+      />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Website</mat-label>
+      <input
+        matInput
+        formControlName="website"
+        placeholder="https://www.muster.ch"
+        required
+      />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Öffnungszeiten</mat-label>
+      <input
+        matInput
+        formControlName="opening_hours"
+        placeholder="z.B. Mo-Fr 09:00-18:00"
+        required
+      />
+    </mat-form-field>
+
+    <div class="buttons">
+      <a [routerLink]="['/']"
+        ><button mat-button type="button">← Zurück zur Übersicht</button></a
+      >
+      <button mat-button type="submit" [disabled]="!branchForm.valid">
+        Speichern
+      </button>
+    </div>
+  </form>
+</div>

@@ -1,12 +1,7 @@
 import { Component, signal, computed, effect, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import {
-  FormBuilder,
-  FormGroup,
-  Validators,
-  ReactiveFormsModule,
-} from '@angular/forms';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -36,33 +31,11 @@ export class EditComponent {
   branchForm: FormGroup;
 
   constructor(
-    private fb: FormBuilder,
-    private route: ActivatedRoute,
     private branchService: BranchService,
+    private route: ActivatedRoute,
     private router: Router
   ) {
-    this.branchForm = this.fb.group({
-      firma: ['', Validators.required],
-      kanton: ['', Validators.required],
-      phone: [
-        '',
-        [
-          Validators.required,
-          Validators.pattern(/^\d{3}\s\d{3}\s\d{2}\s\d{2}$/),
-        ],
-      ],
-      plz: ['', Validators.required],
-      ort: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      website: [
-        '',
-        [
-          Validators.required,
-          Validators.pattern(/https?:\/\/[^\s$.?#].[^\s]*/),
-        ],
-      ],
-      opening_hours: ['', Validators.required],
-    });
+    this.branchForm = this.branchService.createBranchForm();
 
     effect(() => {
       const branch = this.branch();
