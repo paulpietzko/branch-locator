@@ -1,7 +1,6 @@
 [
   {
     "id": 1,
-    "sortiment": "icon",
     "firma": "Manor Warenhaus Zürich",
     "plz": "8001",
     "ort": "Zürich",
@@ -15,7 +14,6 @@
   },
   {
     "id": 2,
-    "sortiment": "icon",
     "firma": "Manor AG",
     "plz": "8021",
     "ort": "Zürich",
@@ -29,7 +27,6 @@
   },
   {
     "id": 3,
-    "sortiment": "icon",
     "firma": "Manor Warenhaus Zürich Letzipark",
     "plz": "8048",
     "ort": "Zürich",
@@ -43,7 +40,6 @@
   },
   {
     "id": 4,
-    "sortiment": "icon",
     "firma": "Coop City Annahof",
     "plz": "8000",
     "ort": "Zürich",
@@ -57,7 +53,6 @@
   },
   {
     "id": 5,
-    "sortiment": "icon",
     "firma": "Blume3000 AG",
     "plz": "8001",
     "ort": "Zürich",
@@ -71,7 +66,6 @@
   },
   {
     "id": 6,
-    "sortiment": "icon",
     "firma": "Blume3000",
     "plz": "8001",
     "ort": "Zürich",
@@ -85,7 +79,6 @@
   },
   {
     "id": 7,
-    "sortiment": "icon",
     "firma": "Hundesalon Dolly",
     "plz": "8004",
     "ort": "Zürich",
@@ -99,7 +92,6 @@
   },
   {
     "id": 8,
-    "sortiment": "icon",
     "firma": "Paracelsus Apotheke",
     "plz": "8004",
     "ort": "Zürich",
@@ -113,7 +105,6 @@
   },
   {
     "id": 9,
-    "sortiment": "icon",
     "firma": "Apotheke Wengihof",
     "plz": "8004",
     "ort": "Zürich",
@@ -127,7 +118,6 @@
   },
   {
     "id": 10,
-    "sortiment": "icon",
     "firma": "Toblerplatz Drogerie",
     "plz": "8044",
     "ort": "Zürich",

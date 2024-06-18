@@ -1,22 +1,18 @@
 import { Component, signal, inject, effect } from '@angular/core';
-import { BranchService } from '../services/branch-service/branch.service';
 import { CommonModule } from '@angular/common';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { RouterModule } from '@angular/router';
-import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { BranchService } from '../services/branch-service/branch.service';
 
 @Component({
   selector: 'app-map',
   standalone: true,
-  imports: [
-    CommonModule,
-    GoogleMapsModule,
-    RouterModule
-  ],
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss'],
-  providers: [BranchService],
+  imports: [CommonModule, GoogleMapsModule, RouterModule],
+  providers: [BranchService]
 })
 export class MapComponent {
   branches = signal<any[]>([]);
@@ -24,7 +20,6 @@ export class MapComponent {
   zoom = 8;
   markers: any[] = [];
   infoContent = signal<any | null>(null);
-  selectedBranchId: string | null = null;
 
   private branchService = inject(BranchService);
   private snackBar = inject(MatSnackBar);
@@ -42,32 +37,21 @@ export class MapComponent {
   }
 
   updateMarkers(): void {
-    this.markers = this.branches().map((branch) => ({
-      position: {
-        lat: branch.lat,
-        lng: branch.lng,
-      },
+    this.markers = this.branches().map(branch => ({
+      position: { lat: branch.lat, lng: branch.lng },
       title: branch.firma,
       options: { animation: google.maps.Animation.DROP },
-      click: () => this.showInfoWindow(branch),
-      branch: branch,
+      click: () => this.showInfoWindow(branch)
     }));
   }
 
   showInfoWindow(branch: any): void {
-    const snackBarRef: MatSnackBarRef<any> = this.snackBar.open(
-      branch.firma,
-      'Details anzeigen',
-      {
-        duration: 5000,
-      }
-    );
+    const snackBarRef = this.snackBar.open(branch.firma, 'Details anzeigen', { duration: 5000 });
 
     snackBarRef.onAction().subscribe(() => {
       this.router.navigate(['/filialen/detail', branch.id]);
     });
 
     this.infoContent.set(branch);
-    this.selectedBranchId = branch.id;
   }
 }

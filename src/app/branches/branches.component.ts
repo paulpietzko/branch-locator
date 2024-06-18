@@ -1,35 +1,28 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { CommonModule } from '@angular/common';
-import { BranchService } from '../services/branch-service/branch.service';
 import { RouterModule } from '@angular/router';
-import { signal } from '@angular/core';
+import { BranchService } from '../services/branch-service/branch.service';
 
 @Component({
   selector: 'app-branches',
   standalone: true,
-  imports: [
-    CommonModule,
-    MatTableModule,
-    MatIconModule,
-    MatButtonModule,
-    RouterModule,
-  ],
   templateUrl: './branches.component.html',
   styleUrls: ['./branches.component.scss'],
-  providers: [
-    BranchService,
-  ]
+  imports: [CommonModule, MatTableModule, MatIconModule, MatButtonModule, RouterModule],
+  providers: [BranchService]
 })
-export class BranchesComponent implements OnInit {
+export class BranchesComponent {
   branches = signal<any[]>([]);
   displayedColumns: string[] = ['sortiment', 'firma', 'plz', 'ort', 'kanton', 'details'];
 
-  constructor(private branchService: BranchService) {}
+  constructor(private branchService: BranchService) {
+    this.loadBranches();
+  }
 
-  ngOnInit(): void {
-    this.branches = this.branchService.branches;
+  loadBranches() {
+    this.branches.set(this.branchService.branches());
   }
 }
