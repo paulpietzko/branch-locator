@@ -2,13 +2,14 @@ import { Injectable, signal } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { Branch } from '../../models';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BranchService {
   private dataUrl = 'http://localhost:3000'; // URL of the JSON server
-  private _branches = signal<any[]>([]);
+  private _branches = signal<Branch[]>([]);
 
   constructor(private http: HttpClient) {
     this.fetchData();
@@ -16,27 +17,27 @@ export class BranchService {
 
   private fetchData(): void {
     this.http
-      .get<any[]>(`${this.dataUrl}/branches`)
+      .get<Branch[]>(`${this.dataUrl}/branches`)
       .pipe(catchError(this.handleError))
       .subscribe((data) => {
         const validatedData = data.map((branch) => ({
           ...branch,
-          lat: parseFloat(branch.lat),
-          lng: parseFloat(branch.lng),
+          lat: branch.lat,
+          lng: branch.lng,
         }));
         this._branches.set(validatedData);
       });
   }
 
   getBranches() {
-    return this._branches;
+    return this._branches();
   }
 
   getBranchById(id: number) {
     return this._branches().find((branch) => +branch.id === id) || null;
   }
 
-  updateBranch(updatedBranch: any): Observable<any> {
+  updateBranch(updatedBranch: Branch): Observable<Branch> {
     const index = this._branches().findIndex(
       (branch) => branch.id === updatedBranch.id
     );
@@ -45,7 +46,7 @@ export class BranchService {
       updatedBranches[index] = updatedBranch;
       this._branches.set(updatedBranches);
       return this.http
-        .patch<any>(
+        .patch<Branch>(
           `${this.dataUrl}/branches/${updatedBranch.id}`,
           updatedBranch
         )
@@ -55,11 +56,11 @@ export class BranchService {
     }
   }
 
-  addBranch(newBranch: any): Observable<any> {
+  addBranch(newBranch: Branch): Observable<Branch> {
     const updatedBranches = [...this._branches(), newBranch];
     this._branches.set(updatedBranches);
     return this.http
-      .post<any>(`${this.dataUrl}/branches`, newBranch)
+      .post<Branch>(`${this.dataUrl}/branches`, newBranch)
       .pipe(catchError(this.handleError));
   }
 

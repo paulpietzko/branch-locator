@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { BranchService } from '../services/branch-service/branch.service';
+import { Branch } from '../models';
 
 @Component({
   selector: 'app-branches-map',
@@ -15,11 +16,11 @@ import { BranchService } from '../services/branch-service/branch.service';
   styleUrl: './branches-map.component.scss',
 })
 export class BranchesMapComponent {
-  branches = signal<any[]>([]);
+  branches = signal<Branch[]>([]);
   center: google.maps.LatLngLiteral = { lat: 46.8182, lng: 8.2275 }; // Center of Switzerland
   zoom = 8;
   markers: any[] = [];
-  infoContent = signal<any | null>(null);
+  infoContent = signal<Branch | null>(null);
 
   private branchService = inject(BranchService);
   private snackBar = inject(MatSnackBar);
@@ -28,7 +29,7 @@ export class BranchesMapComponent {
   constructor() {
     effect(
       () => {
-        const data = this.branchService.getBranches()();
+        const data = this.branchService.getBranches();
         this.branches.set(data);
         this.updateMarkers();
       },
@@ -49,7 +50,7 @@ export class BranchesMapComponent {
       );
   }
 
-  showInfoWindow(branch: any): void {
+  showInfoWindow(branch: Branch): void {
     const snackBarRef = this.snackBar.open(branch.firma, 'Details anzeigen', {
       duration: 5000,
     });

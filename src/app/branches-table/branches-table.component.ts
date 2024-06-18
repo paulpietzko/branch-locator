@@ -5,6 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 import { BranchService } from '../services/branch-service/branch.service';
+import { Branch } from '../models';
 
 @Component({
   selector: 'app-branches-table',
@@ -21,7 +22,7 @@ import { BranchService } from '../services/branch-service/branch.service';
   styleUrl: './branches-table.component.scss',
 })
 export class BranchesTableComponent {
-  branches = signal<any[]>([]);
+  branches = signal<Branch[]>([]);
   displayedColumns: string[] = [
     'sortiment',
     'firma',
@@ -36,6 +37,8 @@ export class BranchesTableComponent {
   }
 
   loadBranches() {
-    this.branches.set(this.branchService.getBranches()());
+    let newBranches = this.branchService.getBranches()
+    this.branches.set(newBranches);
   }
 }
+

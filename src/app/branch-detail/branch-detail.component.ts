@@ -21,7 +21,8 @@ export class BranchDetailComponent {
     if (branchData) {
       this.mapCenter = { lat: branchData.lat, lng: branchData.lng };
     }
-    return branchData;
+    // TODO: ensure return value is not null
+    return branchData!;
   });
   mapCenter = { lat: 0, lng: 0 };
 
