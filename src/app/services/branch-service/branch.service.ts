@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class BranchService {
-  private dataUrl = 'assets/data/branches.json';
+  private dataUrl = 'http://localhost:3000'; // URL des JSON-Servers
   private _branches = signal<any[]>([]);
 
   constructor(private http: HttpClient) {
@@ -14,7 +14,7 @@ export class BranchService {
   }
 
   private fetchData(): void {
-    this.http.get<any[]>(this.dataUrl).subscribe(data => {
+    this.http.get<any[]>(`${this.dataUrl}/branches`).subscribe(data => {
       this._branches.set(data);
     });
   }
@@ -33,16 +33,17 @@ export class BranchService {
       const updatedBranches = [...this._branches()];
       updatedBranches[index] = updatedBranch;
       this._branches.set(updatedBranches);
-      return this.http.put<any>(`${this.dataUrl}/${updatedBranch.id}`, updatedBranch);
+      console.log(`${this.dataUrl}/branches/${updatedBranch.id}`);
+      return this.http.patch<any>(`${this.dataUrl}/branches?id=${updatedBranch.id}`, updatedBranch);
     } else {
       throw new Error('Branch not found');
     }
-  }
+  }  
 
   addBranch(newBranch: any): Observable<any> {
     const updatedBranches = [...this._branches(), newBranch];
     this._branches.set(updatedBranches);
     // POST-Query to server
-    return this.http.post<any>(this.dataUrl, newBranch);
+    return this.http.post<any>(`${this.dataUrl}/branches`, newBranch);
   }
 }
