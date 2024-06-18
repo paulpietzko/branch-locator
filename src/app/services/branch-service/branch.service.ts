@@ -1,7 +1,6 @@
 import { Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +9,7 @@ export class BranchService {
   private dataUrl = 'assets/data/branches.json';
   private _branches = signal<any[]>([]);
 
-  constructor(private http: HttpClient, private fb: FormBuilder) {
+  constructor(private http: HttpClient) {
     this.fetchData();
   }
 
@@ -20,7 +19,7 @@ export class BranchService {
     });
   }
 
-  get branches() {
+  getBranches() {
     return this._branches;
   }
 
@@ -45,19 +44,5 @@ export class BranchService {
     this._branches.set(updatedBranches);
     // POST-Query to server
     return this.http.post<any>(this.dataUrl, newBranch);
-  }
-
-  // Form Validator
-  createBranchForm(): FormGroup {
-    return this.fb.group({
-      firma: ['', Validators.required],
-      kanton: ['', Validators.required],
-      phone: ['', [Validators.required, Validators.pattern(/^\d{3}\s\d{3}\s\d{2}\s\d{2}$/)]],
-      plz: ['', Validators.required],
-      ort: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      website: ['', [Validators.required, Validators.pattern(/https?:\/\/[^\s$.?#].[^\s]*/)]],
-      opening_hours: ['', Validators.required],
-    });
   }
 }

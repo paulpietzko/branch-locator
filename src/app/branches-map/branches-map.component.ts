@@ -7,14 +7,14 @@ import { Router } from '@angular/router';
 import { BranchService } from '../services/branch-service/branch.service';
 
 @Component({
-  selector: 'app-map',
+  selector: 'app-branches-map',
   standalone: true,
-  templateUrl: './map.component.html',
-  styleUrls: ['./map.component.scss'],
   imports: [CommonModule, GoogleMapsModule, RouterModule],
-  providers: [BranchService]
+  providers: [BranchService],
+  templateUrl: './branches-map.component.html',
+  styleUrl: './branches-map.component.scss',
 })
-export class MapComponent {
+export class BranchesMapComponent {
   branches = signal<any[]>([]);
   center: google.maps.LatLngLiteral = { lat: 46.8182, lng: 8.2275 }; // Center of Switzerland
   zoom = 8;
@@ -28,7 +28,7 @@ export class MapComponent {
   constructor() {
     effect(
       () => {
-        const data = this.branchService.branches();
+        const data = this.branchService.getBranches()();
         this.branches.set(data);
         this.updateMarkers();
       },
@@ -37,16 +37,18 @@ export class MapComponent {
   }
 
   updateMarkers(): void {
-    this.markers = this.branches().map(branch => ({
+    this.markers = this.branches().map((branch) => ({
       position: { lat: branch.lat, lng: branch.lng },
       title: branch.firma,
       options: { animation: google.maps.Animation.DROP },
-      click: () => this.showInfoWindow(branch)
+      click: () => this.showInfoWindow(branch),
     }));
   }
 
   showInfoWindow(branch: any): void {
-    const snackBarRef = this.snackBar.open(branch.firma, 'Details anzeigen', { duration: 5000 });
+    const snackBarRef = this.snackBar.open(branch.firma, 'Details anzeigen', {
+      duration: 5000,
+    });
 
     snackBarRef.onAction().subscribe(() => {
       this.router.navigate(['/filialen/detail', branch.id]);

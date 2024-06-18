@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EditComponent } from './edit.component';
+import { BranchesMapComponent } from './branches-map.component';
 
-describe('EditComponent', () => {
-  let component: EditComponent;
-  let fixture: ComponentFixture<EditComponent>;
+describe('BranchesMapComponent', () => {
+  let component: BranchesMapComponent;
+  let fixture: ComponentFixture<BranchesMapComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [EditComponent]
+      imports: [BranchesMapComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(EditComponent);
+    fixture = TestBed.createComponent(BranchesMapComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

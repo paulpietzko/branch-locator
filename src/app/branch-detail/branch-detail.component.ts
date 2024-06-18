@@ -6,14 +6,19 @@ import { GoogleMapsModule } from '@angular/google-maps';
 import { BranchService } from '../services/branch-service/branch.service';
 
 @Component({
-  selector: 'app-detail',
+  selector: 'app-branch-detail',
   standalone: true,
-  templateUrl: './detail.component.html',
-  styleUrls: ['./detail.component.scss'],
-  imports: [CommonModule, RouterModule, MatButtonModule, GoogleMapsModule],
+  imports: [
+    CommonModule,
+    RouterModule,
+    MatButtonModule,
+    GoogleMapsModule
+  ],
   providers: [BranchService],
+  templateUrl: './branch-detail.component.html',
+  styleUrl: './branch-detail.component.scss',
 })
-export class DetailComponent {
+export class BranchDetailComponent {
   branchId = signal<number | null>(null);
   branch = computed(() => {
     const id = this.branchId();

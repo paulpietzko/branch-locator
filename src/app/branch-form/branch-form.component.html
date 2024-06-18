@@ -1,5 +1,6 @@
-<div class="edit-branch" *ngIf="branch()">
-  <h3>Filiale bearbeiten</h3>
+<div class="branch-form">
+  <h3 *ngIf="isEditMode(); else addMode">Filiale bearbeiten</h3>
+  <ng-template #addMode><h3>Neue Filiale hinzufügen</h3></ng-template>
   <form [formGroup]="branchForm" (ngSubmit)="onSubmit()">
     <mat-form-field
       ><mat-label>Name</mat-label
@@ -32,8 +33,8 @@
       ><input matInput formControlName="opening_hours" required
     /></mat-form-field>
     <div class="buttons">
-      <a [routerLink]="['/filialen/detail', branch().id]"
-        ><button mat-button type="button">← Zurück</button></a
+      <a [routerLink]="['/']"
+        ><button mat-button type="button">← Zurück zur Übersicht</button></a
       >
       <button mat-button type="submit" [disabled]="!branchForm.valid">
         Speichern

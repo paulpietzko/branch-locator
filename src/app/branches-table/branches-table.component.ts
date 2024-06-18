@@ -7,22 +7,35 @@ import { RouterModule } from '@angular/router';
 import { BranchService } from '../services/branch-service/branch.service';
 
 @Component({
-  selector: 'app-branches',
+  selector: 'app-branches-table',
   standalone: true,
-  templateUrl: './branches.component.html',
-  styleUrls: ['./branches.component.scss'],
-  imports: [CommonModule, MatTableModule, MatIconModule, MatButtonModule, RouterModule],
-  providers: [BranchService]
+  imports: [
+    CommonModule,
+    MatTableModule,
+    MatIconModule,
+    MatButtonModule,
+    RouterModule,
+  ],
+  providers: [BranchService],
+  templateUrl: './branches-table.component.html',
+  styleUrl: './branches-table.component.scss',
 })
-export class BranchesComponent {
+export class BranchesTableComponent {
   branches = signal<any[]>([]);
-  displayedColumns: string[] = ['sortiment', 'firma', 'plz', 'ort', 'kanton', 'details'];
+  displayedColumns: string[] = [
+    'sortiment',
+    'firma',
+    'plz',
+    'ort',
+    'kanton',
+    'details',
+  ];
 
   constructor(private branchService: BranchService) {
     this.loadBranches();
   }
 
   loadBranches() {
-    this.branches.set(this.branchService.branches());
+    this.branches.set(this.branchService.getBranches()());
   }
 }
