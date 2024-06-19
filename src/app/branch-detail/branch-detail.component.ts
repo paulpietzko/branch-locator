@@ -35,12 +35,6 @@ export class BranchDetailComponent {
       if (id !== null) {
         const branchId = +id;
         this.branchId.set(branchId);
-        const branch = this.branchService.getBranchById(branchId);
-        if (branch) {
-          this.mapCenter = { lat: branch.lat, lng: branch.lng };
-        } else {
-          console.error('Invalid branch data');
-        }
       } else {
         console.error('Invalid branch ID');
       }

@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, computed, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
@@ -22,7 +22,7 @@ import { Branch } from '../models';
   styleUrl: './branches-table.component.scss',
 })
 export class BranchesTableComponent {
-  branches = signal<Branch[]>([]);
+  branches = computed(() => this.branchService.getBranches());
   displayedColumns: string[] = [
     'sortiment',
     'firma',
@@ -32,13 +32,7 @@ export class BranchesTableComponent {
     'details',
   ];
 
-  constructor(private branchService: BranchService) {
-    this.loadBranches();
-  }
+  private branchService = inject(BranchService);
 
-  loadBranches() {
-    let newBranches = this.branchService.getBranches()
-    this.branches.set(newBranches);
-  }
+  constructor() {}
 }
-
