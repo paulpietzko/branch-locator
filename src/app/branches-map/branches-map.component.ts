@@ -1,11 +1,11 @@
 import { Component, signal, inject, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { GoogleMapsModule } from '@angular/google-maps';
+import { GoogleMapsModule, MapMarker } from '@angular/google-maps';
 import { RouterModule } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { BranchService } from '../services/branch-service/branch.service';
-import { Branch } from '../models';
+import { Branch, BranchMapMarker } from '../models';
 
 @Component({
   selector: 'app-branches-map',
@@ -19,7 +19,7 @@ export class BranchesMapComponent {
   branches = signal<Branch[]>([]);
   center: google.maps.LatLngLiteral = { lat: 46.8182, lng: 8.2275 }; // Center of Switzerland
   zoom = 8;
-  markers: any[] = [];
+  markers: BranchMapMarker[] = []; // TODO: ensure type of marker
   infoContent = signal<Branch | null>(null);
 
   private branchService = inject(BranchService);
@@ -31,25 +31,30 @@ export class BranchesMapComponent {
       () => {
         const data = this.branchService.getBranches();
         this.branches.set(data);
-        this.updateMarkers();
+        this.markers = this.getMarkers();
       },
       { allowSignalWrites: true }
     );
   }
 
-  updateMarkers(): void {
-    this.markers = this.branches()
-      .map((branch) => ({
-        position: { lat: branch.lat, lng: branch.lng },
-        title: branch.firma,
-        options: { animation: google.maps.Animation.DROP },
-        click: () => this.showInfoWindow(branch),
-      }))
+  getMarkers() {
+    return this.branches()
+      .map((branch) => {
+        const marker: BranchMapMarker = {
+          label: 'TODO:', // TODO:
+          position: { lat: branch.lat, lng: branch.lng },
+          title: branch.firma,
+          options: { animation: google.maps.Animation.DROP },
+          click: () => this.showInfoWindow(branch),
+        };
+        return marker;
+      })
       .filter(
         (marker) => !isNaN(marker.position.lat) && !isNaN(marker.position.lng)
       );
   }
 
+  // TODO: use MapInfoWindow according to https://github.com/angular/components/blob/main/src/google-maps/map-info-window/README.md
   showInfoWindow(branch: Branch): void {
     const snackBarRef = this.snackBar.open(branch.firma, 'Details anzeigen', {
       duration: 5000,

@@ -1,8 +1,13 @@
-.branches-map {
+:host {
   margin: 0 2rem;
+  display: block;
+}
 
-  google-map {
-    height: 500px;
-    width: 100%;
-  }
+
+
+google-map {
+  height: 500px;
+  width: 100%;
+  display: block;
+  border: 20px solid green;
 }

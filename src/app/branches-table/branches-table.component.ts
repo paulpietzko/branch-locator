@@ -31,5 +31,7 @@ export class BranchesTableComponent {
     'details',
   ];
 
-  private branchService = inject(BranchService);
+  constructor(private branchService: BranchService) {}
+
+  // private branchService = inject(BranchService);
 }
