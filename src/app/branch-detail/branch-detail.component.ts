@@ -17,12 +17,26 @@ export class BranchDetailComponent {
   branchId = signal<number | null>(null);
   branch = computed(() => {
     const id = this.branchId();
-    const branchData = id !== null ? this.branchService.getBranchById(id) : null;
+    const branchData =
+      id !== null ? this.branchService.getBranchById(id) : 0;
     if (branchData) {
       this.mapCenter = { lat: branchData.lat, lng: branchData.lng };
+      return branchData;
+    } else {
+      return {
+        id: 0,
+        plz: '',
+        firma: '',
+        ort: '',
+        email: '',
+        kanton: '',
+        website: '',
+        opening_hours: '',
+        phone: '',
+        lat: 0,
+        lng: 0
+      };
     }
-    // TODO: ensure return value is not null
-    return branchData!;
   });
   mapCenter = { lat: 0, lng: 0 };
 

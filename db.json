@@ -106,7 +106,7 @@
     },
     {
       "id": "9",
-      "firma": "Toblerplatz Drogerie",
+      "firma": "Toblerplatz Drogerie 2",
       "plz": "8044",
       "ort": "Zürich",
       "kanton": "ZH",
@@ -116,19 +116,6 @@
       "opening_hours": "Mo-Fr 9 - 12 und 13 bis 18:30",
       "lat": 47.380553,
       "lng": 8.5667926
-    },
-    {
-      "id": "1718712916874",
-      "firma": "9876",
-      "kanton": "rse",
-      "phone": "044 241 91 18",
-      "plz": "sd",
-      "ort": "ssds",
-      "email": "d@d",
-      "website": "https://www",
-      "opening_hours": "sdfp",
-      "lat": null,
-      "lng": null
     }
   ]
 }

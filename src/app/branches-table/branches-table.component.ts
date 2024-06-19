@@ -5,7 +5,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 import { BranchService } from '../services/branch-service/branch.service';
-import { Branch } from '../models';
 
 @Component({
   selector: 'app-branches-table',
@@ -33,6 +32,4 @@ export class BranchesTableComponent {
   ];
 
   private branchService = inject(BranchService);
-
-  constructor() {}
 }
