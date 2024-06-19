@@ -1,9 +1,17 @@
 <mat-toolbar>
   <span class="logo"><a routerLink="/">LOGO</a></span>
   <span class="spacer"></span>
-  <button mat-button>Startseite</button>
-  <button mat-button>Produkte</button>
-  <button mat-button>Über Uns</button>
-  <button mat-button>Filialien</button>
+  <a [routerLink]="['/']">
+    <button mat-button type="button">Startseite</button>
+  </a>
+  <a [routerLink]="['/products']">
+    <button mat-button type="button">Produkte</button>
+  </a>
+  <a [routerLink]="['/about']">
+    <button mat-button type="button">Über Uns</button>
+  </a>
+  <a [routerLink]="['/filialen']">
+    <button mat-button type="button">Filialien</button>
+  </a>
 </mat-toolbar>
-<hr>
+<hr />

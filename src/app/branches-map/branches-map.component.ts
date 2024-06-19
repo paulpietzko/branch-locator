@@ -1,6 +1,6 @@
-import { Component, signal, inject, effect } from '@angular/core';
+import { Component, signal, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { GoogleMapsModule, MapMarker } from '@angular/google-maps';
+import { GoogleMapsModule } from '@angular/google-maps';
 import { RouterModule } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -22,11 +22,11 @@ export class BranchesMapComponent {
   markers: BranchMapMarker[] = []; // TODO: ensure type of marker
   infoContent = signal<Branch | null>(null);
 
-  private branchService = inject(BranchService);
-  private snackBar = inject(MatSnackBar);
-  private router = inject(Router);
-
-  constructor() {
+  constructor(
+    private branchService: BranchService,
+    private router: Router,
+    private snackBar: MatSnackBar
+  ) {
     effect(
       () => {
         const data = this.branchService.getBranches();

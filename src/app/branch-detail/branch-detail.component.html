@@ -1,4 +1,4 @@
-<div class="branch-detail" *ngIf="branch()">
+<div class="detail-page" *ngIf="branch()">
   <h3>Unsere Filiale in {{ branch().ort }}</h3>
   <div class="branch-info">
     <div class="info-text">
@@ -9,7 +9,9 @@
       <p>
         Telefon: {{ branch().phone }}<br />E-Mail: {{ branch().email
         }}<br />Web:
-        <a [routerLink]="branch().website" target="_blank">{{ branch().website }}</a>
+        <a [routerLink]="branch().website" target="_blank">{{
+          branch().website
+        }}</a>
       </p>
       <p>Öffnungszeiten<br />{{ branch().opening_hours }}</p>
     </div>

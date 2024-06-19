@@ -1,4 +1,4 @@
-import { Component, signal, computed, inject } from '@angular/core';
+import { Component, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
@@ -18,10 +18,13 @@ import { BranchService } from '../services/branch-service/branch.service';
   ],
   providers: [BranchService],
   templateUrl: './branches-table.component.html',
-  styleUrl: './branches-table.component.scss',
+  styleUrls: ['./branches-table.component.scss'],
 })
 export class BranchesTableComponent {
   branches = computed(() => this.branchService.getBranches());
+  
+  constructor(private branchService: BranchService) {}
+
   displayedColumns: string[] = [
     'sortiment',
     'firma',
@@ -30,8 +33,4 @@ export class BranchesTableComponent {
     'kanton',
     'details',
   ];
-
-  constructor(private branchService: BranchService) {}
-
-  // private branchService = inject(BranchService);
 }

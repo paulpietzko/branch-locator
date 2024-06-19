@@ -1,4 +1,4 @@
-import { Component, signal, computed, inject } from '@angular/core';
+import { Component, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
@@ -40,10 +40,7 @@ export class BranchDetailComponent {
   });
   mapCenter = { lat: 0, lng: 0 };
 
-  private branchService = inject(BranchService);
-  private route = inject(ActivatedRoute);
-
-  constructor() {
+  constructor(private branchService: BranchService, private route: ActivatedRoute) {
     this.route.paramMap.subscribe((params) => {
       const id = params.get('id');
       if (id !== null) {
