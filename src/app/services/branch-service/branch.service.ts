@@ -41,7 +41,7 @@ export class BranchService {
   updateBranch(updatedBranch: Branch): void {
     console.log('Updating branch with payload:', updatedBranch);
     this.http
-      .patch<Branch>(
+      .put<Branch>(
         `${this.dataUrl}/api/Branches/${updatedBranch.id}`,
         updatedBranch
       )

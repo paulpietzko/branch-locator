@@ -23,11 +23,11 @@ import { BranchService } from '../services/branch-service/branch.service';
   providers: [BranchService],
 })
 export class BranchFormComponent {
-  branchId = signal<number | null>(null);
+  branchId = signal<string | null>(null);
   isEditMode = computed(() => this.branchId() !== null);
   branch = computed(() => {
     const id = this.branchId();
-    return id !== null ? this.branchService.getBranchById(String(id)) : null;
+    return id !== null ? this.branchService.getBranchById(id) : null;
   });
   branchForm: FormGroup;
 
@@ -50,7 +50,7 @@ export class BranchFormComponent {
     this.route.paramMap.subscribe((params) => {
       const id = params.get('id');
       if (id !== null) {
-        this.branchId.set(+id);
+        this.branchId.set(id);
       }
     });
   }
@@ -77,7 +77,7 @@ export class BranchFormComponent {
         ],
       ],
       openingHours: ['', Validators.required],
-      lat: [null], 
+      lat: [null],
       lng: [null],
     });
   }
