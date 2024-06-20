@@ -1,5 +1,5 @@
 export interface Branch {
-  id: number;
+  id: string;
   plz: string;
   firma: string;
   ort: string;

@@ -22,7 +22,6 @@ import { BranchService } from '../services/branch-service/branch.service';
 })
 export class BranchesTableComponent {
   branches = computed(() => this.branchService.getBranches());
-  
   constructor(private branchService: BranchService) {}
 
   displayedColumns: string[] = [

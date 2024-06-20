@@ -8,7 +8,7 @@ import { Branch } from '../../models';
   providedIn: 'root',
 })
 export class BranchService {
-  private dataUrl = 'http://localhost:3000'; // URL of the JSON server
+  private dataUrl = ''; // Empty string to leverage proxy configuration
   private _branches = signal<Branch[]>([]);
 
   constructor(private http: HttpClient) {
@@ -17,7 +17,7 @@ export class BranchService {
 
   private fetchData(): void {
     this.http
-      .get<Branch[]>(`${this.dataUrl}/branches`)
+      .get<Branch[]>(`${this.dataUrl}/api/Branches`)
       .pipe(catchError(this.handleError))
       .subscribe((data) => {
         const validatedData = data.map((branch) => ({
@@ -33,8 +33,8 @@ export class BranchService {
     return this._branches();
   }
 
-  getBranchById(id: number) {
-    return this._branches().find((branch) => +branch.id === id) || null;
+  getBranchById(id: string) {
+    return this._branches().find((branch) => branch.id === id) || null;
   }
 
   updateBranch(updatedBranch: Branch): Observable<Branch> {
@@ -47,7 +47,7 @@ export class BranchService {
       this._branches.set(updatedBranches);
       return this.http
         .patch<Branch>(
-          `${this.dataUrl}/branches/${updatedBranch.id}`,
+          `${this.dataUrl}/api/Branches/${updatedBranch.id}`,
           updatedBranch
         )
         .pipe(catchError(this.handleError));
@@ -60,7 +60,7 @@ export class BranchService {
     const updatedBranches = [...this._branches(), newBranch];
     this._branches.set(updatedBranches);
     return this.http
-      .post<Branch>(`${this.dataUrl}/branches`, newBranch)
+      .post<Branch>(`${this.dataUrl}/api/Branches`, newBranch)
       .pipe(catchError(this.handleError));
   }
 

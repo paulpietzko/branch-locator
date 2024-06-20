@@ -18,7 +18,7 @@ export class BranchDetailComponent {
   branch = computed(() => {
     const id = this.branchId();
     const branchData =
-      id !== null ? this.branchService.getBranchById(id) : 0;
+      id !== null ? this.branchService.getBranchById('id') : 0;
     if (branchData) {
       this.mapCenter = { lat: branchData.lat, lng: branchData.lng };
       return branchData;

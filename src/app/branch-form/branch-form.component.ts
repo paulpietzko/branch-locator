@@ -32,7 +32,7 @@ export class BranchFormComponent {
   isEditMode = computed(() => this.branchId() !== null);
   branch = computed(() => {
     const id = this.branchId();
-    return id !== null ? this.branchService.getBranchById(id) : null;
+    return id !== null ? this.branchService.getBranchById('id') : null;
   });
   branchForm: FormGroup;
 
