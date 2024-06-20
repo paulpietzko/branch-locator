@@ -1,12 +1,7 @@
 import { Component, signal, computed, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import {
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -16,7 +11,7 @@ import { BranchService } from '../services/branch-service/branch.service';
   selector: 'app-branch-form',
   standalone: true,
   templateUrl: './branch-form.component.html',
-  styleUrl: './branch-form.component.scss',
+  styleUrls: ['./branch-form.component.scss'],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -32,7 +27,7 @@ export class BranchFormComponent {
   isEditMode = computed(() => this.branchId() !== null);
   branch = computed(() => {
     const id = this.branchId();
-    return id !== null ? this.branchService.getBranchById('id') : null;
+    return id !== null ? this.branchService.getBranchById(String(id)) : null;
   });
   branchForm: FormGroup;
 
@@ -81,23 +76,27 @@ export class BranchFormComponent {
           Validators.pattern(/https?:\/\/[^\s$.?#].[^\s]*/),
         ],
       ],
-      opening_hours: ['', Validators.required],
+      openingHours: ['', Validators.required],
+      lat: [null], 
+      lng: [null],
     });
   }
 
   onSubmit(): void {
     if (this.branchForm.valid) {
+      const branchData = { ...this.branchForm.value };
+
       if (this.isEditMode()) {
-        const updatedBranch = { ...this.branch(), ...this.branchForm.value };
-        this.branchService.updateBranch(updatedBranch).subscribe(() => {
-          this.router.navigate(['/filialen']);
-        });
+        const updatedBranch = { ...this.branch(), ...branchData };
+        console.log('Submitting updated branch:', updatedBranch);
+        this.branchService.updateBranch(updatedBranch);
       } else {
-        const newBranch = { ...this.branchForm.value, id: Date.now() }; // Creates unique ID
-        this.branchService.addBranch(newBranch).subscribe(() => {
-          this.router.navigate(['/filialen']);
-        });
+        const newBranch = { ...branchData, id: Date.now().toString() };
+        console.log('Submitting new branch:', newBranch);
+        this.branchService.addBranch(newBranch);
       }
+
+      this.router.navigate(['/filialen']);
     }
   }
 }

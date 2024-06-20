@@ -4,6 +4,7 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { BranchService } from '../services/branch-service/branch.service';
+import { Branch } from '../models';
 
 @Component({
   selector: 'app-branch-detail',
@@ -11,31 +12,18 @@ import { BranchService } from '../services/branch-service/branch.service';
   imports: [CommonModule, RouterModule, MatButtonModule, GoogleMapsModule],
   providers: [BranchService],
   templateUrl: './branch-detail.component.html',
-  styleUrl: './branch-detail.component.scss',
+  styleUrls: ['./branch-detail.component.scss'],
 })
 export class BranchDetailComponent {
-  branchId = signal<number | null>(null);
-  branch = computed(() => {
+  branchId = signal<string | null>(null);
+  branch = computed<Branch | null>(() => {
     const id = this.branchId();
-    const branchData =
-      id !== null ? this.branchService.getBranchById('id') : 0;
+    const branchData = id ? this.branchService.getBranchById(id) : null;
     if (branchData) {
       this.mapCenter = { lat: branchData.lat, lng: branchData.lng };
       return branchData;
     } else {
-      return {
-        id: 0,
-        plz: '',
-        firma: '',
-        ort: '',
-        email: '',
-        kanton: '',
-        website: '',
-        opening_hours: '',
-        phone: '',
-        lat: 0,
-        lng: 0
-      };
+      return null;
     }
   });
   mapCenter = { lat: 0, lng: 0 };
@@ -44,8 +32,7 @@ export class BranchDetailComponent {
     this.route.paramMap.subscribe((params) => {
       const id = params.get('id');
       if (id !== null) {
-        const branchId = +id;
-        this.branchId.set(branchId);
+        this.branchId.set(id);
       } else {
         console.error('Invalid branch ID');
       }

@@ -1,19 +1,17 @@
 <div class="detail-page" *ngIf="branch()">
-  <h3>Unsere Filiale in {{ branch().ort }}</h3>
+  <h3>Unsere Filiale in {{ branch()?.ort }}</h3>
   <div class="branch-info">
     <div class="info-text">
       <p>
-        {{ branch().firma }}<br />{{ branch().plz }} {{ branch().ort }}
-        {{ branch().kanton }}
+        {{ branch()?.firma }}<br />{{ branch()?.plz }} {{ branch()?.ort }}
+        {{ branch()?.kanton }}
       </p>
       <p>
-        Telefon: {{ branch().phone }}<br />E-Mail: {{ branch().email
+        Telefon: {{ branch()?.phone }}<br />E-Mail: {{ branch()?.email
         }}<br />Web:
-        <a [routerLink]="branch().website" target="_blank">{{
-          branch().website
-        }}</a>
+        <a [href]="branch()?.website" target="_blank">{{ branch()?.website }}</a>
       </p>
-      <p>Öffnungszeiten<br />{{ branch().opening_hours }}</p>
+      <p>Öffnungszeiten<br />{{ branch()?.openingHours }}</p>
     </div>
     <div class="branch-photo">
       <p>Hier kommt ein Foto/Aussenfoto von der Filiale</p>
@@ -24,8 +22,11 @@
   </google-map>
   <div class="buttons">
     <a routerLink="/"><button mat-button>← Zurück zur Übersicht</button></a>
-    <a [routerLink]="['/filialen/edit', branch().id]"
-      ><button mat-button>Edit</button></a
-    >
+    <a [routerLink]="['/filialen/edit', branch()?.id]">
+      <button mat-button>Edit</button>
+    </a>
   </div>
+</div>
+<div *ngIf="!branch()">
+  Keine Filiale gefunden.
 </div>
