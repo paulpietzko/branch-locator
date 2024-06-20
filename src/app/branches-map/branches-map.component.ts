@@ -6,11 +6,12 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { BranchService } from '../services/branch-service/branch.service';
 import { Branch, BranchMapMarker } from '../models';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-branches-map',
   standalone: true,
-  imports: [CommonModule, GoogleMapsModule, RouterModule],
+  imports: [CommonModule, GoogleMapsModule, RouterModule, MatButtonModule],
   providers: [BranchService],
   templateUrl: './branches-map.component.html',
   styleUrl: './branches-map.component.scss',

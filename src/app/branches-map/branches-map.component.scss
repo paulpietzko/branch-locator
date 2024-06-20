@@ -1,9 +1,14 @@
 :host {
-  margin: 0 2rem;
   display: block;
+  width: 80%;
+  margin: 2rem auto;
 
   google-map {
     height: 500px;
     display: block;
+  }
+  
+  button {
+    margin-top: 1rem;
   }
 }

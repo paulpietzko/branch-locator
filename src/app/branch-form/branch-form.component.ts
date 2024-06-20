@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { BranchService } from '../services/branch-service/branch.service';
 
 @Component({
@@ -19,6 +20,7 @@ import { BranchService } from '../services/branch-service/branch.service';
     MatFormFieldModule,
     MatInputModule,
     RouterModule,
+    MatSnackBarModule,
   ],
   providers: [BranchService],
 })
@@ -35,7 +37,8 @@ export class BranchFormComponent {
     private branchService: BranchService,
     private route: ActivatedRoute,
     private router: Router,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private snackBar: MatSnackBar
   ) {
     this.branchForm = this.createBranchForm();
 
@@ -96,7 +99,9 @@ export class BranchFormComponent {
         this.branchService.addBranch(newBranch);
       }
 
-      this.router.navigate(['/filialen']);
+      this.snackBar.open('Aktion erfolgreich!', 'Schliessen', {
+        duration: 5000,
+      });
     }
   }
 }
