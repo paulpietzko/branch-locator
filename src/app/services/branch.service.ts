@@ -1,6 +1,6 @@
 import { Injectable, signal } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Branch } from '../../models';
+import { Branch } from '../models';
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 
