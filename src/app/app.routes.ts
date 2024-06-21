@@ -1,15 +1,25 @@
 import { Routes } from '@angular/router';
 
-import { BranchFormComponent } from './branch-form/branch-form.component';
-import { BranchesTableComponent } from './branches-table/branches-table.component';
-import { BranchDetailComponent } from './branch-detail/branch-detail.component';
-import { BranchesMapComponent } from './branches-map/branches-map.component';
-
 export const routes: Routes = [
   { path: '', redirectTo: '/filialen', pathMatch: 'full' },
-  { path: 'filialen', component: BranchesTableComponent },
-  { path: 'filialen/detail/:id', component: BranchDetailComponent },
-  { path: 'filialen/edit/:id', component: BranchFormComponent },
-  { path: 'filialen/karte', component: BranchesMapComponent },
-  { path: 'filialen/add', component: BranchFormComponent },
+  {
+    path: 'filialen',
+    loadComponent: () => import('./branches-table/branches-table.component').then(m => m.BranchesTableComponent)
+  },
+  {
+    path: 'filialen/detail/:id',
+    loadComponent: () => import('./branch-detail/branch-detail.component').then(m => m.BranchDetailComponent)
+  },
+  {
+    path: 'filialen/edit/:id',
+    loadComponent: () => import('./branch-form/branch-form.component').then(m => m.BranchFormComponent)
+  },
+  {
+    path: 'filialen/karte',
+    loadComponent: () => import('./branches-map/branches-map.component').then(m => m.BranchesMapComponent)
+  },
+  {
+    path: 'filialen/add',
+    loadComponent: () => import('./branch-form/branch-form.component').then(m => m.BranchFormComponent)
+  },
 ];
