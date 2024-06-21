@@ -1,0 +1,14 @@
+{
+  "table": {
+    "BRANCHES": "Unsere Filialen",
+    "DESCRIPTION": "Hier kommt etwas Text... unsere Produkte gibt es natürlich auch im Fachhandel. Hier finden Sie Verkaufsstellen in Ihrer Nähe.",
+    "SORTIMENT": "Sortiment",
+    "FIRMA": "Firma",
+    "PLZ": "PLZ",
+    "ORT": "Ort",
+    "KANTON": "Kanton",
+    "DETAILS": "Details anzeigen",
+    "MAP": "Karte",
+    "ADD": "Hinzufügen"
+  }
+}

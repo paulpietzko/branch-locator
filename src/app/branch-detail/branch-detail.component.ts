@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { GoogleMapsModule } from '@angular/google-maps';
-import { BranchService } from '../services/branch-service/branch.service';
+import { BranchService } from '../services/branch.service';
 import { Branch } from '../models';
 
 @Component({

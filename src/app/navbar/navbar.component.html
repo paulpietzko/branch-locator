@@ -13,5 +13,13 @@
   <a [routerLink]="['/filialen']">
     <button mat-button type="button">Filialien</button>
   </a>
+  <mat-menu #languageMenu="matMenu">
+    <button class="language-button" mat-menu-item *ngFor="let language of languages" (click)="changeLang(language)">
+      {{ language }}
+    </button>
+  </mat-menu>
+  <button mat-icon-button [matMenuTriggerFor]="languageMenu">
+    <mat-icon>language</mat-icon>
+  </button>
 </mat-toolbar>
 <hr />

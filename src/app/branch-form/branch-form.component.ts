@@ -6,7 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { BranchService } from '../services/branch-service/branch.service';
+import { BranchService } from '../services/branch.service';
 
 @Component({
   selector: 'app-branch-form',

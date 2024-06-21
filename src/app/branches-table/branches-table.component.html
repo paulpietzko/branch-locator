@@ -1,36 +1,33 @@
-<h3>Unsere Filialen</h3>
-<p>
-  Hier kommt etwas Text... unsere Produkte gibt es natürlich auch im Fachhandel.
-  Hier finden Sie Verkaufsstellen in Ihrer Nähe.
-</p>
+<h3>{{ 'table.BRANCHES' | translate }}</h3>
+<p>{{ 'table.DESCRIPTION' | translate }}</p>
 <table mat-table [dataSource]="branches()" class="mat-elevation-z8">
   <ng-container matColumnDef="sortiment">
-    <th mat-header-cell *matHeaderCellDef>Sortiment</th>
+    <th mat-header-cell *matHeaderCellDef>{{ 'table.SORTIMENT' | translate }}</th>
     <td mat-cell *matCellDef="let element">
       <mat-icon>place</mat-icon>
     </td>
   </ng-container>
   <ng-container matColumnDef="firma">
-    <th mat-header-cell *matHeaderCellDef>Firma</th>
+    <th mat-header-cell *matHeaderCellDef>{{ 'table.FIRMA' | translate }}</th>
     <td mat-cell *matCellDef="let element">{{ element.firma }}</td>
   </ng-container>
   <ng-container matColumnDef="plz">
-    <th mat-header-cell *matHeaderCellDef>PLZ</th>
+    <th mat-header-cell *matHeaderCellDef>{{ 'table.PLZ' | translate }}</th>
     <td mat-cell *matCellDef="let element">{{ element.plz }}</td>
   </ng-container>
   <ng-container matColumnDef="ort">
-    <th mat-header-cell *matHeaderCellDef>Ort</th>
+    <th mat-header-cell *matHeaderCellDef>{{ 'table.ORT' | translate }}</th>
     <td mat-cell *matCellDef="let element">{{ element.ort }}</td>
   </ng-container>
   <ng-container matColumnDef="kanton">
-    <th mat-header-cell *matHeaderCellDef>Kanton</th>
+    <th mat-header-cell *matHeaderCellDef>{{ 'table.KANTON' | translate }}</th>
     <td mat-cell *matCellDef="let element">{{ element.kanton }}</td>
   </ng-container>
   <ng-container matColumnDef="details">
     <th mat-header-cell *matHeaderCellDef></th>
     <td mat-cell *matCellDef="let element">
       <a [routerLink]="['/filialen/detail', element.id]">
-        <button mat-button>Details anzeigen</button>
+        <button mat-button>{{ 'table.DETAILS' | translate }}</button>
       </a>
     </td>
   </ng-container>
@@ -39,9 +36,9 @@
 </table>
 <div class="button-container">
   <a class="map-button" [routerLink]="['/filialen/karte']">
-    <button mat-button>Karte</button>
+    <button mat-button>{{ 'table.MAP' | translate }}</button>
   </a>
   <a class="add-button" [routerLink]="['/filialen/add']">
-    <button mat-button>Hinzufügen</button>
+    <button mat-button>{{ 'table.ADD' | translate }}</button>
   </a>
 </div>

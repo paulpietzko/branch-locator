@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { GoogleMapsModule, MapInfoWindow, MapMarker } from '@angular/google-maps';
 import { RouterModule } from '@angular/router';
 import { Router } from '@angular/router';
-import { BranchService } from '../services/branch-service/branch.service';
+import { BranchService } from '../services/branch.service';
 import { Branch, BranchMapMarker } from '../models';
 import { MatButtonModule } from '@angular/material/button';
 
