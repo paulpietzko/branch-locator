@@ -1,4 +1,4 @@
-import { Component, computed, signal, effect } from '@angular/core';
+import { Component, computed, signal, effect, ViewChild, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
@@ -11,7 +11,7 @@ import { RouterModule } from '@angular/router';
 import { BranchService } from '../services/branch.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { Branch } from '../models';
-import {MatPaginatorModule} from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-branches-table',
@@ -33,7 +33,10 @@ import {MatPaginatorModule} from '@angular/material/paginator';
   templateUrl: './branches-table.component.html',
   styleUrls: ['./branches-table.component.scss'],
 })
-export class BranchesTableComponent {
+export class BranchesTableComponent implements AfterViewInit {
+  
+  @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
+  
   displayedColumns: string[] = [
     'sortiment',
     'firma',
@@ -54,6 +57,12 @@ export class BranchesTableComponent {
       this.dataSource.data = branches;
       this.uniqueLocations = this.getUniqueLocations(branches);
     });
+  }
+
+  ngAfterViewInit() {
+    if (this.paginator) {
+      this.dataSource.paginator = this.paginator;
+    }
   }
 
   getUniqueLocations(branches: Branch[]): string[] {
@@ -77,6 +86,10 @@ export class BranchesTableComponent {
       );
     } else {
       this.dataSource.data = this.branches();
+    }
+
+    if (this.paginator) {
+      this.dataSource.paginator = this.paginator;
     }
   }
 }
