@@ -11,6 +11,7 @@ import { RouterModule } from '@angular/router';
 import { BranchService } from '../services/branch.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { Branch } from '../models';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 @Component({
   selector: 'app-branches-table',
@@ -26,6 +27,7 @@ import { Branch } from '../models';
     MatCheckboxModule,
     RouterModule,
     TranslateModule,
+    MatPaginatorModule
   ],
   providers: [BranchService],
   templateUrl: './branches-table.component.html',
