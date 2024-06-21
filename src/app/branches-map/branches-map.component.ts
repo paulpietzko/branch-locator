@@ -10,7 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 @Component({
   selector: 'app-branches-map',
   standalone: true,
-  imports: [CommonModule, GoogleMapsModule, RouterModule, MatButtonModule, MapInfoWindow, MapMarker],
+  imports: [CommonModule, GoogleMapsModule, RouterModule, MatButtonModule],
   providers: [BranchService],
   templateUrl: './branches-map.component.html',
   styleUrls: ['./branches-map.component.scss'],
@@ -28,41 +28,43 @@ export class BranchesMapComponent {
     private branchService: BranchService,
     private router: Router,
   ) {
-    effect(
-      () => {
-        const data = this.branchService.getBranches();
-        this.branches.set(data);
-        this.markers = this.getMarkers();
-      },
-      { allowSignalWrites: true }
-    );
-  }
+      effect(
+        () => {
+          const data = this.branchService.getBranches();
+          this.branches.set(data);
+          this.markers = this.getMarkers();
+        },
+        { allowSignalWrites: true }
+      );
+    }
 
   getMarkers() {
-    return this.branches()
-      .map((branch) => {
-        const marker: BranchMapMarker = {
-          label: 'TODO:', // TODO:
-          position: { lat: branch.lat, lng: branch.lng },
-          title: branch.firma,
-          options: { animation: google.maps.Animation.DROP },
-          branch: branch, // Adding the branch property
-          click: () => this.openInfoWindow(branch),
-        };
-        return marker;
-      })
-      .filter(
-        (marker) => !isNaN(marker.position.lat) && !isNaN(marker.position.lng)
-      );
+    if (typeof google !== 'undefined') {
+      return this.branches()
+        .map((branch) => {
+          const marker: BranchMapMarker = {
+            label: '',
+            position: { lat: branch.lat, lng: branch.lng },
+            title: branch.firma,
+            options: { animation: google.maps.Animation.DROP },
+            branch: branch,
+          };
+          return marker;
+        })
+        .filter(
+          (marker) => !isNaN(marker.position.lat) && !isNaN(marker.position.lng)
+        );
+    } else {
+      console.error('Google is not defined');
+      return [];
+    }
   }
 
-  openInfoWindow(branch: Branch): void {
+  openInfoWindow(branch: Branch, marker: MapMarker): void {
     this.infoContent.set(branch);
-    console.log('Info Window Branch:', branch); // Debugging Log
-    console.log('Info Window:', this.infoWindow); // Debugging Log
     
     if (this.infoWindow) {
-      this.infoWindow.open();
+      this.infoWindow.open(marker);
     } else {
       console.error('InfoWindow is undefined');
     }

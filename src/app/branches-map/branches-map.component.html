@@ -6,14 +6,21 @@
 <google-map [center]="center" [zoom]="zoom" height="500px" width="100%">
   <map-marker
     *ngFor="let marker of markers"
+    #mapMarker="mapMarker"
     [position]="marker.position"
     [label]="marker.label"
     [title]="marker.title"
     [options]="marker.options"
-    (mapClick)="openInfoWindow(marker.branch)"
+    (mapClick)="openInfoWindow(marker.branch, mapMarker)"
   ></map-marker>
-  <map-info-window>{{ infoContent()?.firma }}</map-info-window>
+  <map-info-window>
+    <p>{{ infoContent()?.firma }}</p>
+    <a [routerLink]="['/filialen/detail', infoContent()?.id]">
+      <button mat-button>Details anzeigen</button>
+    </a>
+  </map-info-window>
 </google-map>
+
 <a [routerLink]="['/']">
   <button mat-button type="button">← Zurück zur Übersicht</button>
 </a>

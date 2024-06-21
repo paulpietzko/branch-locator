@@ -23,5 +23,5 @@ export interface BranchMapMarker {
     animation: google.maps.Animation;
   };
   label: string;
-  click: () => void;
+  click?: () => void;
 }
