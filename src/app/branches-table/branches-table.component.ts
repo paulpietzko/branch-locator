@@ -12,6 +12,8 @@ import { BranchService } from '../services/branch.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { Branch } from '../models';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginatorIntl } from '@angular/material/paginator';
+import { CustomMatPaginatorIntl } from '../providers/custom-paginator-intl';
 
 @Component({
   selector: 'app-branches-table',
@@ -29,7 +31,7 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
     TranslateModule,
     MatPaginatorModule
   ],
-  providers: [BranchService],
+  providers: [BranchService,{ provide: MatPaginatorIntl, useClass: CustomMatPaginatorIntl }],
   templateUrl: './branches-table.component.html',
   styleUrls: ['./branches-table.component.scss'],
 })
