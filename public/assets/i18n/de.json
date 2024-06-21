@@ -9,7 +9,10 @@
     "KANTON": "Kanton",
     "DETAILS": "Details anzeigen",
     "MAP": "Karte",
-    "ADD": "Hinzufügen"
+    "ADD": "Hinzufügen",
+    "SEARCH": "Suchen..",
+    "SEARCH_PLACEHOLDER": "Name der Firma",
+    "LOCATIONS": "Ortschaften"
   },
   "branchDetail": {
     "TITLE": "Unsere Filiale in {{ location }}",

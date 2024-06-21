@@ -40,7 +40,6 @@ export class BranchService {
   }
 
   updateBranch(updatedBranch: Branch): void {
-    console.log('Updating branch with payload:', updatedBranch);
     this.http
       .put<Branch>(
         `${this.dataUrl}/api/Branches/${updatedBranch.id}`,
@@ -56,13 +55,11 @@ export class BranchService {
         },
         (error) => {
           this._error.set(error.message);
-          console.error('Update branch error:', error);
         }
       );
   }
 
   addBranch(newBranch: Branch): void {
-    console.log('Adding new branch with payload:', newBranch);
     this.http
       .post<Branch>(`${this.dataUrl}/api/Branches`, newBranch)
       .pipe(catchError(this.handleError))
@@ -72,14 +69,11 @@ export class BranchService {
         },
         (error: HttpErrorResponse) => {
           this._error.set(error.message);
-          console.error('Add branch error:', error);
-          console.error('Error details:', error.error);
         }
       );
   }
 
   private handleError(error: HttpErrorResponse) {
-    console.error('An error occurred:', error);
     return throwError(
       () => new Error('Something bad happened; please try again later.')
     );

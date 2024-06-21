@@ -1,13 +1,34 @@
 <h3>{{ "branchTable.BRANCHES" | translate }}</h3>
 <p>{{ "branchTable.DESCRIPTION" | translate }}</p>
-<table mat-table [dataSource]="branches()" class="mat-elevation-z8">
+<div class="filters">
+  <mat-form-field>
+    <mat-label>{{ "branchTable.SEARCH" | translate }}</mat-label>
+    <input
+      matInput
+      (keyup)="applyFilter($event)"
+      placeholder="{{ 'branchTable.SEARCH_PLACEHOLDER' | translate }}"
+    />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-select
+      placeholder="{{ 'branchTable.LOCATIONS' | translate }}"
+      multiple
+      [(value)]="selectedLocations"
+      (selectionChange)="applyFilter()"
+    >
+      <mat-option *ngFor="let location of uniqueLocations" [value]="location">{{
+        location
+      }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  <!-- Define columns here -->
   <ng-container matColumnDef="sortiment">
     <th mat-header-cell *matHeaderCellDef>
       {{ "branchTable.SORTIMENT" | translate }}
     </th>
-    <td mat-cell *matCellDef="let element">
-      <mat-icon>place</mat-icon>
-    </td>
+    <td mat-cell *matCellDef="let element"><mat-icon>place</mat-icon></td>
   </ng-container>
   <ng-container matColumnDef="firma">
     <th mat-header-cell *matHeaderCellDef>

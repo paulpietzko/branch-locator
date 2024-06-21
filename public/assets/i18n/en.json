@@ -9,7 +9,10 @@
     "KANTON": "Kanton",
     "DETAILS": "Show Details",
     "MAP": "Map",
-    "ADD": "Add"
+    "ADD": "Add",
+    "SEARCH": "Search..",
+    "SEARCH_PLACEHOLDER": "Company Name",
+    "LOCATIONS": "Localities"
   },
   "branchDetail": {
     "TITLE": "Our branch in {{ location }}",
