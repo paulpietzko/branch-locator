@@ -1,58 +1,61 @@
-<h3 *ngIf="isEditMode(); else addMode">Filiale bearbeiten</h3>
-<ng-template #addMode><h3>Neue Filiale hinzufügen</h3></ng-template>
+<h3 *ngIf="isEditMode(); else addMode">{{ 'branchForm.EDIT_TITLE' | translate }}</h3>
+<ng-template #addMode><h3>{{ 'branchForm.ADD_TITLE' | translate }}</h3></ng-template>
 <form [formGroup]="branchForm" (ngSubmit)="onSubmit()">
   <mat-form-field>
-    <mat-label>Name</mat-label>
+    <mat-label>{{ 'branchForm.NAME' | translate }}</mat-label>
     <input matInput formControlName="firma" required />
   </mat-form-field>
   <mat-form-field>
-    <mat-label>Kanton</mat-label>
+    <mat-label>{{ 'branchForm.KANTON' | translate }}</mat-label>
     <input matInput formControlName="kanton" required />
   </mat-form-field>
   <mat-form-field>
-    <mat-label>Telefon</mat-label>
+    <mat-label>{{ 'branchForm.PHONE' | translate }}</mat-label>
     <input matInput formControlName="phone" required />
   </mat-form-field>
   <mat-form-field>
-    <mat-label>PLZ</mat-label>
+    <mat-label>{{ 'branchForm.PLZ' | translate }}</mat-label>
     <input matInput formControlName="plz" required />
   </mat-form-field>
   <mat-form-field>
-    <mat-label>Ort</mat-label>
+    <mat-label>{{ 'branchForm.ORT' | translate }}</mat-label>
     <input matInput formControlName="ort" required />
   </mat-form-field>
   <mat-form-field>
-    <mat-label>E-Mail</mat-label>
+    <mat-label>{{ 'branchForm.EMAIL' | translate }}</mat-label>
     <input matInput formControlName="email" required />
   </mat-form-field>
   <mat-form-field>
-    <mat-label>Website</mat-label>
+    <mat-label>{{ 'branchForm.WEBSITE' | translate }}</mat-label>
     <input matInput formControlName="website" required />
   </mat-form-field>
   <mat-form-field>
-    <mat-label>Öffnungszeiten</mat-label>
+    <mat-label>{{ 'branchForm.OPENING_HOURS' | translate }}</mat-label>
     <input matInput formControlName="openingHours" required />
   </mat-form-field>
   <div class="container">
     <mat-form-field>
-      <mat-label>Latitude</mat-label>
+      <mat-label>{{ 'branchForm.LATITUDE' | translate }}</mat-label>
       <input matInput formControlName="lat" required />
     </mat-form-field>
     <mat-form-field>
-      <mat-label>Longitude</mat-label>
+      <mat-label>{{ 'branchForm.LONGITUDE' | translate }}</mat-label>
       <input matInput formControlName="lng" required />
     </mat-form-field>
   </div>
   <mat-form-field>
-    <mat-label>Bild-URL</mat-label>
+    <mat-label>{{ 'branchForm.IMAGE_URL' | translate }}</mat-label>
     <input matInput formControlName="imageUrl" />
   </mat-form-field>
   <div class="buttons">
     <a [routerLink]="['/']">
-      <button mat-button type="button">← Zurück zur Übersicht</button>
+      <button mat-button type="button">← {{ 'branchForm.BACK' | translate }}</button>
     </a>
     <button mat-button type="submit" [disabled]="!branchForm.valid">
-      Speichern
+      {{ 'branchForm.SAVE' | translate }}
     </button>
   </div>
 </form>
+<div *ngIf="!branch()">
+  {{ 'branchForm.NO_BRANCH' | translate }}
+</div>

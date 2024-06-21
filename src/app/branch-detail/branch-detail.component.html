@@ -1,5 +1,5 @@
 <div class="detail-page" *ngIf="branch()">
-  <h3>Unsere Filiale in {{ branch()?.ort }}</h3>
+  <h3>{{ "branchDetail.TITLE" | translate : { location: branch()?.ort } }}</h3>
   <div class="branch-info">
     <div class="info-text">
       <p>
@@ -7,27 +7,42 @@
         {{ branch()?.kanton }}
       </p>
       <p>
-        Telefon: {{ branch()?.phone }}<br />E-Mail: {{ branch()?.email
-        }}<br />Web:
-        <a [href]="branch()?.website" target="_blank">{{ branch()?.website }}</a>
+        {{ "branchDetail.PHONE" | translate }}: {{ branch()?.phone }}<br />{{
+          "branchDetail.EMAIL" | translate
+        }}: {{ branch()?.email }}<br />{{ "branchDetail.WEB" | translate }}:
+        <a [href]="branch()?.website" target="_blank">{{
+          branch()?.website
+        }}</a>
       </p>
-      <p>Öffnungszeiten<br />{{ branch()?.openingHours }}</p>
+      <p>
+        {{ "branchDetail.OPENING_HOURS" | translate }}<br />{{
+          branch()?.openingHours
+        }}
+      </p>
     </div>
     <div class="branch-photo">
-      <p *ngIf="!branch()?.imageUrl">Hier kommt ein Foto/Aussenfoto von der Filiale</p>
-      <img *ngIf="branch()?.imageUrl" [src]="branch()?.imageUrl" alt="Filialfoto" />
+      <p *ngIf="!branch()?.imageUrl">
+        {{ "branchDetail.NO_PHOTO" | translate }}
+      </p>
+      <img
+        *ngIf="branch()?.imageUrl"
+        [src]="branch()?.imageUrl"
+        alt="{{ 'branchDetail.PHOTO_ALT' | translate }}"
+      />
     </div>
   </div>
   <google-map [center]="mapCenter" [zoom]="15" height="500px" width="100%">
     <map-marker *ngIf="branch()" [position]="mapCenter"></map-marker>
   </google-map>
   <div class="buttons">
-    <a routerLink="/"><button mat-button>← Zurück zur Übersicht</button></a>
+    <a routerLink="/"
+      ><button mat-button>← {{ "branchDetail.BACK" | translate }}</button></a
+    >
     <a [routerLink]="['/filialen/edit', branch()?.id]">
-      <button mat-button>Edit</button>
+      <button mat-button>{{ "branchDetail.EDIT" | translate }}</button>
     </a>
   </div>
 </div>
 <div *ngIf="!branch()">
-  Keine Filiale gefunden.
+  {{ "branchDetail.NO_BRANCH" | translate }}
 </div>

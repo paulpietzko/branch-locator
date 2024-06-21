@@ -7,6 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { BranchService } from '../services/branch.service';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-branch-form',
@@ -21,6 +22,7 @@ import { BranchService } from '../services/branch.service';
     MatInputModule,
     RouterModule,
     MatSnackBarModule,
+    TranslateModule,
   ],
   providers: [BranchService],
 })
@@ -38,7 +40,8 @@ export class BranchFormComponent {
     private route: ActivatedRoute,
     private router: Router,
     private fb: FormBuilder,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private translate: TranslateService
   ) {
     this.branchForm = this.createBranchForm();
 
@@ -100,8 +103,10 @@ export class BranchFormComponent {
         this.branchService.addBranch(newBranch);
       }
 
-      this.snackBar.open('Aktion erfolgreich!', 'Schliessen', {
-        duration: 5000,
+      this.translate.get(['branchForm.ACTION_SUCCESS', 'branchForm.CLOSE']).subscribe(translations => {
+        this.snackBar.open(translations['branchForm.ACTION_SUCCESS'], translations['branchForm.CLOSE'], {
+          duration: 5000,
+        });
       });
     }
   }

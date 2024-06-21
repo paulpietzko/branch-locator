@@ -1,7 +1,6 @@
-<h3>Unsere Filialen</h3>
+<h3>{{ 'mapPage.TITLE' | translate }}</h3>
 <p>
-  Hier kommt etwas Text... unsere Produkte gibt es natürlich auch im Fachhandel.
-  Hier finden Sie Verkaufsstellen in Ihrer Nähe.
+  {{ 'mapPage.DESCRIPTION' | translate }}
 </p>
 <google-map [center]="center" [zoom]="zoom" height="500px" width="100%">
   <map-marker
@@ -21,11 +20,11 @@
       {{ infoContent()?.ort }}
     </p>
     <a [routerLink]="['/filialen/detail', infoContent()?.id]">
-      <button mat-button>Details anzeigen</button>
+      <button mat-button>{{ 'mapPage.DETAILS_BUTTON' | translate }}</button>
     </a>
   </map-info-window>
 </google-map>
 
 <a [routerLink]="['/']">
-  <button mat-button type="button">← Zurück zur Übersicht</button>
+  <button mat-button type="button">← {{ 'mapPage.BACK_BUTTON' | translate }}</button>
 </a>

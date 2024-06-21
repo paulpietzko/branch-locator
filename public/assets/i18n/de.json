@@ -1,5 +1,5 @@
 {
-  "table": {
+  "branchTable": {
     "BRANCHES": "Unsere Filialen",
     "DESCRIPTION": "Hier kommt etwas Text... unsere Produkte gibt es natürlich auch im Fachhandel. Hier finden Sie Verkaufsstellen in Ihrer Nähe.",
     "SORTIMENT": "Sortiment",
@@ -10,5 +10,49 @@
     "DETAILS": "Details anzeigen",
     "MAP": "Karte",
     "ADD": "Hinzufügen"
+  },
+  "branchDetail": {
+    "TITLE": "Unsere Filiale in {{ location }}",
+    "PHONE": "Telefon",
+    "EMAIL": "E-Mail",
+    "WEB": "Web",
+    "OPENING_HOURS": "Öffnungszeiten",
+    "NO_PHOTO": "Hier kommt ein Foto/Aussenfoto von der Filiale",
+    "PHOTO_ALT": "Filialfoto",
+    "BACK": "Zurück zur Übersicht",
+    "EDIT": "Bearbeiten",
+    "NO_BRANCH": "Keine Filiale gefunden."
+  },
+  "branchForm": {
+    "EDIT_TITLE": "Filiale bearbeiten",
+    "ADD_TITLE": "Neue Filiale hinzufügen",
+    "NAME": "Name",
+    "KANTON": "Kanton",
+    "PHONE": "Telefon",
+    "PLZ": "PLZ",
+    "ORT": "Ort",
+    "EMAIL": "E-Mail",
+    "WEBSITE": "Website",
+    "OPENING_HOURS": "Öffnungszeiten",
+    "LATITUDE": "Latitude",
+    "LONGITUDE": "Longitude",
+    "IMAGE_URL": "Bild-URL",
+    "BACK": "Zurück zur Übersicht",
+    "SAVE": "Speichern",
+    "NO_BRANCH": "Keine Filiale gefunden.",
+    "ACTION_SUCCESS": "Aktion erfolgreich!",
+    "CLOSE": "Schliessen"
+  },
+  "mapPage": {
+    "TITLE": "Unsere Filialen",
+    "DESCRIPTION": "Hier kommt etwas Text... unsere Produkte gibt es natürlich auch im Fachhandel. Hier finden Sie Verkaufsstellen in Ihrer Nähe.",
+    "DETAILS_BUTTON": "Details anzeigen",
+    "BACK_BUTTON": "Zurück zur Übersicht"
+  },
+  "navbar": {
+    "HOME": "Startseite",
+    "PRODUCTS": "Produkte",
+    "ABOUT_US": "Über Uns",
+    "BRANCHES": "Filialien"
   }
 }

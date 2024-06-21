@@ -6,7 +6,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { RouterModule } from '@angular/router';
 import { TranslationService } from '../services/translation.service';
 import { CommonModule } from '@angular/common';
-import { languages } from '../data'; 
+import { languages } from '../data';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-navbar',
@@ -18,6 +19,7 @@ import { languages } from '../data';
     MatMenuModule,
     RouterModule,
     CommonModule,
+    TranslateModule
   ],
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],

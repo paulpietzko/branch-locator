@@ -1,5 +1,5 @@
 {
-  "table": {
+  "branchTable": {
     "BRANCHES": "Our Branches",
     "DESCRIPTION": "Here comes some text... our products are of course also available in specialist shops. Here you can find sales outlets near you.",
     "SORTIMENT": "Sortiment",
@@ -10,5 +10,49 @@
     "DETAILS": "Show Details",
     "MAP": "Map",
     "ADD": "Add"
+  },
+  "branchDetail": {
+    "TITLE": "Our branch in {{ location }}",
+    "PHONE": "Phone",
+    "EMAIL": "Email",
+    "WEB": "Website",
+    "OPENING_HOURS": "Opening Hours",
+    "NO_PHOTO": "Here will be a photo/exterior photo of the branch",
+    "PHOTO_ALT": "Branch photo",
+    "BACK": "Back to overview",
+    "EDIT": "Edit",
+    "NO_BRANCH": "No branch found."
+  },
+  "branchForm": {
+    "EDIT_TITLE": "Edit Branch",
+    "ADD_TITLE": "Add New Branch",
+    "NAME": "Name",
+    "KANTON": "Canton",
+    "PHONE": "Phone",
+    "PLZ": "Postal Code",
+    "ORT": "City",
+    "EMAIL": "Email",
+    "WEBSITE": "Website",
+    "OPENING_HOURS": "Opening Hours",
+    "LATITUDE": "Latitude",
+    "LONGITUDE": "Longitude",
+    "IMAGE_URL": "Image URL",
+    "BACK": "Back to overview",
+    "SAVE": "Save",
+    "NO_BRANCH": "No branch found.",
+    "ACTION_SUCCESS": "Action successful!",
+    "CLOSE": "Close"
+  },
+  "mapPage": {
+    "TITLE": "Our Branches",
+    "DESCRIPTION": "Here comes some text... our products are of course also available in specialized shops. Here you can find sales locations near you.",
+    "DETAILS_BUTTON": "Show details",
+    "BACK_BUTTON": "Back to overview"
+  },
+  "navbar": {
+    "HOME": "Home",
+    "PRODUCTS": "Products",
+    "ABOUT_US": "About Us",
+    "BRANCHES": "Branches"
   }
 }
