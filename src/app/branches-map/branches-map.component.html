@@ -10,8 +10,9 @@
     [label]="marker.label"
     [title]="marker.title"
     [options]="marker.options"
+    (mapClick)="openInfoWindow(marker.branch)"
   ></map-marker>
-  <!-- TODO: ensure click works again - was (mapClick)="marker.click()" -->
+  <map-info-window>{{ infoContent()?.firma }}</map-info-window>
 </google-map>
 <a [routerLink]="['/']">
   <button mat-button type="button">← Zurück zur Übersicht</button>

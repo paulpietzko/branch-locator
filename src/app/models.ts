@@ -13,6 +13,7 @@ export interface Branch {
 }
 
 export interface BranchMapMarker {
+  branch: Branch;
   position: {
     lat: number;
     lng: number;

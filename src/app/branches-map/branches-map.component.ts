@@ -1,8 +1,7 @@
-import { Component, signal, effect } from '@angular/core';
+import { Component, ViewChild, signal, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { GoogleMapsModule } from '@angular/google-maps';
+import { GoogleMapsModule, MapInfoWindow, MapMarker } from '@angular/google-maps';
 import { RouterModule } from '@angular/router';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { BranchService } from '../services/branch-service/branch.service';
 import { Branch, BranchMapMarker } from '../models';
@@ -11,22 +10,23 @@ import { MatButtonModule } from '@angular/material/button';
 @Component({
   selector: 'app-branches-map',
   standalone: true,
-  imports: [CommonModule, GoogleMapsModule, RouterModule, MatButtonModule],
+  imports: [CommonModule, GoogleMapsModule, RouterModule, MatButtonModule, MapInfoWindow, MapMarker],
   providers: [BranchService],
   templateUrl: './branches-map.component.html',
-  styleUrl: './branches-map.component.scss',
+  styleUrls: ['./branches-map.component.scss'],
 })
 export class BranchesMapComponent {
+  @ViewChild(MapInfoWindow) infoWindow: MapInfoWindow | undefined;
+  
   branches = signal<Branch[]>([]);
   center: google.maps.LatLngLiteral = { lat: 46.8182, lng: 8.2275 }; // Center of Switzerland
   zoom = 8;
-  markers: BranchMapMarker[] = []; // TODO: ensure type of marker
+  markers: BranchMapMarker[] = [];
   infoContent = signal<Branch | null>(null);
 
   constructor(
     private branchService: BranchService,
     private router: Router,
-    private snackBar: MatSnackBar
   ) {
     effect(
       () => {
@@ -46,7 +46,8 @@ export class BranchesMapComponent {
           position: { lat: branch.lat, lng: branch.lng },
           title: branch.firma,
           options: { animation: google.maps.Animation.DROP },
-          click: () => this.showInfoWindow(branch),
+          branch: branch, // Adding the branch property
+          click: () => this.openInfoWindow(branch),
         };
         return marker;
       })
@@ -55,16 +56,15 @@ export class BranchesMapComponent {
       );
   }
 
-  // TODO: use MapInfoWindow according to https://github.com/angular/components/blob/main/src/google-maps/map-info-window/README.md
-  showInfoWindow(branch: Branch): void {
-    const snackBarRef = this.snackBar.open(branch.firma, 'Details anzeigen', {
-      duration: 5000,
-    });
-
-    snackBarRef.onAction().subscribe(() => {
-      this.router.navigate(['/filialen/detail', branch.id]);
-    });
-
+  openInfoWindow(branch: Branch): void {
     this.infoContent.set(branch);
+    console.log('Info Window Branch:', branch); // Debugging Log
+    console.log('Info Window:', this.infoWindow); // Debugging Log
+    
+    if (this.infoWindow) {
+      this.infoWindow.open();
+    } else {
+      console.error('InfoWindow is undefined');
+    }
   }
 }
