@@ -14,7 +14,8 @@
       <p>Öffnungszeiten<br />{{ branch()?.openingHours }}</p>
     </div>
     <div class="branch-photo">
-      <p>Hier kommt ein Foto/Aussenfoto von der Filiale</p>
+      <p *ngIf="!branch()?.imageUrl">Hier kommt ein Foto/Aussenfoto von der Filiale</p>
+      <img *ngIf="branch()?.imageUrl" [src]="branch()?.imageUrl" alt="Filialfoto" />
     </div>
   </div>
   <google-map [center]="mapCenter" [zoom]="15" height="500px" width="100%">

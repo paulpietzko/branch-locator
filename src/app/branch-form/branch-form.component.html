@@ -33,6 +33,20 @@
     <mat-label>Öffnungszeiten</mat-label>
     <input matInput formControlName="openingHours" required />
   </mat-form-field>
+  <div class="container">
+    <mat-form-field>
+      <mat-label>Latitude</mat-label>
+      <input matInput formControlName="lat" required />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Longitude</mat-label>
+      <input matInput formControlName="lng" required />
+    </mat-form-field>
+  </div>
+  <mat-form-field>
+    <mat-label>Bild-URL</mat-label>
+    <input matInput formControlName="imageUrl" />
+  </mat-form-field>
   <div class="buttons">
     <a [routerLink]="['/']">
       <button mat-button type="button">← Zurück zur Übersicht</button>

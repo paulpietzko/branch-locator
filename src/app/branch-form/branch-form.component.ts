@@ -80,8 +80,9 @@ export class BranchFormComponent {
         ],
       ],
       openingHours: ['', Validators.required],
-      lat: [null],
-      lng: [null],
+      lat: [null, Validators.required],
+      lng: [null, Validators.required],
+      imageUrl: [''],  // Add imageUrl control
     });
   }
 

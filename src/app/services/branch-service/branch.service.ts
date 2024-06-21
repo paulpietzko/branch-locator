@@ -25,6 +25,7 @@ export class BranchService {
           ...branch,
           lat: branch.lat,
           lng: branch.lng,
+          imageUrl: branch.imageUrl || '',
         }));
         this._branches.set(validatedData);
       });
