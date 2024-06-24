@@ -18,7 +18,7 @@ export class BranchService {
 
   private async fetchData(): Promise<void> {
     try {
-      const data = await lastValueFrom(
+      const data = await lastValueFrom( // lastValueFrom  converts Observable to Promise for async/await usage
         this.http.get<Branch[]>(`${this.dataUrl}/api/Branches`).pipe(
           catchError(this.handleError)
         )

@@ -33,9 +33,12 @@ export class BranchesMapComponent {
   center: google.maps.LatLngLiteral = { lat: 46.8182, lng: 8.2275 }; // Center of Switzerland
   zoom = 8;
   markers: BranchMapMarker[] = [];
+  // Signal for currently selected branch
   infoContent = signal<Branch | null>(null);
 
+
   constructor(private branchService: BranchService, private router: Router) {
+    // Fetch branches and update markers when data changes
     effect(
       () => {
         const data = this.branchService.getBranches();
@@ -60,7 +63,7 @@ export class BranchesMapComponent {
           return marker;
         })
         .filter(
-          (marker) => !isNaN(marker.position.lat) && !isNaN(marker.position.lng)
+          (marker) => !isNaN(marker.position.lat) && !isNaN(marker.position.lng) // Filters markers with invalid positions
         );
     } else {
       console.error('Google is not defined');
@@ -69,7 +72,7 @@ export class BranchesMapComponent {
   }
 
   openInfoWindow(branch: Branch, marker: MapMarker): void {
-    this.infoContent.set(branch);
+    this.infoContent.set(branch); // Set the selected branch
 
     if (this.infoWindow) {
       this.infoWindow.open(marker);

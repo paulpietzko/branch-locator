@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class CustomMatPaginatorIntl extends MatPaginatorIntl {
   constructor(private translate: TranslateService) {
-    super();
+    super(); // Calling constructor of superclass -> MatPaginatorIntl
     this.getAndInitTranslations();
     this.translate.onLangChange.subscribe(() => {
       this.getAndInitTranslations();
@@ -23,7 +23,7 @@ export class CustomMatPaginatorIntl extends MatPaginatorIntl {
         this.itemsPerPageLabel = translation['branchTable.ITEMS_PER_PAGE'];
         this.nextPageLabel = translation['branchTable.NEXT_PAGE'];
         this.previousPageLabel = translation['branchTable.PREVIOUS_PAGE'];
-        this.changes.next();
+        this.changes.next(); // Notify about the changes
       });
   }
 

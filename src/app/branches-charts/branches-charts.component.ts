@@ -32,6 +32,7 @@ export class BranchesChartsComponent implements AfterViewInit {
   ngAfterViewInit() {
     if (this.isBrowser) {
       this.loadGoogleChartsLibrary()
+        // Load and draw chart after view initializes
         .then(() => {
           this.loadTranslationsAndDrawChart();
         })
@@ -42,6 +43,7 @@ export class BranchesChartsComponent implements AfterViewInit {
   }
 
   private loadGoogleChartsLibrary(): Promise<void> {
+    // Promise resolves when the library is loaded
     return new Promise((resolve, reject) => {
       if (typeof google !== 'undefined' && google.charts) {
         google.charts.load('current', { packages: ['corechart'] });
@@ -49,6 +51,7 @@ export class BranchesChartsComponent implements AfterViewInit {
           resolve();
         });
       } else {
+        // Loads Google Charts library script dynamically if it's not available
         const script = document.createElement('script');
         script.src = 'https://www.gstatic.com/charts/loader.js';
         script.onload = () => {
@@ -87,12 +90,13 @@ export class BranchesChartsComponent implements AfterViewInit {
       });
 
       const dataArray: (string | number)[][] = [
+        // Prepare data array for Google Charts
         [translations['chart.HAXIS_TITLE'], translations['chart.VAXIS_TITLE']],
       ];
       for (const [key, value] of Object.entries(locationCount)) {
         dataArray.push([key, value]);
       }
-
+      // Convert the data array to Google Charts DataTable
       const data = google.visualization.arrayToDataTable(dataArray);
 
       const options = {

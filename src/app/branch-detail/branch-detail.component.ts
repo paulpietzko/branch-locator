@@ -37,19 +37,19 @@ export class BranchDetailComponent {
   @ViewChild(MapInfoWindow) infoWindow: MapInfoWindow | undefined;
 
   qrCodeUrl: string = '';
-  infoContent = signal<Branch | null>(null);
-  branchId = signal<string | null>(null);
+  infoContent = signal<Branch | null>(null); // Signal to hold branch info for info window
+  branchId = signal<string | null>(null); // Signal to hold branch ID from route params
   branch = computed<Branch | null>(() => {
-    const id = this.branchId();
+    const id = this.branchId(); // Current branch ID
     const branchData = id ? this.branchService.getBranchById(id) : null;
     if (branchData) {
-      this.mapCenter = { lat: branchData.lat, lng: branchData.lng };
+      this.mapCenter = { lat: branchData.lat, lng: branchData.lng }; // Set map center to branch location
       return branchData;
     } else {
       return null;
     }
   });
-  mapCenter = { lat: 0, lng: 0 };
+  mapCenter = { lat: 0, lng: 0 }; // Initial center of the map
 
   openInfoWindow(marker: MapMarker): void {
     this.infoContent.set(this.branch());
@@ -62,13 +62,13 @@ export class BranchDetailComponent {
   }
 
   generateQRCode(): void {
-    const currentUrl = window.location.href;
+    const currentUrl = window.location.href; // Get the current URL
     QRCode.toDataURL(currentUrl, { errorCorrectionLevel: 'H' }, (err, url) => {
       if (err) {
         console.error('Error generating QR Code: ', err);
         return;
       }
-      this.qrCodeUrl = url;
+      this.qrCodeUrl = url; // Set the generated QR code URL
     });
   }
 
@@ -81,6 +81,7 @@ export class BranchDetailComponent {
       this.generateQRCode();
     }
 
+    // Subscribe to route params for branch ID
     this.route.paramMap.subscribe((params) => {
       const id = params.get('id');
       if (id !== null) {

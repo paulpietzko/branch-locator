@@ -28,10 +28,10 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 })
 export class BranchFormComponent {
   branchId = signal<string | null>(null);
-  isEditMode = computed(() => this.branchId() !== null);
+  isEditMode = computed(() => this.branchId() !== null);  // Computed property to determine if it's edit or add mode
   branch = computed(() => {
     const id = this.branchId();
-    return id !== null ? this.branchService.getBranchById(id) : null;
+    return id !== null ? this.branchService.getBranchById(id) : null; // Fetch branch data if ID is available
   });
   branchForm: FormGroup;
 
@@ -45,6 +45,7 @@ export class BranchFormComponent {
   ) {
     this.branchForm = this.createBranchForm();
 
+    // Populates form fields when branch data is available
     effect(() => {
       const branch = this.branch();
       if (branch) {
@@ -53,6 +54,7 @@ export class BranchFormComponent {
       }
     });
 
+    // Subscribe to route parameters to get the branch ID
     this.route.paramMap.subscribe((params) => {
       const id = params.get('id');
       if (id !== null) {
@@ -61,6 +63,7 @@ export class BranchFormComponent {
     });
   }
 
+  // Create form group with validation rules
   createBranchForm(): FormGroup {
     return this.fb.group({
       firma: ['', Validators.required],
@@ -69,7 +72,7 @@ export class BranchFormComponent {
         '',
         [
           Validators.required,
-          Validators.pattern(/^\d{3}\s\d{3}\s\d{2}\s\d{2}$/),
+          Validators.pattern(/^\d{3}\s\d{3}\s\d{2}\s\d{2}$/),// Pattern for phone number: 123 456 78 90
         ],
       ],
       plz: ['', Validators.required],
@@ -79,30 +82,29 @@ export class BranchFormComponent {
         '',
         [
           Validators.required,
-          Validators.pattern(/https?:\/\/[^\s$.?#].[^\s]*/),
+          Validators.pattern(/https?:\/\/[^\s$.?#].[^\s]*/), // Pattern for URL: https://www.
         ],
       ],
       openingHours: ['', Validators.required],
       lat: [null, Validators.required],
       lng: [null, Validators.required],
-      imageUrl: [''],  // Add imageUrl control
+      imageUrl: [''],
     });
   }
 
   onSubmit(): void {
     if (this.branchForm.valid) {
-      const branchData = { ...this.branchForm.value };
+      const branchData = { ...this.branchForm.value }; // Get values from fom data
 
       if (this.isEditMode()) {
-        const updatedBranch = { ...this.branch(), ...branchData };
-        console.log('Submitting updated branch:', updatedBranch);
+        const updatedBranch = { ...this.branch(), ...branchData }; // Merge existing and new data
         this.branchService.updateBranch(updatedBranch);
       } else {
-        const newBranch = { ...branchData, id: Date.now().toString() };
-        console.log('Submitting new branch:', newBranch);
+        const newBranch = { ...branchData};
         this.branchService.addBranch(newBranch);
       }
 
+      // Shows snackbar with translations
       this.translate.get(['branchForm.ACTION_SUCCESS', 'branchForm.CLOSE']).subscribe(translations => {
         this.snackBar.open(translations['branchForm.ACTION_SUCCESS'], translations['branchForm.CLOSE'], {
           duration: 5000,

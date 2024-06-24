@@ -48,12 +48,17 @@ export class BranchesTableComponent implements AfterViewInit {
     'details',
   ];
 
-  branches = computed(() => this.branchService.getBranches());
+  branches = computed(() => this.branchService.getBranches()); // Computes and saves branches data from BranchService
+  
+  // Data source for table
   dataSource = new MatTableDataSource<Branch>([]);
+
+  // Filter Options
   selectedLocations: string[] = [];
   uniqueLocations: string[] = [];
 
   constructor(private branchService: BranchService) {
+    // Updates data source and unique locations when branches change
     effect(() => {
       const branches = this.branches();
       this.dataSource.data = branches;
