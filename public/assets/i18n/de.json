@@ -57,8 +57,13 @@
   },
   "navbar": {
     "HOME": "Startseite",
-    "PRODUCTS": "Produkte",
-    "ABOUT_US": "Über Uns",
+    "CHARTS": "Grafiken",
     "BRANCHES": "Filialien"
+  },
+  "chart": {
+    "TITLE": "Filialübersicht",
+    "HAXIS_TITLE": "Standort",
+    "VAXIS_TITLE": "Anzahl",
+    "BACK_BUTTON": "Zurück zur Übersicht"
   }
 }

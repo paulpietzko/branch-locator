@@ -57,8 +57,13 @@
   },
   "navbar": {
     "HOME": "Home",
-    "PRODUCTS": "Products",
-    "ABOUT_US": "About Us",
+    "CHARTS": "Charts",
     "BRANCHES": "Branches"
+  },
+  "chart": {
+    "TITLE": "Branches Overview",
+    "HAXIS_TITLE": "Location",
+    "VAXIS_TITLE": "Count",
+    "BACK_BUTTON": "Back to overview"
   }
 }

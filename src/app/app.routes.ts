@@ -22,4 +22,8 @@ export const routes: Routes = [
     path: 'filialen/add',
     loadComponent: () => import('./branch-form/branch-form.component').then(m => m.BranchFormComponent)
   },
+  {
+    path: 'filialen/charts',
+    loadComponent: () => import('./branches-charts/branches-charts.component').then(m => m.BranchesChartsComponent)
+  },
 ];
