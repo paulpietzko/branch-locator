@@ -3,6 +3,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Branch } from '../models';
 import { catchError } from 'rxjs/operators';
 import { lastValueFrom, throwError } from 'rxjs';
+import { SelectControlValueAccessor } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root',
@@ -41,6 +42,20 @@ export class BranchService {
 
   getBranchById(id: string): Branch | null {
     return this._branches().find((branch) => branch.id === id) || null;
+  }
+
+  async deleteBranch(id: string): Promise<void> {
+    try {
+      await lastValueFrom(
+        this.http.delete(`${this.dataUrl}/api/Branches/${id}`).pipe(
+          catchError(this.handleError)
+        )
+      );
+      const updatedBranches = this._branches().filter((branch) => branch.id !== id);
+      this._branches.set(updatedBranches);
+    } catch (error) {
+      this._error.set(error instanceof Error ? error.message : 'Unknown error');
+    }
   }
 
   async updateBranch(updatedBranch: Branch): Promise<void> {

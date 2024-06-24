@@ -54,9 +54,13 @@
     <a routerLink="/"
       ><button mat-button>← {{ "branchDetail.BACK" | translate }}</button></a
     >
+    <div>
+      <button mat-button (click)="deleteBranch()">{{ "branchDetail.DELETE" | translate }}</button>
+      
     <a [routerLink]="['/filialen/edit', branch()?.id]">
       <button mat-button>{{ "branchDetail.EDIT" | translate }}</button>
     </a>
+    </div>
   </div>
 </div>
 <div *ngIf="!branch()">

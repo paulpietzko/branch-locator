@@ -27,7 +27,11 @@
     "PHOTO_ALT": "Branch photo",
     "BACK": "Back to overview",
     "EDIT": "Edit",
-    "NO_BRANCH": "No branch found."
+    "NO_BRANCH": "No branch found.",
+    "DELETE": "Delete",
+    "DELETE_ERROR": "Error while deleting",
+    "DELETE_SUCCESS": "Successfully deleted",
+    "CLOSE": "Close"
   },
   "branchForm": {
     "EDIT_TITLE": "Edit Branch",

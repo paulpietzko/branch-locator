@@ -27,7 +27,11 @@
     "PHOTO_ALT": "Filialfoto",
     "BACK": "Zurück zur Übersicht",
     "EDIT": "Bearbeiten",
-    "NO_BRANCH": "Keine Filiale gefunden."
+    "NO_BRANCH": "Keine Filiale gefunden.",
+    "DELETE": "Löschen",
+    "DELETE_ERROR": "Fehler beim löschen",
+    "DELETE_SUCCESS": "Erfolgreich gelöscht",
+    "CLOSE": "Schliessen"
   },
   "branchForm": {
     "EDIT_TITLE": "Filiale bearbeiten",

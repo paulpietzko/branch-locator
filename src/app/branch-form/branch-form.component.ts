@@ -38,7 +38,6 @@ export class BranchFormComponent {
   constructor(
     private branchService: BranchService,
     private route: ActivatedRoute,
-    private router: Router,
     private fb: FormBuilder,
     private snackBar: MatSnackBar,
     private translate: TranslateService

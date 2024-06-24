@@ -7,7 +7,7 @@ import {
   Inject,
 } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import {
   GoogleMapsModule,
@@ -16,8 +16,9 @@ import {
 } from '@angular/google-maps';
 import { BranchService } from '../services/branch.service';
 import { Branch } from '../models';
-import { TranslateModule } from '@ngx-translate/core';
 import * as QRCode from 'qrcode';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-branch-detail',
@@ -28,6 +29,7 @@ import * as QRCode from 'qrcode';
     MatButtonModule,
     GoogleMapsModule,
     TranslateModule,
+    MatSnackBarModule,
   ],
   providers: [BranchService],
   templateUrl: './branch-detail.component.html',
@@ -75,6 +77,9 @@ export class BranchDetailComponent {
   constructor(
     private branchService: BranchService,
     private route: ActivatedRoute,
+    private router: Router,
+    private snackBar: MatSnackBar,
+    private translate: TranslateService,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
     if (isPlatformBrowser(this.platformId)) {
@@ -90,5 +95,29 @@ export class BranchDetailComponent {
         console.error('Invalid branch ID');
       }
     });
+  }
+
+  async deleteBranch(): Promise<void> {
+    const id = this.branchId();
+    if (id) {
+      try {
+        await this.branchService.deleteBranch(id);
+        this.translate.get(['branchDetail.DELETE_SUCCESS', 'branchDetail.CLOSE']).subscribe(translations => {
+          this.snackBar.open(translations['branchDetail.DELETE_SUCCESS'], translations['branchDetail.CLOSE'], {
+            duration: 5000,
+          });
+        });
+        this.router.navigate(['/']); // Navigate back to the list after deletion
+      } catch (error) {
+        console.error('Error deleting branch:', error);
+        this.translate.get(['branchDetail.DELETE_ERROR', 'branchDetail.CLOSE']).subscribe(translations => {
+          this.snackBar.open(translations['branchDetail.DELETE_ERROR'], translations['branchDetail.CLOSE'], {
+            duration: 5000,
+          });
+        });
+      }
+    } else {
+      console.error('No branch ID to delete');
+    }
   }
 }
