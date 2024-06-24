@@ -1,0 +1,73 @@
+{
+  "branchTable": {
+    "BRANCHES": "私たちの支店",
+    "DESCRIPTION": "ここにテキストが入ります... 私たちの製品はもちろん専門店でも入手できます。ここで近くの販売店を見つけてください。",
+    "SORTIMENT": "製品範囲",
+    "FIRMA": "会社",
+    "PLZ": "郵便番号",
+    "ORT": "場所",
+    "KANTON": "州",
+    "DETAILS": "詳細を表示",
+    "MAP": "地図",
+    "ADD": "追加",
+    "SEARCH": "検索..",
+    "SEARCH_PLACEHOLDER": "会社名",
+    "LOCATIONS": "場所",
+    "ITEMS_PER_PAGE": "1ページあたりのアイテム数",
+    "NEXT_PAGE": "次のページ",
+    "PREVIOUS_PAGE": "前のページ"
+  },
+  "branchDetail": {
+    "TITLE": "{{ location }} にある私たちの支店",
+    "PHONE": "電話",
+    "EMAIL": "メール",
+    "WEB": "ウェブ",
+    "OPENING_HOURS": "営業時間",
+    "NO_PHOTO": "ここに支店の写真/外観写真が入ります",
+    "PHOTO_ALT": "支店の写真",
+    "BACK": "概要に戻る",
+    "EDIT": "編集",
+    "NO_BRANCH": "支店が見つかりません。",
+    "DELETE": "削除",
+    "DELETE_ERROR": "削除エラー",
+    "DELETE_SUCCESS": "正常に削除されました",
+    "CLOSE": "閉じる"
+  },
+  "branchForm": {
+    "EDIT_TITLE": "支店を編集",
+    "ADD_TITLE": "新しい支店を追加",
+    "NAME": "名前",
+    "KANTON": "州",
+    "PHONE": "電話",
+    "PLZ": "郵便番号",
+    "ORT": "場所",
+    "EMAIL": "メール",
+    "WEBSITE": "ウェブサイト",
+    "OPENING_HOURS": "営業時間",
+    "LATITUDE": "緯度",
+    "LONGITUDE": "経度",
+    "IMAGE_URL": "画像URL",
+    "BACK": "概要に戻る",
+    "SAVE": "保存",
+    "NO_BRANCH": "支店が見つかりません。",
+    "ACTION_SUCCESS": "操作が成功しました!",
+    "CLOSE": "閉じる"
+  },
+  "mapPage": {
+    "TITLE": "私たちの支店",
+    "DESCRIPTION": "ここにテキストが入ります... 私たちの製品はもちろん専門店でも入手できます。ここで近くの販売店を見つけてください。",
+    "DETAILS_BUTTON": "詳細を表示",
+    "BACK_BUTTON": "概要に戻る"
+  },
+  "navbar": {
+    "HOME": "ホーム",
+    "CHARTS": "グラフ",
+    "BRANCHES": "支店"
+  },
+  "chart": {
+    "TITLE": "支店概要",
+    "HAXIS_TITLE": "場所",
+    "VAXIS_TITLE": "数",
+    "BACK_BUTTON": "概要に戻る"
+  }
+}

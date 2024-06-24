@@ -1,0 +1,73 @@
+{
+  "branchTable": {
+    "BRANCHES": "Nos succursales",
+    "DESCRIPTION": "Voici un texte... nos produits sont également disponibles chez les détaillants spécialisés. Trouvez des points de vente près de chez vous.",
+    "SORTIMENT": "Gamme de produits",
+    "FIRMA": "Entreprise",
+    "PLZ": "Code postal",
+    "ORT": "Lieu",
+    "KANTON": "Canton",
+    "DETAILS": "Voir les détails",
+    "MAP": "Carte",
+    "ADD": "Ajouter",
+    "SEARCH": "Rechercher...",
+    "SEARCH_PLACEHOLDER": "Nom de l'entreprise",
+    "LOCATIONS": "Lieux",
+    "ITEMS_PER_PAGE": "Articles par page",
+    "NEXT_PAGE": "Page suivante",
+    "PREVIOUS_PAGE": "Page précédente"
+  },
+  "branchDetail": {
+    "TITLE": "Notre succursale à {{ location }}",
+    "PHONE": "Téléphone",
+    "EMAIL": "E-mail",
+    "WEB": "Site web",
+    "OPENING_HOURS": "Heures d'ouverture",
+    "NO_PHOTO": "Voici une photo/extérieur de la succursale",
+    "PHOTO_ALT": "Photo de la succursale",
+    "BACK": "Retour à l'aperçu",
+    "EDIT": "Éditer",
+    "NO_BRANCH": "Aucune succursale trouvée.",
+    "DELETE": "Supprimer",
+    "DELETE_ERROR": "Erreur lors de la suppression",
+    "DELETE_SUCCESS": "Supprimé avec succès",
+    "CLOSE": "Fermer"
+  },
+  "branchForm": {
+    "EDIT_TITLE": "Éditer la succursale",
+    "ADD_TITLE": "Ajouter une nouvelle succursale",
+    "NAME": "Nom",
+    "KANTON": "Canton",
+    "PHONE": "Téléphone",
+    "PLZ": "Code postal",
+    "ORT": "Lieu",
+    "EMAIL": "E-mail",
+    "WEBSITE": "Site web",
+    "OPENING_HOURS": "Heures d'ouverture",
+    "LATITUDE": "Latitude",
+    "LONGITUDE": "Longitude",
+    "IMAGE_URL": "URL de l'image",
+    "BACK": "Retour à l'aperçu",
+    "SAVE": "Enregistrer",
+    "NO_BRANCH": "Aucune succursale trouvée.",
+    "ACTION_SUCCESS": "Action réussie!",
+    "CLOSE": "Fermer"
+  },
+  "mapPage": {
+    "TITLE": "Nos succursales",
+    "DESCRIPTION": "Voici un texte... nos produits sont également disponibles chez les détaillants spécialisés. Trouvez des points de vente près de chez vous.",
+    "DETAILS_BUTTON": "Voir les détails",
+    "BACK_BUTTON": "Retour à l'aperçu"
+  },
+  "navbar": {
+    "HOME": "Accueil",
+    "CHARTS": "Graphiques",
+    "BRANCHES": "Succursales"
+  },
+  "chart": {
+    "TITLE": "Aperçu des succursales",
+    "HAXIS_TITLE": "Lieu",
+    "VAXIS_TITLE": "Nombre",
+    "BACK_BUTTON": "Retour à l'aperçu"
+  }
+}

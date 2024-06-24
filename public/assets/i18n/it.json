@@ -1,0 +1,73 @@
+{
+  "branchTable": {
+    "BRANCHES": "Le nostre filiali",
+    "DESCRIPTION": "Ecco un testo... i nostri prodotti sono disponibili anche nei negozi specializzati. Trova i punti vendita vicino a te.",
+    "SORTIMENT": "Assortimento",
+    "FIRMA": "Azienda",
+    "PLZ": "CAP",
+    "ORT": "Luogo",
+    "KANTON": "Cantone",
+    "DETAILS": "Visualizza dettagli",
+    "MAP": "Mappa",
+    "ADD": "Aggiungere",
+    "SEARCH": "Cercare...",
+    "SEARCH_PLACEHOLDER": "Nome dell'azienda",
+    "LOCATIONS": "Luoghi",
+    "ITEMS_PER_PAGE": "Articoli per pagina",
+    "NEXT_PAGE": "Pagina successiva",
+    "PREVIOUS_PAGE": "Pagina precedente"
+  },
+  "branchDetail": {
+    "TITLE": "La nostra filiale a {{ location }}",
+    "PHONE": "Telefono",
+    "EMAIL": "E-mail",
+    "WEB": "Sito web",
+    "OPENING_HOURS": "Orari di apertura",
+    "NO_PHOTO": "Ecco una foto/esterno della filiale",
+    "PHOTO_ALT": "Foto della filiale",
+    "BACK": "Torna alla panoramica",
+    "EDIT": "Modifica",
+    "NO_BRANCH": "Nessuna filiale trovata.",
+    "DELETE": "Elimina",
+    "DELETE_ERROR": "Errore durante l'eliminazione",
+    "DELETE_SUCCESS": "Eliminato con successo",
+    "CLOSE": "Chiudi"
+  },
+  "branchForm": {
+    "EDIT_TITLE": "Modifica filiale",
+    "ADD_TITLE": "Aggiungi nuova filiale",
+    "NAME": "Nome",
+    "KANTON": "Cantone",
+    "PHONE": "Telefono",
+    "PLZ": "CAP",
+    "ORT": "Luogo",
+    "EMAIL": "E-mail",
+    "WEBSITE": "Sito web",
+    "OPENING_HOURS": "Orari di apertura",
+    "LATITUDE": "Latitudine",
+    "LONGITUDE": "Longitudine",
+    "IMAGE_URL": "URL dell'immagine",
+    "BACK": "Torna alla panoramica",
+    "SAVE": "Salva",
+    "NO_BRANCH": "Nessuna filiale trovata.",
+    "ACTION_SUCCESS": "Azione riuscita!",
+    "CLOSE": "Chiudi"
+  },
+  "mapPage": {
+    "TITLE": "Le nostre filiali",
+    "DESCRIPTION": "Ecco un testo... i nostri prodotti sono disponibili anche nei negozi specializzati. Trova i punti vendita vicino a te.",
+    "DETAILS_BUTTON": "Visualizza dettagli",
+    "BACK_BUTTON": "Torna alla panoramica"
+  },
+  "navbar": {
+    "HOME": "Homepage",
+    "CHARTS": "Grafici",
+    "BRANCHES": "Filiali"
+  },
+  "chart": {
+    "TITLE": "Panoramica delle filiali",
+    "HAXIS_TITLE": "Luogo",
+    "VAXIS_TITLE": "Numero",
+    "BACK_BUTTON": "Torna alla panoramica"
+  }
+}
