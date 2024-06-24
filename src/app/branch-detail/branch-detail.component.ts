@@ -1,8 +1,8 @@
-import { Component, signal, computed } from '@angular/core';
+import { Component, signal, computed, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
-import { GoogleMapsModule } from '@angular/google-maps';
+import { GoogleMapsModule, MapMarker, MapInfoWindow } from '@angular/google-maps';
 import { BranchService } from '../services/branch.service';
 import { Branch } from '../models';
 import { TranslateModule } from '@ngx-translate/core';
@@ -22,6 +22,9 @@ import { TranslateModule } from '@ngx-translate/core';
   styleUrls: ['./branch-detail.component.scss'],
 })
 export class BranchDetailComponent {
+  @ViewChild(MapInfoWindow) infoWindow: MapInfoWindow | undefined;
+  
+  infoContent = signal<Branch | null>(null);
   branchId = signal<string | null>(null);
   branch = computed<Branch | null>(() => {
     const id = this.branchId();
@@ -34,6 +37,16 @@ export class BranchDetailComponent {
     }
   });
   mapCenter = { lat: 0, lng: 0 };
+
+  openInfoWindow(marker: MapMarker): void {
+    this.infoContent.set(this.branch());
+
+    if (this.infoWindow) {
+      this.infoWindow.open(marker);
+    } else {
+      console.error('InfoWindow is undefined');
+    }
+  }
 
   constructor(
     private branchService: BranchService,

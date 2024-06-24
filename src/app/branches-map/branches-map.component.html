@@ -11,7 +11,7 @@
     [title]="marker.title"
     [options]="marker.options"
     (mapClick)="openInfoWindow(marker.branch, mapMarker)"
-  ></map-marker>
+  />
   <map-info-window>
     <p>{{ infoContent()?.firma }}</p>
     <p>
