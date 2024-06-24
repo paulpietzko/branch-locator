@@ -1,11 +1,23 @@
-import { Component, signal, computed, ViewChild } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {
+  Component,
+  signal,
+  computed,
+  ViewChild,
+  PLATFORM_ID,
+  Inject,
+} from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
-import { GoogleMapsModule, MapMarker, MapInfoWindow } from '@angular/google-maps';
+import {
+  GoogleMapsModule,
+  MapMarker,
+  MapInfoWindow,
+} from '@angular/google-maps';
 import { BranchService } from '../services/branch.service';
 import { Branch } from '../models';
 import { TranslateModule } from '@ngx-translate/core';
+import * as QRCode from 'qrcode';
 
 @Component({
   selector: 'app-branch-detail',
@@ -23,7 +35,8 @@ import { TranslateModule } from '@ngx-translate/core';
 })
 export class BranchDetailComponent {
   @ViewChild(MapInfoWindow) infoWindow: MapInfoWindow | undefined;
-  
+
+  qrCodeUrl: string = '';
   infoContent = signal<Branch | null>(null);
   branchId = signal<string | null>(null);
   branch = computed<Branch | null>(() => {
@@ -48,10 +61,26 @@ export class BranchDetailComponent {
     }
   }
 
+  generateQRCode(): void {
+    const currentUrl = window.location.href;
+    QRCode.toDataURL(currentUrl, { errorCorrectionLevel: 'H' }, (err, url) => {
+      if (err) {
+        console.error('Error generating QR Code: ', err);
+        return;
+      }
+      this.qrCodeUrl = url;
+    });
+  }
+
   constructor(
     private branchService: BranchService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    @Inject(PLATFORM_ID) private platformId: Object
   ) {
+    if (isPlatformBrowser(this.platformId)) {
+      this.generateQRCode();
+    }
+
     this.route.paramMap.subscribe((params) => {
       const id = params.get('id');
       if (id !== null) {

@@ -19,6 +19,9 @@
           branch()?.openingHours
         }}
       </p>
+      <div *ngIf="qrCodeUrl">
+        <img class="qrcode" [src]="qrCodeUrl" alt="QR Code" />
+      </div>
     </div>
     <div class="branch-photo">
       <p *ngIf="!branch()?.imageUrl">
