@@ -15,7 +15,8 @@
     "LOCATIONS": "Luoghi",
     "ITEMS_PER_PAGE": "Articoli per pagina",
     "NEXT_PAGE": "Pagina successiva",
-    "PREVIOUS_PAGE": "Pagina precedente"
+    "PREVIOUS_PAGE": "Pagina precedente",
+    "PAGE_OF": "di"
   },
   "branchDetail": {
     "TITLE": "La nostra filiale a {{ location }}",

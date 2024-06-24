@@ -15,7 +15,8 @@
     "LOCATIONS": "場所",
     "ITEMS_PER_PAGE": "1ページあたりのアイテム数",
     "NEXT_PAGE": "次のページ",
-    "PREVIOUS_PAGE": "前のページ"
+    "PREVIOUS_PAGE": "前のページ",
+    "PAGE_OF": "の"
   },
   "branchDetail": {
     "TITLE": "{{ location }} にある私たちの支店",

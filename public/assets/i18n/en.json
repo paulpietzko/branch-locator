@@ -15,7 +15,8 @@
     "LOCATIONS": "Localities",
     "ITEMS_PER_PAGE": "Items per page",
     "NEXT_PAGE": "Next page",
-    "PREVIOUS_PAGE": "Previous page"
+    "PREVIOUS_PAGE": "Previous page",
+    "PAGE_OF": "of"
   },
   "branchDetail": {
     "TITLE": "Our branch in {{ location }}",

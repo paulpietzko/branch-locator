@@ -15,7 +15,8 @@
     "LOCATIONS": "Lieux",
     "ITEMS_PER_PAGE": "Articles par page",
     "NEXT_PAGE": "Page suivante",
-    "PREVIOUS_PAGE": "Page précédente"
+    "PREVIOUS_PAGE": "Page précédente",
+    "PAGE_OF": "de"
   },
   "branchDetail": {
     "TITLE": "Notre succursale à {{ location }}",

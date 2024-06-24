@@ -15,7 +15,8 @@
     "LOCATIONS": "地点",
     "ITEMS_PER_PAGE": "每页项目",
     "NEXT_PAGE": "下一页",
-    "PREVIOUS_PAGE": "上一页"
+    "PREVIOUS_PAGE": "上一页",
+    "PAGE_OF": "共"
   },
   "branchDetail": {
     "TITLE": "我们在 {{ location }} 的分店",

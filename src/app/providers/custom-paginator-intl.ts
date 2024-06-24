@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class CustomMatPaginatorIntl extends MatPaginatorIntl {
+  pageOf= '';
   constructor(private translate: TranslateService) {
     super(); // Calling constructor of superclass -> MatPaginatorIntl
     this.getAndInitTranslations();
@@ -18,11 +19,13 @@ export class CustomMatPaginatorIntl extends MatPaginatorIntl {
         'branchTable.ITEMS_PER_PAGE',
         'branchTable.NEXT_PAGE',
         'branchTable.PREVIOUS_PAGE',
+        'branchTable.PAGE_OF'
       ])
       .subscribe((translation) => {
         this.itemsPerPageLabel = translation['branchTable.ITEMS_PER_PAGE'];
         this.nextPageLabel = translation['branchTable.NEXT_PAGE'];
         this.previousPageLabel = translation['branchTable.PREVIOUS_PAGE'];
+        this.pageOf = translation['branchTable.PAGE_OF'];
         this.changes.next(); // Notify about the changes
       });
   }
@@ -33,6 +36,6 @@ export class CustomMatPaginatorIntl extends MatPaginatorIntl {
     }
     const amountPages = Math.ceil(length / pageSize);
     const currentPage = page + 1;
-    return `${currentPage} von ${amountPages}`;
+    return `${currentPage} ${this.pageOf} ${amountPages}`;
   };
 }
