@@ -7,6 +7,7 @@
       matInput
       formControlName="search"
       placeholder="{{ 'branchTable.SEARCH_PLACEHOLDER' | translate }}"
+      (input)="applyFilter()"
     />
   </mat-form-field>
   <mat-form-field appearance="fill">

@@ -1,4 +1,4 @@
-import { Component, computed, signal, effect, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, computed, effect, ViewChild, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
@@ -58,6 +58,17 @@ export class BranchesTableComponent implements AfterViewInit {
       this.uniqueLocations = this.getUniqueLocations(this.branches());
       this.applyFilter();
     });
+
+    this.dataSource.filterPredicate = (data: Branch, filter: string): boolean => {
+      const filters = JSON.parse(filter);
+      const searchFilter = filters.search.toLowerCase();
+      const locationFilter = filters.locations;
+
+      const matchesSearch = !searchFilter || data.name.toLowerCase().includes(searchFilter);
+      const matchesLocation = !locationFilter.length || locationFilter.includes(data.location);
+
+      return matchesSearch && matchesLocation;
+    };
   }
 
   ngAfterViewInit() {
@@ -72,18 +83,11 @@ export class BranchesTableComponent implements AfterViewInit {
   }
 
   applyFilter() {
-    const filterValue = this.filterForm.get('search')?.value.trim().toLowerCase();
-    const selectedLocations = this.filterForm.get('locations')?.value;
-
-    this.dataSource.filter = filterValue;
-
-    if (selectedLocations.length > 0) {
-      this.dataSource.data = this.branches().filter(branch =>
-        selectedLocations.includes(branch.location)
-      );
-    } else {
-      this.dataSource.data = this.branches();
-    }
+    const filterValue = {
+      search: this.filterForm.get('search')?.value.trim() || '',
+      locations: this.filterForm.get('locations')?.value || []
+    };
+    this.dataSource.filter = JSON.stringify(filterValue);
 
     if (this.paginator) {
       this.dataSource.paginator = this.paginator;
