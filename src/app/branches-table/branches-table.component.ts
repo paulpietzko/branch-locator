@@ -14,6 +14,7 @@ import { Branch } from '../models';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { CustomMatPaginatorIntl } from '../providers/custom-paginator-intl';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-branches-table',
@@ -29,40 +30,33 @@ import { CustomMatPaginatorIntl } from '../providers/custom-paginator-intl';
     MatCheckboxModule,
     RouterModule,
     TranslateModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    ReactiveFormsModule
   ],
-  providers: [BranchService,{ provide: MatPaginatorIntl, useClass: CustomMatPaginatorIntl }],
+  providers: [BranchService, { provide: MatPaginatorIntl, useClass: CustomMatPaginatorIntl }],
   templateUrl: './branches-table.component.html',
   styleUrls: ['./branches-table.component.scss'],
 })
 export class BranchesTableComponent implements AfterViewInit {
-  
   @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
-  
-  displayedColumns: string[] = [
-    'sortiment',
-    'firma',
-    'plz',
-    'ort',
-    'kanton',
-    'details',
-  ];
 
-  branches = computed(() => this.branchService.getBranches()); // Computes and saves branches data from BranchService
-  
-  // Data source for table
+  displayedColumns: string[] = ['range', 'name', 'postCode', 'location', 'canton', 'details'];
+  branches = computed(() => this.branchService.getBranches());
   dataSource = new MatTableDataSource<Branch>([]);
+  filterForm: FormGroup;
 
-  // Filter Options
-  selectedLocations: string[] = [];
   uniqueLocations: string[] = [];
 
-  constructor(private branchService: BranchService) {
-    // Updates data source and unique locations when branches change
+  constructor(private branchService: BranchService, private fb: FormBuilder) {
+    this.filterForm = this.fb.group({
+      search: [''],
+      locations: [[]]
+    });
+
     effect(() => {
-      const branches = this.branches();
-      this.dataSource.data = branches;
-      this.uniqueLocations = this.getUniqueLocations(branches);
+      this.dataSource.data = this.branches();
+      this.uniqueLocations = this.getUniqueLocations(this.branches());
+      this.applyFilter();
     });
   }
 
@@ -73,23 +67,19 @@ export class BranchesTableComponent implements AfterViewInit {
   }
 
   getUniqueLocations(branches: Branch[]): string[] {
-    const locations = branches.map((branch) => branch.ort);
+    const locations = branches.map(branch => branch.location);
     return [...new Set(locations)];
   }
 
-  applyFilter(event?: Event) {
-    let filterValue = '';
-    if (event) {
-      filterValue = (event.target as HTMLInputElement).value
-        .trim()
-        .toLowerCase();
-    }
+  applyFilter() {
+    const filterValue = this.filterForm.get('search')?.value.trim().toLowerCase();
+    const selectedLocations = this.filterForm.get('locations')?.value;
 
     this.dataSource.filter = filterValue;
 
-    if (this.selectedLocations.length > 0) {
-      this.dataSource.data = this.branches().filter((branch) =>
-        this.selectedLocations.includes(branch.ort)
+    if (selectedLocations.length > 0) {
+      this.dataSource.data = this.branches().filter(branch =>
+        selectedLocations.includes(branch.location)
       );
     } else {
       this.dataSource.data = this.branches();

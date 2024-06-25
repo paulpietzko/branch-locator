@@ -1,10 +1,10 @@
 <div class="detail-page" *ngIf="branch()">
-  <h3>{{ "branchDetail.TITLE" | translate : { location: branch()?.ort } }}</h3>
+  <h3>{{ "branchDetail.TITLE" | translate : { location: branch()?.location } }}</h3>
   <div class="branch-info">
     <div class="info-text">
       <p>
-        {{ branch()?.firma }}<br />{{ branch()?.plz }} {{ branch()?.ort }}
-        {{ branch()?.kanton }}
+        {{ branch()?.name }}<br />{{ branch()?.postCode }} {{ branch()?.location }}
+        {{ branch()?.canton }}
       </p>
       <p>
         {{ "branchDetail.PHONE" | translate }}: {{ branch()?.phone }}<br />{{
@@ -40,13 +40,13 @@
       [position]="mapCenter"
       #mapMarker="mapMarker"
       (mapClick)="openInfoWindow(mapMarker)"
-    />
+    ></map-marker>
     <map-info-window>
-      <p>{{ infoContent()?.firma }}</p>
+      <p>{{ infoContent()?.name }}</p>
       <p>
-        {{ infoContent()?.plz }}
-        {{ infoContent()?.kanton }}
-        {{ infoContent()?.ort }}
+        {{ infoContent()?.postCode }}
+        {{ infoContent()?.canton }}
+        {{ infoContent()?.location }}
       </p>
     </map-info-window>
   </google-map>
@@ -65,4 +65,7 @@
 </div>
 <div *ngIf="!branch()">
   {{ "branchDetail.NO_BRANCH" | translate }}
+  <a routerLink="/"
+    ><button mat-button>← {{ "branchDetail.BACK" | translate }}</button></a
+  >
 </div>

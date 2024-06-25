@@ -34,7 +34,7 @@ export class BranchesMapComponent {
   zoom = 8;
   markers: BranchMapMarker[] = [];
   // Signal for currently selected branch
-  infoContent = signal<Branch | null>(null);
+  selectedBranch = signal<Branch | null>(null);
 
 
   constructor(private branchService: BranchService, private router: Router) {
@@ -56,7 +56,7 @@ export class BranchesMapComponent {
           const marker: BranchMapMarker = {
             label: '',
             position: { lat: branch.lat, lng: branch.lng },
-            title: branch.firma,
+            title: branch.name,
             options: { animation: google.maps.Animation.DROP },
             branch: branch,
           };
@@ -72,7 +72,7 @@ export class BranchesMapComponent {
   }
 
   openInfoWindow(branch: Branch, marker: MapMarker): void {
-    this.infoContent.set(branch); // Set the selected branch
+    this.selectedBranch.set(branch); // Set the selected branch
 
     if (this.infoWindow) {
       this.infoWindow.open(marker);

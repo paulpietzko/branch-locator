@@ -13,13 +13,13 @@
     (mapClick)="openInfoWindow(marker.branch, mapMarker)"
   />
   <map-info-window>
-    <p>{{ infoContent()?.firma }}</p>
+    <p>{{ selectedBranch()?.name }}</p>
     <p>
-      {{ infoContent()?.plz }}
-      {{ infoContent()?.kanton }}
-      {{ infoContent()?.ort }}
+      {{ selectedBranch()?.postCode }}
+      {{ selectedBranch()?.canton }}
+      {{ selectedBranch()?.location }}
     </p>
-    <a [routerLink]="['/filialen/detail', infoContent()?.id]">
+    <a [routerLink]="['/filialen/detail', selectedBranch()?.id]">
       <button mat-button>{{ 'mapPage.DETAILS_BUTTON' | translate }}</button>
     </a>
   </map-info-window>

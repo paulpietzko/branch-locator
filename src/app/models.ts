@@ -1,10 +1,10 @@
 export interface Branch {
   id?: string;
-  plz: string;
-  firma: string;
-  ort: string;
+  postCode: string;
+  name: string;
+  location: string;
   email: string;
-  kanton: string;
+  canton: string;
   website: string;
   openingHours: string;
   phone: string;

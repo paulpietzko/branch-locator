@@ -97,27 +97,24 @@ export class BranchDetailComponent {
     });
   }
 
-  async deleteBranch(): Promise<void> {
+  deleteBranch(): void {
     const id = this.branchId();
-    if (id) {
-      try {
-        await this.branchService.deleteBranch(id);
-        this.translate.get(['branchDetail.DELETE_SUCCESS', 'branchDetail.CLOSE']).subscribe(translations => {
-          this.snackBar.open(translations['branchDetail.DELETE_SUCCESS'], translations['branchDetail.CLOSE'], {
+    if (!id) return;
+
+    this.branchService.deleteBranch(id);
+
+    this.translate
+      .get(['branchDetail.DELETE_SUCCESS', 'branchDetail.CLOSE'])
+      .subscribe((translations) => {
+        this.snackBar.open(
+          translations['branchDetail.DELETE_SUCCESS'],
+          translations['branchDetail.CLOSE'],
+          {
             duration: 5000,
-          });
-        });
-        this.router.navigate(['/']); // Navigate back to the list after deletion
-      } catch (error) {
-        console.error('Error deleting branch:', error);
-        this.translate.get(['branchDetail.DELETE_ERROR', 'branchDetail.CLOSE']).subscribe(translations => {
-          this.snackBar.open(translations['branchDetail.DELETE_ERROR'], translations['branchDetail.CLOSE'], {
-            duration: 5000,
-          });
-        });
-      }
-    } else {
-      console.error('No branch ID to delete');
-    }
+          }
+        );
+      });
+
+      // TODO: No error message, because of missing return from service delete
   }
 }

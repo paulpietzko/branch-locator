@@ -3,23 +3,23 @@
 <form [formGroup]="branchForm" (ngSubmit)="onSubmit()">
   <mat-form-field>
     <mat-label>{{ 'branchForm.NAME' | translate }}</mat-label>
-    <input matInput formControlName="firma" required />
+    <input matInput formControlName="name" required />
   </mat-form-field>
   <mat-form-field>
-    <mat-label>{{ 'branchForm.KANTON' | translate }}</mat-label>
-    <input matInput formControlName="kanton" required />
+    <mat-label>{{ 'branchForm.CANTON' | translate }}</mat-label>
+    <input matInput formControlName="canton" required />
   </mat-form-field>
   <mat-form-field>
     <mat-label>{{ 'branchForm.PHONE' | translate }}</mat-label>
     <input matInput formControlName="phone" required />
   </mat-form-field>
   <mat-form-field>
-    <mat-label>{{ 'branchForm.PLZ' | translate }}</mat-label>
-    <input matInput formControlName="plz" required />
+    <mat-label>{{ 'branchForm.POSTCODE' | translate }}</mat-label>
+    <input matInput formControlName="postCode" required />
   </mat-form-field>
   <mat-form-field>
-    <mat-label>{{ 'branchForm.ORT' | translate }}</mat-label>
-    <input matInput formControlName="ort" required />
+    <mat-label>{{ 'branchForm.LOCATION' | translate }}</mat-label>
+    <input matInput formControlName="location" required />
   </mat-form-field>
   <mat-form-field>
     <mat-label>{{ 'branchForm.EMAIL' | translate }}</mat-label>
@@ -56,6 +56,3 @@
     </button>
   </div>
 </form>
-<div *ngIf="!branch()">
-  {{ 'branchForm.NO_BRANCH' | translate }}
-</div>

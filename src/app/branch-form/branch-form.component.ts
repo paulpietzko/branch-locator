@@ -65,8 +65,8 @@ export class BranchFormComponent {
   // Create form group with validation rules
   createBranchForm(): FormGroup {
     return this.fb.group({
-      firma: ['', Validators.required],
-      kanton: ['', Validators.required],
+      name: ['', Validators.required],
+      canton: ['', Validators.required],
       phone: [
         '',
         [
@@ -74,8 +74,8 @@ export class BranchFormComponent {
           Validators.pattern(/^\d{3}\s\d{3}\s\d{2}\s\d{2}$/),// Pattern for phone number: 123 456 78 90
         ],
       ],
-      plz: ['', Validators.required],
-      ort: ['', Validators.required],
+      postCode: ['', Validators.required],
+      location: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       website: [
         '',

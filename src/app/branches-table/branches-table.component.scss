@@ -1,11 +1,76 @@
 :host {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    width: 80%;
-    margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+  margin: 2rem auto;
+}
 
-    .filters {
-        display: flex;
+h3 {
+  margin-bottom: 1rem;
+  font-size: 1.75rem;
+}
+
+p {
+  margin-bottom: 2rem;
+  font-size: 1.25rem;
+  color: #555;
+}
+
+.filters {
+  display: flex;
+  width: 100%;
+  margin-bottom: 1.5rem;
+
+  mat-form-field {
+    flex: 1;
+    margin-right: 1rem;
+
+    &:last-child {
+      margin-right: 0;
     }
+  }
+}
+
+table {
+  width: 100%;
+  margin-bottom: 1.5rem;
+
+  th.mat-header-cell {
+    font-weight: bold;
+  }
+
+  td.mat-cell {
+    font-size: 1rem;
+  }
+
+  mat-icon {
+    vertical-align: middle;
+  }
+}
+
+mat-paginator {
+  display: flex;
+  justify-content: center;
+  border-radius: 50px;
+}
+
+.action-bar {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+  margin-top: 1rem;
+
+  .map-button,
+  .add-button {
+    button {
+      font-size: 1rem;
+    }
+  }
+
+  mat-paginator {
+    flex: 1;
+    margin: 0 1rem;
+  }
 }

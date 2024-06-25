@@ -4,35 +4,34 @@
   align-items: flex-start;
   width: 40%;
   margin: 0 auto;
+}
+h3 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
 
-  h3 {
-    font-size: 24px;
-    margin-bottom: 20px;
+form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  mat-form-field {
+    width: 100%;
+    margin-bottom: 15px;
   }
 
-  form {
+  .container {
     display: flex;
-    flex-direction: column;
-    width: 100%;
+  }
 
-    mat-form-field {
-      width: 100%;
-      margin-bottom: 15px;
-    }
+  .fetchBranchess {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
 
-    .container {
-      display: flex;
-    }
-
-    .buttons {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 20px;
-
-      button {
-        font-size: 16px;
-        font-weight: bold;
-      }
+    fetchBranches {
+      font-size: 16px;
+      font-weight: bold;
     }
   }
 }

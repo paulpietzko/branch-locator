@@ -1,96 +1,76 @@
 import { Injectable, signal } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Branch } from '../models';
-import { catchError } from 'rxjs/operators';
-import { lastValueFrom, throwError } from 'rxjs';
-import { SelectControlValueAccessor } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BranchService {
-  private dataUrl = ''; // Empty string to leverage proxy configuration
-  private _branches = signal<Branch[]>([]);
-  private _error = signal<string | null>(null);
+  private dataUrl = ''; // TODO: configure CORS instead of using proxy
+  private branchesSignal = signal<Branch[]>([]);
 
   constructor(private http: HttpClient) {
-    this.fetchData();
+    this.fetchBranches();
   }
 
-  private async fetchData(): Promise<void> {
-    try {
-      const data = await lastValueFrom( // lastValueFrom  converts Observable to Promise for async/await usage
-        this.http.get<Branch[]>(`${this.dataUrl}/api/Branches`).pipe(
-          catchError(this.handleError)
-        )
-      );
-      const validatedData = data.map((branch) => ({
-        ...branch,
-        lat: branch.lat,
-        lng: branch.lng,
-        imageUrl: branch.imageUrl || '',
-      }));
-      this._branches.set(validatedData);
-    } catch (error) {
-      this._error.set(error instanceof Error ? error.message : 'Unknown error');
-    }
+  private fetchBranches() {
+    this.http.get<Branch[]>(`${this.dataUrl}/api/Branches`).subscribe({
+      next: (validatedData) => {
+        this.branchesSignal.set(validatedData);
+      },
+      error: (error) => {
+        console.error(error);
+        this.branchesSignal.set([]);
+      },
+    });
   }
 
-  getBranches(): Branch[] {
-    return this._branches();
+  getBranches() {
+    return this.branchesSignal();
   }
 
   getBranchById(id: string): Branch | null {
-    return this._branches().find((branch) => branch.id === id) || null;
+    return this.branchesSignal().find((branch) => branch.id === id) || null;
   }
 
-  async deleteBranch(id: string): Promise<void> {
-    try {
-      await lastValueFrom(
-        this.http.delete(`${this.dataUrl}/api/Branches/${id}`).pipe(
-          catchError(this.handleError)
-        )
-      );
-      const updatedBranches = this._branches().filter((branch) => branch.id !== id);
-      this._branches.set(updatedBranches);
-    } catch (error) {
-      this._error.set(error instanceof Error ? error.message : 'Unknown error');
-    }
+  deleteBranch(id: string) {
+    this.http.delete<void>(`${this.dataUrl}/api/Branches/${id}`)
+    .subscribe({
+      next: () => {
+        this.fetchBranches();
+      },
+      error: (error) => {
+        console.error(error);
+      },
+    });
   }
 
-  async updateBranch(updatedBranch: Branch): Promise<void> {
-    try {
-      const response = await lastValueFrom(
-        this.http.put<Branch>(`${this.dataUrl}/api/Branches/${updatedBranch.id}`, updatedBranch).pipe(
-          catchError(this.handleError)
-        )
-      );
-      const branches = this._branches().map((branch) =>
-        branch.id === response.id ? response : branch
-      );
-      this._branches.set(branches);
-    } catch (error) {
-      this._error.set(error instanceof Error ? error.message : 'Unknown error');
-    }
-  }
-  
-  async addBranch(newBranch: Branch): Promise<void> {
-    try {
-      const response = await lastValueFrom(
-        this.http.post<Branch>(`${this.dataUrl}/api/Branches`, newBranch).pipe(
-          catchError(this.handleError)
-        )
-      );
-      this._branches.set([...this._branches(), response]);
-    } catch (error) {
-      this._error.set(error instanceof Error ? error.message : 'Unknown error');
-    }
+  updateBranch(updatedBranch: Branch) {
+    this.http
+      .put<Branch>(
+        `${this.dataUrl}/api/Branches/${updatedBranch.id}`,
+        updatedBranch
+      )
+      .subscribe({
+        next: () => {
+          this.fetchBranches();
+        },
+        error: (error) => {
+          console.error(error);
+        },
+      });
   }
 
-  private handleError(error: HttpErrorResponse): ReturnType<typeof throwError> {
-    this._error.set(error.message);
-    return throwError(
-      () => new Error('Something bad happened; please try again later.')
-    );
+  addBranch(newBranch: Branch) {
+    this.http
+      .post<Branch>(`${this.dataUrl}/api/Branches`, newBranch)
+      .subscribe({
+        next: () => {
+          this.fetchBranches();
+        },
+        error: (error) => {
+          console.error(error);
+        },
+      });
   }
 }
