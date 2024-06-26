@@ -6,7 +6,7 @@ import { Branch } from '../models';
   providedIn: 'root',
 })
 export class BranchService {
-  private dataUrl = 'https://localhost:7089';
+  private dataUrl = 'http://localhost:5172';
   private branchesSignal = signal<Branch[]>([]);
 
   constructor(private http: HttpClient) {
