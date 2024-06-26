@@ -6,7 +6,7 @@ import { Branch } from '../models';
   providedIn: 'root',
 })
 export class BranchService {
-  private dataUrl = ''; // TODO: configure CORS instead of using proxy
+  private dataUrl = 'https://localhost:7089';
   private branchesSignal = signal<Branch[]>([]);
 
   constructor(private http: HttpClient) {

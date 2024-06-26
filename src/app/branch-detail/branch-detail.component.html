@@ -24,12 +24,12 @@
       </div>
     </div>
     <div class="branch-photo">
-      <p *ngIf="!branch()?.imageUrl">
+      <p *ngIf="!branch()?.base64Image">
         {{ "branchDetail.NO_PHOTO" | translate }}
       </p>
       <img
-        *ngIf="branch()?.imageUrl"
-        [src]="branch()?.imageUrl"
+        *ngIf="branch()?.base64Image"
+        [src]="branch()?.base64Image"
         alt="{{ 'branchDetail.PHOTO_ALT' | translate }}"
       />
     </div>

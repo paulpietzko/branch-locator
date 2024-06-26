@@ -28,12 +28,13 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 })
 export class BranchFormComponent {
   branchId = signal<string | null>(null);
-  isEditMode = computed(() => this.branchId() !== null);  // Computed property to determine if it's edit or add mode
+  isEditMode = computed(() => this.branchId() !== null);
   branch = computed(() => {
     const id = this.branchId();
-    return id !== null ? this.branchService.getBranchById(id) : null; // Fetch branch data if ID is available
+    return id !== null ? this.branchService.getBranchById(id) : null;
   });
   branchForm: FormGroup;
+  base64Image: string | null = null;
 
   constructor(
     private branchService: BranchService,
@@ -44,16 +45,15 @@ export class BranchFormComponent {
   ) {
     this.branchForm = this.createBranchForm();
 
-    // Populates form fields when branch data is available
     effect(() => {
       const branch = this.branch();
       if (branch) {
         this.branchForm.patchValue(branch);
         this.branchForm.markAllAsTouched();
+        this.base64Image = branch.base64Image || null;
       }
     });
 
-    // Subscribe to route parameters to get the branch ID
     this.route.paramMap.subscribe((params) => {
       const id = params.get('id');
       if (id !== null) {
@@ -62,7 +62,6 @@ export class BranchFormComponent {
     });
   }
 
-  // Create form group with validation rules
   createBranchForm(): FormGroup {
     return this.fb.group({
       name: ['', Validators.required],
@@ -71,7 +70,7 @@ export class BranchFormComponent {
         '',
         [
           Validators.required,
-          Validators.pattern(/^\d{3}\s\d{3}\s\d{2}\s\d{2}$/),// Pattern for phone number: 123 456 78 90
+          // Validators.pattern(/^\d{3}\s\d{3}\s\d{2}\s\d{2}$/),
         ],
       ],
       postCode: ['', Validators.required],
@@ -81,30 +80,39 @@ export class BranchFormComponent {
         '',
         [
           Validators.required,
-          Validators.pattern(/https?:\/\/[^\s$.?#].[^\s]*/), // Pattern for URL: https://www.
+          // Validators.pattern(/https?:\/\/[^\s$.?#].[^\s]*/),
         ],
       ],
       openingHours: ['', Validators.required],
       lat: [null, Validators.required],
       lng: [null, Validators.required],
-      imageUrl: [''],
     });
+  }
+
+  onFileChange(event: any): void {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        this.base64Image = e.target?.result as string;
+      };
+      reader.readAsDataURL(file);
+    }
   }
 
   onSubmit(): void {
     if (this.branchForm.valid) {
-      const branchData = { ...this.branchForm.value }; // Get values from fom data
+      const branchData = { ...this.branchForm.value, base64Image: this.base64Image };
 
       if (this.isEditMode()) {
-        const updatedBranch = { ...this.branch(), ...branchData }; // Merge existing and new data
+        const updatedBranch = { ...this.branch(), ...branchData };
         this.branchService.updateBranch(updatedBranch);
       } else {
-        const newBranch = { ...branchData};
+        const newBranch = { ...branchData };
         this.branchService.addBranch(newBranch);
       }
 
-      // Shows snackbar with translations
-      this.translate.get(['branchForm.ACTION_SUCCESS', 'branchForm.CLOSE']).subscribe(translations => {
+      this.translate.get(['branchForm.ACTION_SUCCESS', 'branchForm.CLOSE']).subscribe((translations) => {
         this.snackBar.open(translations['branchForm.ACTION_SUCCESS'], translations['branchForm.CLOSE'], {
           duration: 5000,
         });

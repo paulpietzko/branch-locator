@@ -10,7 +10,7 @@ export interface Branch {
   phone: string;
   lat: number;
   lng: number;
-  imageUrl?: string; 
+  base64Image?: string;
 }
 
 export interface BranchMapMarker {

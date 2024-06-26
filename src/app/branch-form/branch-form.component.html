@@ -43,10 +43,8 @@
       <input matInput formControlName="lng" required />
     </mat-form-field>
   </div>
-  <mat-form-field>
     <mat-label>{{ 'branchForm.IMAGE_URL' | translate }}</mat-label>
-    <input matInput formControlName="imageUrl" />
-  </mat-form-field>
+    <input type="file" formControlName="image" (change)="onFileChange($event)" />
   <div class="buttons">
     <a [routerLink]="['/']">
       <button mat-button type="button">← {{ 'branchForm.BACK' | translate }}</button>
