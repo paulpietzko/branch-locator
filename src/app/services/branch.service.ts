@@ -34,8 +34,7 @@ export class BranchService {
   }
 
   deleteBranch(id: string) {
-    this.http.delete<void>(`${this.dataUrl}/api/Branches/${id}`)
-    .subscribe({
+    this.http.delete<void>(`${this.dataUrl}/api/Branches/${id}`).subscribe({
       next: () => {
         this.fetchBranches();
       },
@@ -45,12 +44,9 @@ export class BranchService {
     });
   }
 
-  updateBranch(updatedBranch: Branch) {
+  updateBranch(id: string, branchData: FormData) {
     this.http
-      .put<Branch>(
-        `${this.dataUrl}/api/Branches/${updatedBranch.id}`,
-        updatedBranch
-      )
+      .put<Branch>(`${this.dataUrl}/api/Branches/${id}`, branchData)
       .subscribe({
         next: () => {
           this.fetchBranches();
@@ -61,9 +57,9 @@ export class BranchService {
       });
   }
 
-  addBranch(newBranch: Branch) {
+  addBranch(branchData: FormData) {
     this.http
-      .post<Branch>(`${this.dataUrl}/api/Branches`, newBranch)
+      .post<Branch>(`${this.dataUrl}/api/Branches`, branchData)
       .subscribe({
         next: () => {
           this.fetchBranches();

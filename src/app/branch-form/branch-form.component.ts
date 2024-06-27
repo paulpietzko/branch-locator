@@ -34,7 +34,7 @@ export class BranchFormComponent {
     return id !== null ? this.branchService.getBranchById(id) : null;
   });
   branchForm: FormGroup;
-  base64Image: string | null = null;
+  selectedFile: File | null = null;
 
   constructor(
     private branchService: BranchService,
@@ -50,7 +50,6 @@ export class BranchFormComponent {
       if (branch) {
         this.branchForm.patchValue(branch);
         this.branchForm.markAllAsTouched();
-        this.base64Image = branch.base64Image || null;
       }
     });
 
@@ -86,30 +85,37 @@ export class BranchFormComponent {
       openingHours: ['', Validators.required],
       lat: [null, Validators.required],
       lng: [null, Validators.required],
+      image: [null]
     });
   }
 
   onFileChange(event: any): void {
     const file = event.target.files[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        this.base64Image = e.target?.result as string;
-      };
-      reader.readAsDataURL(file);
+      this.selectedFile = file;
     }
   }
 
   onSubmit(): void {
     if (this.branchForm.valid) {
-      const branchData = { ...this.branchForm.value, base64Image: this.base64Image };
+      const branchData = this.branchForm.value;
+      const formData = new FormData();
+
+      for (const key in branchData) {
+        if (branchData.hasOwnProperty(key)) {
+          formData.append(key, branchData[key]);
+        }
+      }
+
+      if (this.selectedFile) {
+        formData.append('image', this.selectedFile);
+      }
 
       if (this.isEditMode()) {
         const updatedBranch = { ...this.branch(), ...branchData };
-        this.branchService.updateBranch(updatedBranch);
+        this.branchService.updateBranch(updatedBranch.id, formData);
       } else {
-        const newBranch = { ...branchData };
-        this.branchService.addBranch(newBranch);
+        this.branchService.addBranch(formData);
       }
 
       this.translate.get(['branchForm.ACTION_SUCCESS', 'branchForm.CLOSE']).subscribe((translations) => {

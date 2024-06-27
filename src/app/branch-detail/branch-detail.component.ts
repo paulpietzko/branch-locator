@@ -114,7 +114,5 @@ export class BranchDetailComponent {
           }
         );
       });
-
-      // TODO: No error message, because of missing return from service delete
   }
 }
