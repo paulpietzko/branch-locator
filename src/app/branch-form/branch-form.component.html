@@ -1,9 +1,10 @@
 <h3 *ngIf="isEditMode(); else addMode">
   {{ "branchForm.EDIT_TITLE" | translate }}
 </h3>
-<ng-template #addMode
-  ><h3>{{ "branchForm.ADD_TITLE" | translate }}</h3></ng-template
->
+<ng-template #addMode>
+  <h3>{{ "branchForm.ADD_TITLE" | translate }}</h3>
+</ng-template>
+
 <form [formGroup]="branchForm" (ngSubmit)="onSubmit()">
   <mat-form-field>
     <mat-label>{{ "branchForm.NAME" | translate }}</mat-label>
