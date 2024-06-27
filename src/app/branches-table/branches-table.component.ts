@@ -1,4 +1,10 @@
-import { Component, computed, effect, ViewChild, AfterViewInit } from '@angular/core';
+import {
+  Component,
+  computed,
+  effect,
+  ViewChild,
+  AfterViewInit,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
@@ -17,7 +23,8 @@ import { CustomMatPaginatorIntl } from '../providers/custom-paginator-intl';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDividerModule } from '@angular/material/divider';
-
+import { MatDialog } from '@angular/material/dialog';
+import { BranchFormComponent } from '../branch-form/branch-form.component';
 @Component({
   selector: 'app-branches-table',
   standalone: true,
@@ -35,26 +42,41 @@ import { MatDividerModule } from '@angular/material/divider';
     MatPaginatorModule,
     ReactiveFormsModule,
     MatMenuModule,
-    MatDividerModule
+    MatDividerModule,
   ],
-  providers: [BranchService, { provide: MatPaginatorIntl, useClass: CustomMatPaginatorIntl }],
+  providers: [
+    BranchService,
+    { provide: MatPaginatorIntl, useClass: CustomMatPaginatorIntl },
+  ],
   templateUrl: './branches-table.component.html',
   styleUrls: ['./branches-table.component.scss'],
 })
 export class BranchesTableComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
 
-  displayedColumns: string[] = ['range', 'name', 'postCode', 'location', 'canton', 'edit'];
+  displayedColumns: string[] = [
+    'range',
+    'name',
+    'postCode',
+    'location',
+    'canton',
+    'edit',
+  ];
   branches = computed(() => this.branchService.getBranches());
   dataSource = new MatTableDataSource<Branch>([]);
   filterForm: FormGroup;
 
   uniqueLocations: string[] = [];
 
-  constructor(private branchService: BranchService, private fb: FormBuilder, private router: Router) {
+  constructor(
+    private branchService: BranchService,
+    private fb: FormBuilder,
+    private router: Router,
+    public dialog: MatDialog
+  ) {
     this.filterForm = this.fb.group({
       search: [''],
-      locations: [[]]
+      locations: [[]],
     });
 
     effect(() => {
@@ -63,13 +85,18 @@ export class BranchesTableComponent implements AfterViewInit {
       this.applyFilter();
     });
 
-    this.dataSource.filterPredicate = (data: Branch, filter: string): boolean => {
+    this.dataSource.filterPredicate = (
+      data: Branch,
+      filter: string
+    ): boolean => {
       const filters = JSON.parse(filter);
       const searchFilter = filters.search.toLowerCase();
       const locationFilter = filters.locations;
 
-      const matchesSearch = !searchFilter || data.name.toLowerCase().includes(searchFilter);
-      const matchesLocation = !locationFilter.length || locationFilter.includes(data.location);
+      const matchesSearch =
+        !searchFilter || data.name.toLowerCase().includes(searchFilter);
+      const matchesLocation =
+        !locationFilter.length || locationFilter.includes(data.location);
 
       return matchesSearch && matchesLocation;
     };
@@ -79,15 +106,10 @@ export class BranchesTableComponent implements AfterViewInit {
     this.router.navigate(['/filialen/detail', id]);
   }
 
-  editBranch(id: string) {
-    this.router.navigate(['/filialen/edit', id]);
-  }
-
   deleteBranch(id: string) {
-    if (confirm('Are you sure you want to delete this branch?')) {
-      this.branchService.deleteBranch(id);
-      this.branchService.getBranches();
-    }
+    // TODO: Ask if ok?
+    this.branchService.deleteBranch(id);
+    this.branchService.getBranches();
   }
 
   ngAfterViewInit() {
@@ -97,19 +119,37 @@ export class BranchesTableComponent implements AfterViewInit {
   }
 
   getUniqueLocations(branches: Branch[]): string[] {
-    const locations = branches.map(branch => branch.location);
+    const locations = branches.map((branch) => branch.location);
     return [...new Set(locations)];
   }
 
   applyFilter() {
     const filterValue = {
       search: this.filterForm.get('search')?.value.trim() || '',
-      locations: this.filterForm.get('locations')?.value || []
+      locations: this.filterForm.get('locations')?.value || [],
     };
     this.dataSource.filter = JSON.stringify(filterValue);
 
     if (this.paginator) {
       this.dataSource.paginator = this.paginator;
     }
+  }
+
+  editBranch(id: string) {
+    const dialogRef = this.dialog.open(BranchFormComponent, {
+      width: '500px',
+      data: { id },
+    });
+
+      // TODO Update Table
+  }
+
+  addBranch() {
+    const dialogRef = this.dialog.open(BranchFormComponent, {
+      width: '500px',
+      data: {},
+    });
+
+    // TODO Update Table
   }
 }

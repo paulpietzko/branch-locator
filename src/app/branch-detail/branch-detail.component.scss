@@ -108,37 +108,6 @@ google-map {
   margin-left: 10px;
 }
 
-.buttons a button,
-.buttons button.mat-button {
-  background: #1976d2;
-  color: #fff;
-  font-weight: 500;
-  padding: 0.5rem 1rem;
-}
-
-.buttons a button:hover,
-.buttons button.mat-button:hover {
-  background: #155a9a;
-}
-
-.mat-button.mat-primary {
-  background: #1976d2;
-}
-
-.mat-button.mat-accent {
-  background: #e91e63;
-}
-
-.mat-button.mat-warn {
-  background: #f44336;
-}
-
-.mat-button.mat-primary:hover,
-.mat-button.mat-accent:hover,
-.mat-button.mat-warn:hover {
-  opacity: 0.9;
-}
-
 
 :host h3 {
   margin-bottom: 1rem;

@@ -11,16 +11,8 @@ export const routes: Routes = [
     loadComponent: () => import('./branch-detail/branch-detail.component').then(m => m.BranchDetailComponent)
   },
   {
-    path: 'filialen/edit/:id',
-    loadComponent: () => import('./branch-form/branch-form.component').then(m => m.BranchFormComponent)
-  },
-  {
     path: 'filialen/karte',
     loadComponent: () => import('./branches-map/branches-map.component').then(m => m.BranchesMapComponent)
-  },
-  {
-    path: 'filialen/add',
-    loadComponent: () => import('./branch-form/branch-form.component').then(m => m.BranchFormComponent)
   },
   {
     path: 'filialen/charts',

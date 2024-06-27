@@ -62,13 +62,6 @@ mat-paginator {
   justify-content: space-between;
   margin-top: 1rem;
 
-  .map-button,
-  .add-button {
-    button {
-      font-size: 1rem;
-    }
-  }
-
   mat-paginator {
     flex: 1;
     margin: 0 1rem;

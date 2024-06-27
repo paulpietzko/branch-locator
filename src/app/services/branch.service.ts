@@ -6,7 +6,7 @@ import { Branch } from '../models';
   providedIn: 'root',
 })
 export class BranchService {
-  private dataUrl = 'http://localhost:5172';
+  private dataUrl = 'https://localhost:7089';
   private branchesSignal = signal<Branch[]>([]);
 
   constructor(private http: HttpClient) {
@@ -16,7 +16,13 @@ export class BranchService {
   private fetchBranches() {
     this.http.get<Branch[]>(`${this.dataUrl}/api/Branches`).subscribe({
       next: (validatedData) => {
-        this.branchesSignal.set(validatedData);
+        const updatedData = validatedData.map(branch => {
+          if (branch.imagePath) {
+            branch.imagePath = `https://localhost:7089/${branch.imagePath}`;
+          }
+          return branch;
+        });
+        this.branchesSignal.set(updatedData);
       },
       error: (error) => {
         console.error(error);

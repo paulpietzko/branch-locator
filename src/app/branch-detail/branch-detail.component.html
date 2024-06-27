@@ -29,7 +29,7 @@
       </p>
       <img
         *ngIf="branch()?.imagePath"
-        [src]="'http://localhost:5172/' + branch()?.imagePath" 
+        [src]="branch()?.imagePath" 
         alt="{{ 'branchDetail.PHOTO_ALT' | translate }}"
       />
     </div>
@@ -56,10 +56,7 @@
     >
     <div>
       <button mat-button (click)="deleteBranch()">{{ "branchDetail.DELETE" | translate }}</button>
-      
-    <a [routerLink]="['/filialen/edit', branch()?.id]">
-      <button mat-button>{{ "branchDetail.EDIT" | translate }}</button>
-    </a>
+
     </div>
   </div>
 </div>

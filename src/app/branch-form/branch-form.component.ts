@@ -1,4 +1,4 @@
-import { Component, signal, computed, effect } from '@angular/core';
+import { Component, signal, computed, effect, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -8,6 +8,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { BranchService } from '../services/branch.service';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'; // Added MAT_DIALOG_DATA import
+import { Branch } from '../models';
 
 @Component({
   selector: 'app-branch-form',
@@ -38,25 +40,22 @@ export class BranchFormComponent {
 
   constructor(
     private branchService: BranchService,
-    private route: ActivatedRoute,
     private fb: FormBuilder,
     private snackBar: MatSnackBar,
-    private translate: TranslateService
+    private translate: TranslateService,
+    public dialogRef: MatDialogRef<BranchFormComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: Branch
   ) {
     this.branchForm = this.createBranchForm();
 
+    if (data && data.id) {
+      this.branchId.set(data.id);
+    }
+  
     effect(() => {
       const branch = this.branch();
       if (branch) {
         this.branchForm.patchValue(branch);
-        this.branchForm.markAllAsTouched();
-      }
-    });
-
-    this.route.paramMap.subscribe((params) => {
-      const id = params.get('id');
-      if (id !== null) {
-        this.branchId.set(id);
       }
     });
   }
@@ -123,6 +122,8 @@ export class BranchFormComponent {
           duration: 5000,
         });
       });
+      
+      this.dialogRef.close();
     }
   }
 }

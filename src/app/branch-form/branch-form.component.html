@@ -51,11 +51,6 @@
   <mat-label>{{ "branchForm.IMAGE_URL" | translate }}</mat-label>
   <input type="file" formControlName="image" (change)="onFileChange($event)" />
   <div class="buttons">
-    <a [routerLink]="['/']">
-      <button mat-button type="button">
-        ← {{ "branchForm.BACK" | translate }}
-      </button>
-    </a>
     <button mat-button type="submit" [disabled]="!branchForm.valid">
       {{ "branchForm.SAVE" | translate }}
     </button>
