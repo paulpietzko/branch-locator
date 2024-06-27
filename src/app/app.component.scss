@@ -1,0 +1,14 @@
+mat-sidenav {
+  width: 250px;
+  height: 100vh;
+  position: fixed;
+}
+
+
+mat-sidenav-content {
+  height: 100vh;
+}
+
+mat-sidenav-content, mat-toolbar {
+  background: rgb(249 250 251);
+}

@@ -1,17 +1,29 @@
-<mat-toolbar>
-  <span class="logo"><a routerLink="/">LOGO</a></span>
-  <span class="spacer"></span>
-  <a [routerLink]="['/']">
-    <button mat-button type="button">{{ 'navbar.HOME' | translate }}</button>
-  </a>
-  <a [routerLink]="['/filialen/charts']">
-    <button mat-button type="button">{{ 'navbar.CHARTS' | translate }}</button>
-  </a>
-  <a [routerLink]="['/filialen']">
-    <button mat-button type="button">{{ 'navbar.BRANCHES' | translate }}</button>
-  </a>
+<mat-toolbar color="primary">
+  <div class="logo">
+    <a routerLink="/">
+      <img src="assets/images/logo.png" alt="Logo" />
+    </a>
+    <hr />
+  </div>
+  <mat-nav-list>
+    <a mat-list-item [routerLink]="['/']">
+      {{ "navbar.HOME" | translate }}
+    </a>
+    <a mat-list-item [routerLink]="['/filialen/charts']">
+      {{ "navbar.CHARTS" | translate }}
+    </a>
+    <a mat-list-item [routerLink]="['/filialen']">
+      {{ "navbar.BRANCHES" | translate }}
+    </a>
+    <hr />
+  </mat-nav-list>
   <mat-menu #languageMenu="matMenu">
-    <button class="language-button" mat-menu-item *ngFor="let language of languages" (click)="changeLang(language)">
+    <button
+      class="language-button"
+      mat-menu-item
+      *ngFor="let language of languages"
+      (click)="changeLang(language)"
+    >
       {{ language }}
     </button>
   </mat-menu>
@@ -19,4 +31,3 @@
     <mat-icon>language</mat-icon>
   </button>
 </mat-toolbar>
-<hr />

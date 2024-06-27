@@ -1,21 +1,25 @@
-:host {
-  background: white;
-  color: black;
+.mat-toolbar {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  height: 100%;
 }
 
 .logo {
-  width: 40px;
-  height: 40px;
+  text-align: center;
+
+  img {
+    width: 100px;
+  }
+}
+
+.mat-nav-list {
+  flex-grow: 1;
 }
 
 a {
-  text-decoration: none;
-}
-
-.spacer {
-  flex: 1 1 auto;
-}
-
-.language-button {
+  font-weight: bold;
+  color: red;
   text-transform: uppercase;
 }
