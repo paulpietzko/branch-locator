@@ -25,6 +25,9 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatDialog } from '@angular/material/dialog';
 import { BranchFormComponent } from '../branch-form/branch-form.component';
+import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
+
 @Component({
   selector: 'app-branches-table',
   standalone: true,
@@ -43,6 +46,7 @@ import { BranchFormComponent } from '../branch-form/branch-form.component';
     ReactiveFormsModule,
     MatMenuModule,
     MatDividerModule,
+    MatSortModule,
   ],
   providers: [
     BranchService,
@@ -53,6 +57,7 @@ import { BranchFormComponent } from '../branch-form/branch-form.component';
 })
 export class BranchesTableComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
+  @ViewChild(MatSort) sort: MatSort | null = null;
 
   displayedColumns: string[] = [
     'range',
@@ -72,7 +77,8 @@ export class BranchesTableComponent implements AfterViewInit {
     private branchService: BranchService,
     private fb: FormBuilder,
     private router: Router,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private _liveAnnouncer: LiveAnnouncer
   ) {
     this.filterForm = this.fb.group({
       search: [''],
@@ -107,7 +113,6 @@ export class BranchesTableComponent implements AfterViewInit {
   }
 
   deleteBranch(id: string) {
-    // TODO: Ask if ok?
     this.branchService.deleteBranch(id);
     this.branchService.getBranches();
   }
@@ -115,6 +120,17 @@ export class BranchesTableComponent implements AfterViewInit {
   ngAfterViewInit() {
     if (this.paginator) {
       this.dataSource.paginator = this.paginator;
+    }
+    if (this.sort) {
+      this.dataSource.sort = this.sort;
+    }
+  }
+
+  announceSortChange(sortState: Sort) {
+    if (sortState.direction) {
+      this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
+    } else {
+      this._liveAnnouncer.announce('Sorting cleared');
     }
   }
 
@@ -141,7 +157,7 @@ export class BranchesTableComponent implements AfterViewInit {
       data: { id },
     });
 
-      // TODO Update Table
+    // TODO Update Table
   }
 
   addBranch() {
