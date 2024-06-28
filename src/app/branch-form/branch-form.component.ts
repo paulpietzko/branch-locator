@@ -1,7 +1,20 @@
-import { Component, signal, computed, effect, Inject, ViewChild, ElementRef } from '@angular/core';
+import {
+  Component,
+  signal,
+  computed,
+  effect,
+  Inject,
+  ViewChild,
+  ElementRef,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -31,6 +44,7 @@ import { Branch } from '../models';
   providers: [BranchService],
 })
 export class BranchFormComponent {
+  imageName = signal('');
   @ViewChild('fileInput') fileInput: ElementRef | undefined;
   faUpload = 'upload';
   branchId = signal<string | null>(null);
@@ -57,38 +71,36 @@ export class BranchFormComponent {
     if (data && data.id) {
       this.branchId.set(data.id);
     }
-  
+
     effect(() => {
       const branch = this.branch();
       if (branch) {
         this.branchForm.patchValue(branch);
+        if (branch.imagePath) {
+          this.uploadSuccess = true;
+          this.getFileNameFromPath(branch.imagePath);
+        }
       }
-    });
+    }, {allowSignalWrites: true}); // works but oh oh
+  }
+
+  getFileNameFromPath(imagePath: string | undefined){
+    this.imageName.set(imagePath ? imagePath.split(/[/\\]/).pop()?.slice(37) || '' : 'No Image Path');
   }
 
   createBranchForm(): FormGroup {
     return this.fb.group({
       name: ['', Validators.required],
       canton: ['', Validators.required],
-      phone: [
-        '',
-        [
-          Validators.required,
-        ],
-      ],
+      phone: ['', [Validators.required]],
       postCode: ['', Validators.required],
       location: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      website: [
-        '',
-        [
-          Validators.required,
-        ],
-      ],
+      website: ['', [Validators.required]],
       openingHours: ['', Validators.required],
       lat: [null, Validators.required],
       lng: [null, Validators.required],
-      image: [null]
+      image: [null],
     });
   }
 
@@ -114,14 +126,15 @@ export class BranchFormComponent {
       this.uploadError = false;
       this.snackBar.open('File uploaded successfully!', 'Close', {
         duration: 3000,
-        panelClass: 'success'
+        panelClass: 'success',
       });
+      this.imageName.set(file.name);
     } else {
       this.uploadSuccess = false;
       this.uploadError = true;
       this.snackBar.open('Failed to upload file!', 'Close', {
         duration: 3000,
-        panelClass: 'error'
+        panelClass: 'error',
       });
     }
   }
@@ -152,12 +165,18 @@ export class BranchFormComponent {
         this.branchService.addBranch(formData);
       }
 
-      this.translate.get(['branchForm.ACTION_SUCCESS', 'actions.CLOSE']).subscribe((translations) => {
-        this.snackBar.open(translations['branchForm.ACTION_SUCCESS'], translations['actions.CLOSE'], {
-          duration: 5000,
+      this.translate
+        .get(['branchForm.ACTION_SUCCESS', 'actions.CLOSE'])
+        .subscribe((translations) => {
+          this.snackBar.open(
+            translations['branchForm.ACTION_SUCCESS'],
+            translations['actions.CLOSE'],
+            {
+              duration: 5000,
+            }
+          );
         });
-      });
-      
+
       this.dialogRef.close();
     }
   }

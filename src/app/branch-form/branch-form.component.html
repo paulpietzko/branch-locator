@@ -56,11 +56,20 @@
       <input matInput formControlName="lng" required />
     </mat-form-field>
   </div>
-  <div class="file-upload-wrapper" [class.success]="uploadSuccess" [class.error]="uploadError" (drop)="onFileDrop($event)" (dragover)="onDragOver($event)">
+  <div
+    class="file-upload-wrapper"
+    [class.success]="uploadSuccess"
+    [class.error]="uploadError"
+    (drop)="onFileDrop($event)"
+    (dragover)="onDragOver($event)"
+  >
     <input type="file" (change)="onFileChange($event)" hidden #fileInput />
     <div class="file-dropper" (click)="fileInput.click()">
       <mat-icon>upload</mat-icon>
       <p>{{ "actions.UPLOAD_PLACEHOLDER" | translate }}</p>
+      <p *ngIf="branch()?.imagePath">
+        {{ this.imageName() }}
+      </p>
     </div>
   </div>
   <div class="buttons">
