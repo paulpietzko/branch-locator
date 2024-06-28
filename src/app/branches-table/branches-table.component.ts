@@ -137,7 +137,7 @@ export class BranchesTableComponent implements AfterViewInit {
 
   editBranch(id: string) {
     const dialogRef = this.dialog.open(BranchFormComponent, {
-      width: '500px',
+      width: '1000px',
       data: { id },
     });
 
@@ -146,7 +146,7 @@ export class BranchesTableComponent implements AfterViewInit {
 
   addBranch() {
     const dialogRef = this.dialog.open(BranchFormComponent, {
-      width: '500px',
+      width: '1000px',
       data: {},
     });
 

@@ -1,6 +1,6 @@
-import { Component, signal, computed, effect, Inject } from '@angular/core';
+import { Component, signal, computed, effect, Inject, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -8,7 +8,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { BranchService } from '../services/branch.service';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'; // Added MAT_DIALOG_DATA import
+import { MatIconModule } from '@angular/material/icon';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Branch } from '../models';
 
 @Component({
@@ -25,10 +26,13 @@ import { Branch } from '../models';
     RouterModule,
     MatSnackBarModule,
     TranslateModule,
+    MatIconModule,
   ],
   providers: [BranchService],
 })
 export class BranchFormComponent {
+  @ViewChild('fileInput') fileInput: ElementRef | undefined;
+  faUpload = 'upload';
   branchId = signal<string | null>(null);
   isEditMode = computed(() => this.branchId() !== null);
   branch = computed(() => {
@@ -37,6 +41,8 @@ export class BranchFormComponent {
   });
   branchForm: FormGroup;
   selectedFile: File | null = null;
+  uploadSuccess: boolean = false;
+  uploadError: boolean = false;
 
   constructor(
     private branchService: BranchService,
@@ -68,7 +74,6 @@ export class BranchFormComponent {
         '',
         [
           Validators.required,
-          // Validators.pattern(/^\d{3}\s\d{3}\s\d{2}\s\d{2}$/),
         ],
       ],
       postCode: ['', Validators.required],
@@ -78,7 +83,6 @@ export class BranchFormComponent {
         '',
         [
           Validators.required,
-          // Validators.pattern(/https?:\/\/[^\s$.?#].[^\s]*/),
         ],
       ],
       openingHours: ['', Validators.required],
@@ -89,10 +93,41 @@ export class BranchFormComponent {
   }
 
   onFileChange(event: any): void {
-    const file = event.target.files[0];
+    const file = event.target.files[0] as File | null;
+    this.uploadFile(file);
+  }
+
+  onFileDrop(event: DragEvent): void {
+    event.preventDefault();
+    const file = event.dataTransfer?.files[0] as File | null;
+    this.uploadFile(file);
+  }
+
+  onDragOver(event: DragEvent): void {
+    event.preventDefault();
+  }
+
+  uploadFile(file: File | null): void {
     if (file) {
       this.selectedFile = file;
+      this.uploadSuccess = true;
+      this.uploadError = false;
+      this.snackBar.open('File uploaded successfully!', 'Close', {
+        duration: 3000,
+        panelClass: 'success'
+      });
+    } else {
+      this.uploadSuccess = false;
+      this.uploadError = true;
+      this.snackBar.open('Failed to upload file!', 'Close', {
+        duration: 3000,
+        panelClass: 'error'
+      });
     }
+  }
+
+  triggerFileInput(): void {
+    this.fileInput?.nativeElement.click();
   }
 
   onSubmit(): void {

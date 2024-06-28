@@ -9,6 +9,11 @@ mat-sidenav-content {
   height: 100vh;
 }
 
-mat-sidenav-content, mat-toolbar {
+mat-toolbar {
+  position: fixed;
+  background: transparent;
+}
+
+mat-sidenav-content {
   background: rgb(249 250 251);
 }

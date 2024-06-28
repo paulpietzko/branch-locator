@@ -16,7 +16,9 @@
     "ITEMS_PER_PAGE": "Artikel pro Seite",
     "NEXT_PAGE": "Nächste Seite",
     "PREVIOUS_PAGE": "Vorherige Seite",
-    "PAGE_OF": "von"
+    "PAGE_OF": "von",
+    "DELETE_CONFIRMATION": "Möchten Sie diese Filiale wirklich löschen?",
+    "DELETE_SUCCESS": "Erfolgreich gelöscht"
   },
   "branchDetail": {
     "TITLE": "Unsere Filiale in {{ location }}",
@@ -26,13 +28,10 @@
     "OPENING_HOURS": "Öffnungszeiten",
     "NO_PHOTO": "Hier kommt ein Foto/Aussenfoto von der Filiale",
     "PHOTO_ALT": "Filialfoto",
-    "BACK": "Zurück zur Übersicht",
     "EDIT": "Bearbeiten",
     "NO_BRANCH": "Keine Filiale gefunden.",
-    "DELETE": "Löschen",
-    "DELETE_ERROR": "Fehler beim löschen",
-    "DELETE_SUCCESS": "Erfolgreich gelöscht",
-    "CLOSE": "Schliessen"
+    "CLOSE": "Schliessen",
+    "DELETE_ERROR": "Fehler beim Löschen"
   },
   "branchForm": {
     "EDIT_TITLE": "Filiale bearbeiten",
@@ -48,27 +47,29 @@
     "LATITUDE": "Latitude",
     "LONGITUDE": "Longitude",
     "IMAGE_URL": "Bild-URL",
-    "BACK": "Zurück zur Übersicht",
-    "SAVE": "Speichern",
-    "NO_BRANCH": "Keine Filiale gefunden.",
-    "ACTION_SUCCESS": "Aktion erfolgreich!",
-    "CLOSE": "Schliessen"
+    "ACTION_SUCCESS": "Aktion erfolgreich!"
   },
   "mapPage": {
     "TITLE": "Unsere Filialen",
     "DESCRIPTION": "Hier kommt etwas Text... unsere Produkte gibt es natürlich auch im Fachhandel. Hier finden Sie Verkaufsstellen in Ihrer Nähe.",
-    "DETAILS_BUTTON": "Details anzeigen",
-    "BACK_BUTTON": "Zurück zur Übersicht"
+    "DETAILS_BUTTON": "Details anzeigen"
   },
   "navbar": {
     "HOME": "Startseite",
     "CHARTS": "Grafiken",
-    "BRANCHES": "Filialien"
+    "BRANCHES": "Filialen"
   },
   "chart": {
     "TITLE": "Filialübersicht",
     "HAXIS_TITLE": "Standort",
-    "VAXIS_TITLE": "Anzahl",
-    "BACK_BUTTON": "Zurück zur Übersicht"
+    "VAXIS_TITLE": "Anzahl"
+  },
+  "actions": {
+    "BACK": "Zurück zur Übersicht",
+    "SAVE": "Speichern",
+    "CLOSE": "Schliessen",
+    "EDIT": "Bearbeiten",
+    "DELETE": "Löschen",
+    "UPLOAD_PLACEHOLDER": "Ziehen und ablegen oder klicken"
   }
 }

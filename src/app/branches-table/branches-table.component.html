@@ -1,7 +1,7 @@
 <h3>{{ "branchTable.BRANCHES" | translate }}</h3>
 <p>{{ "branchTable.DESCRIPTION" | translate }}</p>
 <form [formGroup]="filterForm" class="filters">
-  <mat-form-field appearance="fill">
+  <mat-form-field appearance="outline">
     <mat-label>{{ "branchTable.SEARCH" | translate }}</mat-label>
     <input
       matInput
@@ -10,7 +10,7 @@
       (input)="applyFilter()"
     />
   </mat-form-field>
-  <mat-form-field appearance="fill">
+  <mat-form-field appearance="outline">
     <mat-label>{{ "branchTable.LOCATIONS" | translate }}</mat-label>
     <mat-select
       multiple
@@ -67,12 +67,12 @@
         </button>
         <button mat-menu-item (click)="editBranch(element.id)">
           <mat-icon>edit</mat-icon>
-          <span>{{ "branchTable.EDIT" | translate }}</span>
+          <span>{{ "actions.EDIT" | translate }}</span>
         </button>
         <mat-divider></mat-divider>
         <button mat-menu-item (click)="deleteBranch(element.id)">
           <mat-icon>delete</mat-icon>
-          <span>{{ "branchTable.DELETE" | translate }}</span>
+          <span>{{ "actions.DELETE" | translate }}</span>
         </button>
       </mat-menu>
     </td>

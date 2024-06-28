@@ -6,53 +6,66 @@
 </ng-template>
 
 <form [formGroup]="branchForm" (ngSubmit)="onSubmit()">
-  <mat-form-field>
-    <mat-label>{{ "branchForm.NAME" | translate }}</mat-label>
-    <input matInput formControlName="name" required />
-  </mat-form-field>
-  <mat-form-field>
-    <mat-label>{{ "branchForm.CANTON" | translate }}</mat-label>
-    <input matInput formControlName="canton" required />
-  </mat-form-field>
-  <mat-form-field>
-    <mat-label>{{ "branchForm.PHONE" | translate }}</mat-label>
-    <input matInput formControlName="phone" required />
-  </mat-form-field>
-  <mat-form-field>
-    <mat-label>{{ "branchForm.POSTCODE" | translate }}</mat-label>
-    <input matInput formControlName="postCode" required />
-  </mat-form-field>
-  <mat-form-field>
-    <mat-label>{{ "branchForm.LOCATION" | translate }}</mat-label>
-    <input matInput formControlName="location" required />
-  </mat-form-field>
-  <mat-form-field>
-    <mat-label>{{ "branchForm.EMAIL" | translate }}</mat-label>
-    <input matInput formControlName="email" required />
-  </mat-form-field>
-  <mat-form-field>
-    <mat-label>{{ "branchForm.WEBSITE" | translate }}</mat-label>
-    <input matInput formControlName="website" required />
-  </mat-form-field>
-  <mat-form-field>
-    <mat-label>{{ "branchForm.OPENING_HOURS" | translate }}</mat-label>
-    <input matInput formControlName="openingHours" required />
-  </mat-form-field>
-  <div class="container">
-    <mat-form-field>
+  <div class="row">
+    <mat-form-field appearance="outline" class="col">
+      <mat-label>{{ "branchForm.NAME" | translate }}</mat-label>
+      <input matInput formControlName="name" required />
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="col">
+      <mat-label>{{ "branchForm.CANTON" | translate }}</mat-label>
+      <input matInput formControlName="canton" required />
+    </mat-form-field>
+  </div>
+  <div class="row">
+    <mat-form-field appearance="outline" class="col">
+      <mat-label>{{ "branchForm.PHONE" | translate }}</mat-label>
+      <input matInput formControlName="phone" required />
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="col">
+      <mat-label>{{ "branchForm.POSTCODE" | translate }}</mat-label>
+      <input matInput formControlName="postCode" required />
+    </mat-form-field>
+  </div>
+  <div class="row">
+    <mat-form-field appearance="outline" class="col">
+      <mat-label>{{ "branchForm.LOCATION" | translate }}</mat-label>
+      <input matInput formControlName="location" required />
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="col">
+      <mat-label>{{ "branchForm.EMAIL" | translate }}</mat-label>
+      <input matInput formControlName="email" required />
+    </mat-form-field>
+  </div>
+  <div class="row">
+    <mat-form-field appearance="outline" class="col">
+      <mat-label>{{ "branchForm.WEBSITE" | translate }}</mat-label>
+      <input matInput formControlName="website" required />
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="col">
+      <mat-label>{{ "branchForm.OPENING_HOURS" | translate }}</mat-label>
+      <input matInput formControlName="openingHours" required />
+    </mat-form-field>
+  </div>
+  <div class="row">
+    <mat-form-field appearance="outline" class="col">
       <mat-label>{{ "branchForm.LATITUDE" | translate }}</mat-label>
       <input matInput formControlName="lat" required />
     </mat-form-field>
-    <mat-form-field>
+    <mat-form-field appearance="outline" class="col">
       <mat-label>{{ "branchForm.LONGITUDE" | translate }}</mat-label>
       <input matInput formControlName="lng" required />
     </mat-form-field>
   </div>
-  <mat-label>{{ "branchForm.IMAGE_URL" | translate }}</mat-label>
-  <input type="file" formControlName="image" (change)="onFileChange($event)" />
+  <div class="file-upload-wrapper" [class.success]="uploadSuccess" [class.error]="uploadError" (drop)="onFileDrop($event)" (dragover)="onDragOver($event)">
+    <input type="file" (change)="onFileChange($event)" hidden #fileInput />
+    <div class="file-dropper" (click)="fileInput.click()">
+      <mat-icon>upload</mat-icon>
+      <p>{{ "actions.UPLOAD_PLACEHOLDER" | translate }}</p>
+    </div>
+  </div>
   <div class="buttons">
     <button mat-button type="submit" [disabled]="!branchForm.valid">
-      {{ "branchForm.SAVE" | translate }}
+      {{ "actions.SAVE" | translate }}
     </button>
   </div>
 </form>

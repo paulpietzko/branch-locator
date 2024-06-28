@@ -52,10 +52,10 @@
   </google-map>
   <div class="buttons">
     <a routerLink="/"
-      ><button mat-button>← {{ "branchDetail.BACK" | translate }}</button></a
+      ><button mat-button>← {{ "actions.BACK" | translate }}</button></a
     >
     <div>
-      <button mat-button (click)="deleteBranch()">{{ "branchDetail.DELETE" | translate }}</button>
+      <button mat-button (click)="deleteBranch()">{{ "actions.DELETE" | translate }}</button>
 
     </div>
   </div>
@@ -63,6 +63,6 @@
 <div *ngIf="!branch()">
   {{ "branchDetail.NO_BRANCH" | translate }}
   <a routerLink="/"
-    ><button mat-button>← {{ "branchDetail.BACK" | translate }}</button></a
+    ><button mat-button>← {{ "actions.BACK" | translate }}</button></a
   >
 </div>
