@@ -13,7 +13,7 @@ export class BranchService {
     this.fetchBranches();
   }
 
-  private fetchBranches() {
+  fetchBranches() {
     this.http.get<Branch[]>(`${this.dataUrl}/api/Branches`).subscribe({
       next: (validatedData) => {
         const updatedData = validatedData.map(branch => {

@@ -152,8 +152,8 @@ export class BranchFormComponent {
         this.branchService.addBranch(formData);
       }
 
-      this.translate.get(['branchForm.ACTION_SUCCESS', 'branchForm.CLOSE']).subscribe((translations) => {
-        this.snackBar.open(translations['branchForm.ACTION_SUCCESS'], translations['branchForm.CLOSE'], {
+      this.translate.get(['branchForm.ACTION_SUCCESS', 'actions.CLOSE']).subscribe((translations) => {
+        this.snackBar.open(translations['branchForm.ACTION_SUCCESS'], translations['actions.CLOSE'], {
           duration: 5000,
         });
       });

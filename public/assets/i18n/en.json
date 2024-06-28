@@ -16,7 +16,9 @@
     "ITEMS_PER_PAGE": "Items per page",
     "NEXT_PAGE": "Next page",
     "PREVIOUS_PAGE": "Previous page",
-    "PAGE_OF": "of"
+    "PAGE_OF": "of",
+    "DELETE_CONFIRMATION": "Are you sure you want to delete this branch?",
+    "DELETE_SUCCESS": "Successfully deleted"
   },
   "branchDetail": {
     "TITLE": "Our branch in {{ location }}",
@@ -26,13 +28,9 @@
     "OPENING_HOURS": "Opening Hours",
     "NO_PHOTO": "Here will be a photo/exterior photo of the branch",
     "PHOTO_ALT": "Branch photo",
-    "BACK": "Back to overview",
     "EDIT": "Edit",
     "NO_BRANCH": "No branch found.",
-    "DELETE": "Delete",
-    "DELETE_ERROR": "Error while deleting",
-    "DELETE_SUCCESS": "Successfully deleted",
-    "CLOSE": "Close"
+    "DELETE_ERROR": "Error while deleting"
   },
   "branchForm": {
     "EDIT_TITLE": "Edit Branch",
@@ -48,17 +46,12 @@
     "LATITUDE": "Latitude",
     "LONGITUDE": "Longitude",
     "IMAGE_URL": "Image URL",
-    "BACK": "Back to overview",
-    "SAVE": "Save",
-    "NO_BRANCH": "No branch found.",
-    "ACTION_SUCCESS": "Action successful!",
-    "CLOSE": "Close"
+    "ACTION_SUCCESS": "Action successful!"
   },
   "mapPage": {
     "TITLE": "Our Branches",
     "DESCRIPTION": "Here comes some text... our products are of course also available in specialized shops. Here you can find sales locations near you.",
-    "DETAILS_BUTTON": "Show details",
-    "BACK_BUTTON": "Back to overview"
+    "DETAILS_BUTTON": "Show details"
   },
   "navbar": {
     "HOME": "Home",
@@ -68,7 +61,14 @@
   "chart": {
     "TITLE": "Branches Overview",
     "HAXIS_TITLE": "Location",
-    "VAXIS_TITLE": "Count",
-    "BACK_BUTTON": "Back to overview"
+    "VAXIS_TITLE": "Count"
+  },
+  "actions": {
+    "BACK": "Back to overview",
+    "SAVE": "Save",
+    "CLOSE": "Close",
+    "EDIT": "Edit",
+    "DELETE": "Delete",
+    "UPLOAD_PLACEHOLDER": "Drag and drop or click"
   }
 }

@@ -157,7 +157,9 @@ export class BranchesTableComponent implements AfterViewInit {
       data: { id },
     });
 
-    // TODO Update Table
+    dialogRef.afterClosed().subscribe(() => {
+      this.branchService.fetchBranches();
+    });
   }
 
   addBranch() {
@@ -166,6 +168,8 @@ export class BranchesTableComponent implements AfterViewInit {
       data: {},
     });
 
-    // TODO Update Table
+    dialogRef.afterClosed().subscribe(() => {
+      this.branchService.fetchBranches();
+    });
   }
 }
