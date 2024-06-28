@@ -1,10 +1,10 @@
 import { Component, AfterViewInit, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { BranchService } from '../services/branch.service';
-import { Branch } from '../models';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 declare var google: any;
 
@@ -21,8 +21,10 @@ export class BranchesChartsComponent implements AfterViewInit {
   constructor(
     private branchService: BranchService,
     private translate: TranslateService,
-    @Inject(PLATFORM_ID) private platformId: Object
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private titleService: Title, 
   ) {
+    this.titleService.setTitle(`Branches Chart`);
     this.isBrowser = isPlatformBrowser(this.platformId);
     this.translate.onLangChange.subscribe(() => {
       this.loadTranslationsAndDrawChart();

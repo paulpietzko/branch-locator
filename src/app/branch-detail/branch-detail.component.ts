@@ -19,6 +19,7 @@ import { Branch } from '../models';
 import * as QRCode from 'qrcode';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-branch-detail',
@@ -46,6 +47,7 @@ export class BranchDetailComponent {
     const branchData = id ? this.branchService.getBranchById(id) : null;
     if (branchData) {
       this.mapCenter = { lat: branchData.lat, lng: branchData.lng }; // Set map center to branch location
+      this.titleService.setTitle(`${branchData.name} - Branch Details`);
       return branchData;
     } else {
       return null;
@@ -75,13 +77,16 @@ export class BranchDetailComponent {
   }
 
   constructor(
+    private titleService: Title,
     private branchService: BranchService,
     private route: ActivatedRoute,
     private router: Router,
     private snackBar: MatSnackBar,
     private translate: TranslateService,
     @Inject(PLATFORM_ID) private platformId: Object
-  ) {
+  ) {}
+
+  ngOnInit() {
     if (isPlatformBrowser(this.platformId)) {
       this.generateQRCode();
     }

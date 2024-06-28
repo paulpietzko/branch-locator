@@ -27,6 +27,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { BranchFormComponent } from '../branch-form/branch-form.component';
 import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-branches-table',
@@ -60,7 +61,6 @@ export class BranchesTableComponent implements AfterViewInit {
   @ViewChild(MatSort) sort: MatSort | null = null;
 
   displayedColumns: string[] = [
-    'range',
     'name',
     'postCode',
     'location',
@@ -78,12 +78,10 @@ export class BranchesTableComponent implements AfterViewInit {
     private fb: FormBuilder,
     private router: Router,
     public dialog: MatDialog,
-    private _liveAnnouncer: LiveAnnouncer
+    private _liveAnnouncer: LiveAnnouncer,
+    private titleService: Title
   ) {
-    this.filterForm = this.fb.group({
-      search: [''],
-      locations: [[]],
-    });
+    this.titleService.setTitle(`Branches Table`);
 
     effect(() => {
       this.dataSource.data = this.branches();
@@ -91,6 +89,13 @@ export class BranchesTableComponent implements AfterViewInit {
       this.applyFilter();
     });
 
+    this.filterForm = this.fb.group({
+      search: [''],
+      locations: [[]],
+    });
+  }
+
+  ngOnInit() {
     this.dataSource.filterPredicate = (
       data: Branch,
       filter: string

@@ -24,7 +24,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Branch } from '../models';
-
+import { MatDialogModule } from '@angular/material/dialog';
 @Component({
   selector: 'app-branch-form',
   standalone: true,
@@ -40,6 +40,7 @@ import { Branch } from '../models';
     MatSnackBarModule,
     TranslateModule,
     MatIconModule,
+    MatDialogModule
   ],
   providers: [BranchService],
 })
@@ -78,14 +79,20 @@ export class BranchFormComponent {
         this.branchForm.patchValue(branch);
         if (branch.imagePath) {
           this.uploadSuccess = true;
-          this.getFileNameFromPath(branch.imagePath);
+          Promise.resolve().then(() => // Delays execution to avoid effect-related issues.
+            this.getFileNameFromPath(branch.imagePath)
+          );
         }
       }
-    }, {allowSignalWrites: true}); // works but oh oh
+    });
   }
 
-  getFileNameFromPath(imagePath: string | undefined){
-    this.imageName.set(imagePath ? imagePath.split(/[/\\]/).pop()?.slice(37) || '' : 'No Image Path');
+  getFileNameFromPath(imagePath: string | undefined) {
+    this.imageName.set(
+      imagePath
+        ? imagePath.split(/[/\\]/).pop()?.slice(37) || ''
+        : 'No Image Path'
+    );
   }
 
   createBranchForm(): FormGroup {
