@@ -8,7 +8,6 @@ import { TranslationService } from '../services/translation.service';
 import { CommonModule } from '@angular/common';
 import { languages } from '../data';
 import { TranslateModule } from '@ngx-translate/core';
-import {MatSidenavModule} from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 
 @Component({
@@ -22,7 +21,6 @@ import { MatListModule } from '@angular/material/list';
     RouterModule,
     CommonModule,
     TranslateModule,
-    MatSidenavModule,
     MatListModule
   ],
   templateUrl: './navbar.component.html',

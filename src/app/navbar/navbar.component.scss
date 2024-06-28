@@ -1,29 +1,3 @@
-.mat-toolbar {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  justify-content: flex-start;
-  height: 100%;
-}
-
-.logo {
-  text-align: center;
-
-  img {
-    width: 100px;
-  }
-}
-
-.mat-nav-list {
-  flex-grow: 1;
-}
-
-.language-button {
-  text-transform: uppercase;
-}
-
-a {
-  font-weight: bold;
-  color: red;
+.language-button, a {
   text-transform: uppercase;
 }
