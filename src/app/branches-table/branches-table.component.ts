@@ -29,6 +29,7 @@ import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Title } from '@angular/platform-browser';
 import { DownloadDialogComponent } from '../download-dialog/download-dialog.component';
+
 @Component({
   selector: 'app-branches-table',
   standalone: true,
@@ -50,9 +51,9 @@ import { DownloadDialogComponent } from '../download-dialog/download-dialog.comp
     MatSortModule,
   ],
   providers: [
-      BranchService,
-      { provide: MatPaginatorIntl, useClass: CustomMatPaginatorIntl },
-    ],
+    BranchService,
+    { provide: MatPaginatorIntl, useClass: CustomMatPaginatorIntl },
+  ],
   templateUrl: './branches-table.component.html',
   styleUrls: ['./branches-table.component.scss'],
 })
@@ -81,12 +82,11 @@ export class BranchesTableComponent implements AfterViewInit {
     private _liveAnnouncer: LiveAnnouncer,
     private titleService: Title
   ) {
-    this.titleService.setTitle(`Branches Table`);
-
     effect(() => {
       this.dataSource.data = this.branches();
       this.uniqueLocations = this.getUniqueLocations(this.branches());
       this.applyFilter();
+      this.titleService.setTitle(`Table: ${this.branches().length} Branches`);
     });
 
     this.filterForm = this.fb.group({
@@ -168,14 +168,15 @@ export class BranchesTableComponent implements AfterViewInit {
 
   applyFilter() {
     const filterValue = {
-      search: this.filterForm.get('search')?.value.trim() || '',
+      search: this.filterForm.get('search')?.value.trim().toLowerCase() || '',
       locations: this.filterForm.get('locations')?.value || [],
     };
     this.dataSource.filter = JSON.stringify(filterValue);
 
-    if (this.paginator) {
-      this.dataSource.paginator = this.paginator;
-    }
+    if (!this.dataSource.paginator)
+      return;
+
+      this.dataSource.paginator.firstPage();
   }
 
   editBranch(id: string) {
