@@ -40,7 +40,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatSnackBarModule,
     TranslateModule,
     MatIconModule,
-    MatDialogModule
+    MatDialogModule,
+    MatFormFieldModule 
   ],
   providers: [BranchService],
 })

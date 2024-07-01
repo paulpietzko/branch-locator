@@ -1,0 +1,16 @@
+<h2 mat-dialog-title>{{ "actions.DOWNLOAD" | translate }}</h2>
+<mat-dialog-content>
+  <button mat-button mat-dialog-close (click)="download('excel')">
+    <mat-icon>download</mat-icon>
+    Excel
+  </button>
+  <button mat-button type="submit" (click)="download('pdf')">
+    <mat-icon>download</mat-icon>
+    PDF
+  </button>
+</mat-dialog-content>
+<mat-dialog-actions align="start">
+    <button mat-button mat-dialog-close>
+      {{ "actions.CLOSE" | translate }}
+    </button>
+</mat-dialog-actions>

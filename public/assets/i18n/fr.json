@@ -69,6 +69,7 @@
     "CLOSE": "Fermer",
     "EDIT": "Éditer",
     "DELETE": "Supprimer",
-    "UPLOAD_PLACEHOLDER": "Glisser et déposer ou cliquer"
+    "UPLOAD_PLACEHOLDER": "Glisser et déposer ou cliquer",
+    "DOWNLOAD": "Télécharger"
   }
 }

@@ -11,6 +11,7 @@ import { BranchService } from '../services/branch.service';
 import { Branch, BranchMapMarker } from '../models';
 import { MatButtonModule } from '@angular/material/button';
 import { TranslateModule } from '@ngx-translate/core';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-branches-map',
@@ -36,8 +37,12 @@ export class BranchesMapComponent {
   // Signal for currently selected branch
   selectedBranch = signal<Branch | null>(null);
 
-
-  constructor(private branchService: BranchService, private router: Router) {
+  constructor(
+    private branchService: BranchService,
+    private router: Router,
+    private titleService: Title
+  ) {
+    this.titleService.setTitle(`Branches Map`);
     // Fetch branches and update markers when data changes
     effect(
       () => {

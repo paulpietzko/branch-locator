@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './navbar/navbar.component';
-import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
   selector: 'app-root',
@@ -9,6 +9,7 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   imports: [
+    MatFormFieldModule,
     RouterOutlet,
     NavbarComponent,
   ],

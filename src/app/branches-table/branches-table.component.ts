@@ -28,7 +28,7 @@ import { BranchFormComponent } from '../branch-form/branch-form.component';
 import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Title } from '@angular/platform-browser';
-
+import { DownloadDialogComponent } from '../download-dialog/download-dialog.component';
 @Component({
   selector: 'app-branches-table',
   standalone: true,
@@ -50,9 +50,9 @@ import { Title } from '@angular/platform-browser';
     MatSortModule,
   ],
   providers: [
-    BranchService,
-    { provide: MatPaginatorIntl, useClass: CustomMatPaginatorIntl },
-  ],
+      BranchService,
+      { provide: MatPaginatorIntl, useClass: CustomMatPaginatorIntl },
+    ],
   templateUrl: './branches-table.component.html',
   styleUrls: ['./branches-table.component.scss'],
 })
@@ -111,6 +111,30 @@ export class BranchesTableComponent implements AfterViewInit {
 
       return matchesSearch && matchesLocation;
     };
+  }
+
+  downloadData() {
+    const filteredData: Branch[] = this.dataSource.filteredData.map(branch => ({
+      id: branch.id,
+      name: branch.name,
+      postCode: branch.postCode,
+      location: branch.location,
+      canton: branch.canton,
+      email: branch.email,
+      website: branch.website,
+      openingHours: branch.openingHours,
+      phone: branch.phone,
+      lat: branch.lat,
+      lng: branch.lng,
+      imagePath: branch.imagePath,
+    }));
+  
+    console.log("data: " + JSON.stringify(filteredData));
+
+    this.dialog.open(DownloadDialogComponent, {
+      width: '100px',
+      data: { filteredData },
+    });
   }
 
   viewDetails(id: string) {
