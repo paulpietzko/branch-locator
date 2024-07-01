@@ -128,8 +128,6 @@ export class BranchesTableComponent implements AfterViewInit {
       lng: branch.lng,
       imagePath: branch.imagePath,
     }));
-  
-    console.log("data: " + JSON.stringify(filteredData));
 
     this.dialog.open(DownloadDialogComponent, {
       width: '100px',

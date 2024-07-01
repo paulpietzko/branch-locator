@@ -24,7 +24,6 @@ export class DownloadDialogComponent {
     @Inject(MAT_DIALOG_DATA) public data: { filteredData: Branch[] },
   ) {
     this.branchData = data.filteredData;
-    console.log("data: " + JSON.stringify(this.branchData));
   }
 
   download(format: string) {
