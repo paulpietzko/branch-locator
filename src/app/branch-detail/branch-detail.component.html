@@ -27,9 +27,9 @@
       </div>
     </div>
     <div class="branch-photo">
-      <p *ngIf="!branch()?.imagePath">
-        {{ "branchDetail.NO_PHOTO" | translate }}
-      </p>
+      <div *ngIf="!branch()?.imagePath">
+        <img src="assets/images/placeholder_image.png" alt="Branch Placeholder Image">
+      </div>
       <img
         *ngIf="branch()?.imagePath"
         [src]="branch()?.imagePath"
