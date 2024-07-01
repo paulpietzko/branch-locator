@@ -50,6 +50,15 @@ export class BranchService {
     });
   }
 
+  deleteImage(branch: Branch | null) {
+    if(!branch) return;
+
+    console.log(`img path ${branch.imagePath?.substring(30, branch.imagePath.length)}`)
+
+    console.log(`${this.dataUrl}/api/Branches/${branch.id}/image?imagePath=${branch.imagePath?.substring(30, branch.imagePath.length)}`)
+    return this.http.delete<void>(`${this.dataUrl}/api/Branches/${branch.id}/image?imagePath=images%5C%5C${branch.imagePath?.substring(30, branch.imagePath.length)}`);
+  }
+
   updateBranch(id: string, branchData: FormData) {
     this.http
       .put<Branch>(`${this.dataUrl}/api/Branches/${id}`, branchData)
@@ -62,6 +71,9 @@ export class BranchService {
         },
       });
   }
+  // https://localhost:7089/api/Branches/b1dd3308-9006-459b-59f7-08dc97461acb/image?imagePath=20256571-49e1-4db8-a0da-936a88933ef7-id.nike.jpeg
+  // https://localhost:7089/api/Branches/b1dd3308-9006-459b-59f7-08dc97461acb/image?imagePath=images%5C%5C20256571-49e1-4db8-a0da-936a88933ef7-id.nike.jpeg
+
 
   addBranch(branchData: FormData) {
     this.http

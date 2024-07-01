@@ -1,7 +1,20 @@
-import { Component, signal, computed, effect, Inject, ViewChild, ElementRef } from '@angular/core';
+import {
+  Component,
+  signal,
+  computed,
+  effect,
+  Inject,
+  ViewChild,
+  ElementRef,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -64,24 +77,29 @@ export class BranchFormComponent {
       this.branchId.set(data.id);
     }
 
-    effect(() => {
-      const branch = this.branch();
-      if (branch) {
-        this.branchForm.patchValue(branch);
-        if (branch.imagePath) {
-          this.uploadSuccess = true;
-          this.imagePreview.set(branch.imagePath);
-          this.imageName.set(this.getFileNameFromPath(branch.imagePath));
-          this.calculateImageSize(branch.imagePath)
-            .then(size => this.fileSize.set(size))
-            .catch(() => this.fileSize.set(0));
+    effect(
+      () => {
+        const branch = this.branch();
+        if (branch) {
+          this.branchForm.patchValue(branch);
+          if (branch.imagePath) {
+            this.uploadSuccess = true;
+            this.imagePreview.set(branch.imagePath);
+            this.imageName.set(this.getFileNameFromPath(branch.imagePath));
+            this.calculateImageSize(branch.imagePath)
+              .then((size) => this.fileSize.set(size))
+              .catch(() => this.fileSize.set(0));
+          }
         }
-      }
-    }, { allowSignalWrites: true });
+      },
+      { allowSignalWrites: true }
+    );
   }
 
   getFileNameFromPath(imagePath: string | undefined): string {
-    return imagePath ? imagePath.split(/[/\\]/).pop()?.slice(37) || '' : 'No Image Path';
+    return imagePath
+      ? imagePath.split(/[/\\]/).pop()?.slice(37) || ''
+      : 'No Image Path';
   }
 
   createBranchForm(): FormGroup {
@@ -140,7 +158,7 @@ export class BranchFormComponent {
   calculateImageSize(url: string): Promise<number> {
     return new Promise((resolve, reject) => {
       fetch(url)
-        .then(response => {
+        .then((response) => {
           const contentLength = response.headers.get('Content-Length');
           if (contentLength) {
             const sizeInKb = Math.round(parseInt(contentLength, 10) / 1024);
@@ -149,20 +167,38 @@ export class BranchFormComponent {
             reject(new Error('Content-Length header is missing'));
           }
         })
-        .catch(error => {
+        .catch((error) => {
           reject(error);
         });
     });
   }
 
   removeImage(): void {
-    this.selectedFile = null;
-    this.imageName.set('');
-    this.fileSize.set(0);
-    this.imagePreview.set('');
-    this.uploadSuccess = false;
-    this.uploadError = false;
-    this.uploadProgress.set(0);
+    if (!this.branch()?.id) return;
+
+    if (this.isEditMode() && this.branch()) {
+      this.branchService.deleteImage(this.branch())?.subscribe(() => {
+        this.selectedFile = null;
+        this.imageName.set('');
+        this.fileSize.set(0);
+        this.imagePreview.set('');
+        this.uploadSuccess = false;
+        this.uploadError = false;
+        this.uploadProgress.set(0);
+        this.snackBar.open('Image deleted successfully', 'Close', {
+          duration: 3000,
+          panelClass: 'success',
+        });
+      });
+    } else {
+      this.selectedFile = null;
+      this.imageName.set('');
+      this.fileSize.set(0);
+      this.imagePreview.set('');
+      this.uploadSuccess = false;
+      this.uploadError = false;
+      this.uploadProgress.set(0);
+    }
   }
 
   onSubmit(): void {
