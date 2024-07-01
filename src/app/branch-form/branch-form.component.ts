@@ -1,20 +1,7 @@
-import {
-  Component,
-  signal,
-  computed,
-  effect,
-  Inject,
-  ViewChild,
-  ElementRef,
-} from '@angular/core';
+import { Component, signal, computed, effect, Inject, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import {
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -25,6 +12,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Branch } from '../models';
 import { MatDialogModule } from '@angular/material/dialog';
+
 @Component({
   selector: 'app-branch-form',
   standalone: true,
@@ -41,12 +29,14 @@ import { MatDialogModule } from '@angular/material/dialog';
     TranslateModule,
     MatIconModule,
     MatDialogModule,
-    MatFormFieldModule 
   ],
   providers: [BranchService],
 })
 export class BranchFormComponent {
   imageName = signal('');
+  fileSize = signal(0);
+  uploadProgress = signal(0);
+  imagePreview = signal('');
   @ViewChild('fileInput') fileInput: ElementRef | undefined;
   faUpload = 'upload';
   branchId = signal<string | null>(null);
@@ -80,20 +70,18 @@ export class BranchFormComponent {
         this.branchForm.patchValue(branch);
         if (branch.imagePath) {
           this.uploadSuccess = true;
-          Promise.resolve().then(() => // Delays execution to avoid effect-related issues.
-            this.getFileNameFromPath(branch.imagePath)
-          );
+          this.imagePreview.set(branch.imagePath);
+          this.imageName.set(this.getFileNameFromPath(branch.imagePath));
+          this.calculateImageSize(branch.imagePath)
+            .then(size => this.fileSize.set(size))
+            .catch(() => this.fileSize.set(0));
         }
       }
-    });
+    }, { allowSignalWrites: true });
   }
 
-  getFileNameFromPath(imagePath: string | undefined) {
-    this.imageName.set(
-      imagePath
-        ? imagePath.split(/[/\\]/).pop()?.slice(37) || ''
-        : 'No Image Path'
-    );
+  getFileNameFromPath(imagePath: string | undefined): string {
+    return imagePath ? imagePath.split(/[/\\]/).pop()?.slice(37) || '' : 'No Image Path';
   }
 
   createBranchForm(): FormGroup {
@@ -128,27 +116,53 @@ export class BranchFormComponent {
   }
 
   uploadFile(file: File | null): void {
-    if (file) {
+    if (file && file.type.startsWith('image/')) {
       this.selectedFile = file;
+      this.fileSize.set(Math.round(file.size / 1024)); // File size in KB
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        this.imagePreview.set(e.target?.result as string);
+      };
+      reader.readAsDataURL(file);
       this.uploadSuccess = true;
       this.uploadError = false;
-      this.snackBar.open('File uploaded successfully!', 'Close', {
-        duration: 3000,
-        panelClass: 'success',
-      });
       this.imageName.set(file.name);
     } else {
       this.uploadSuccess = false;
       this.uploadError = true;
-      this.snackBar.open('Failed to upload file!', 'Close', {
+      this.snackBar.open('Only image files are supported!', 'Close', {
         duration: 3000,
         panelClass: 'error',
       });
     }
   }
 
-  triggerFileInput(): void {
-    this.fileInput?.nativeElement.click();
+  calculateImageSize(url: string): Promise<number> {
+    return new Promise((resolve, reject) => {
+      fetch(url)
+        .then(response => {
+          const contentLength = response.headers.get('Content-Length');
+          if (contentLength) {
+            const sizeInKb = Math.round(parseInt(contentLength, 10) / 1024);
+            resolve(sizeInKb);
+          } else {
+            reject(new Error('Content-Length header is missing'));
+          }
+        })
+        .catch(error => {
+          reject(error);
+        });
+    });
+  }
+
+  removeImage(): void {
+    this.selectedFile = null;
+    this.imageName.set('');
+    this.fileSize.set(0);
+    this.imagePreview.set('');
+    this.uploadSuccess = false;
+    this.uploadError = false;
+    this.uploadProgress.set(0);
   }
 
   onSubmit(): void {

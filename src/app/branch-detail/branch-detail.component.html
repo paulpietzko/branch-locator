@@ -1,9 +1,12 @@
 <div class="detail-page" *ngIf="branch()">
-  <h3>{{ "branchDetail.TITLE" | translate : { location: branch()?.location } }}</h3>
+  <h3>
+    {{ "branchDetail.TITLE" | translate : { location: branch()?.location } }}
+  </h3>
   <div class="branch-info">
     <div class="info-text">
       <p>
-        {{ branch()?.name }}<br />{{ branch()?.postCode }} {{ branch()?.location }}
+        {{ branch()?.name }}<br />{{ branch()?.postCode }}
+        {{ branch()?.location }}
         {{ branch()?.canton }}
       </p>
       <p>
@@ -29,7 +32,7 @@
       </p>
       <img
         *ngIf="branch()?.imagePath"
-        [src]="branch()?.imagePath" 
+        [src]="branch()?.imagePath"
         alt="{{ 'branchDetail.PHOTO_ALT' | translate }}"
       />
     </div>
@@ -55,8 +58,12 @@
       ><button mat-button>← {{ "actions.BACK" | translate }}</button></a
     >
     <div>
-      <button mat-button (click)="deleteBranch()">{{ "actions.DELETE" | translate }}</button>
-
+      <button mat-button (click)="editBranch()">
+        {{ "actions.EDIT" | translate }}
+      </button>
+      <button mat-button (click)="deleteBranch()">
+        {{ "actions.DELETE" | translate }}
+      </button>
     </div>
   </div>
 </div>

@@ -10,6 +10,7 @@
   border: 2px dashed #ccc;
   padding: 1rem;
   margin-bottom: 1rem;
+  border-radius: 10px;
   cursor: pointer;
 }
 
@@ -27,7 +28,14 @@
   align-items: center;
 }
 
-.buttons {
-  display: flex;
-  justify-content: flex-end;
+.image-preview {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 0.5rem;
+  border-radius: 10px;
+}
+
+.delete-icon {
+  cursor: pointer;
+  color: red;
 }

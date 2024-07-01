@@ -20,6 +20,9 @@ import * as QRCode from 'qrcode';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Title } from '@angular/platform-browser';
+import { BranchFormComponent } from '../branch-form/branch-form.component';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-branch-detail',
@@ -31,6 +34,7 @@ import { Title } from '@angular/platform-browser';
     GoogleMapsModule,
     TranslateModule,
     MatSnackBarModule,
+    MatIconModule
   ],
   providers: [BranchService],
   templateUrl: './branch-detail.component.html',
@@ -76,13 +80,26 @@ export class BranchDetailComponent {
     });
   }
 
+  editBranch() {
+    const id = this.branchId();
+    const dialogRef = this.dialog.open(BranchFormComponent, {
+      width: '1000px',
+      data: { id },
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      this.branchService.fetchBranches();
+    });
+  }
+
   constructor(
     private titleService: Title,
     private branchService: BranchService,
     private route: ActivatedRoute,
-    private router: Router,
     private snackBar: MatSnackBar,
     private translate: TranslateService,
+    public dialog: MatDialog,
+    private router: Router,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
@@ -109,15 +126,18 @@ export class BranchDetailComponent {
     this.branchService.deleteBranch(id);
 
     this.translate
-      .get(['branchDetail.DELETE_SUCCESS', 'branchDetail.CLOSE'])
+      .get(['branchDetail.DELETE_SUCCESS', 'actions.CLOSE'])
       .subscribe((translations) => {
         this.snackBar.open(
           translations['branchDetail.DELETE_SUCCESS'],
-          translations['branchDetail.CLOSE'],
+          translations['actions.CLOSE'],
           {
             duration: 5000,
           }
+
         );
       });
+      
+      this.router.navigate(['/filialen']);
   }
 }
