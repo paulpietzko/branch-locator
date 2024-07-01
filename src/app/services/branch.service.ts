@@ -8,6 +8,7 @@ import { Branch } from '../models';
 export class BranchService {
   private dataUrl = 'https://localhost:7089';
   private branchesSignal = signal<Branch[]>([]);
+  private imageToDelete: string | null = null;
 
   constructor(private http: HttpClient) {
     this.fetchBranches();
@@ -16,7 +17,7 @@ export class BranchService {
   fetchBranches() {
     this.http.get<Branch[]>(`${this.dataUrl}/api/Branches`).subscribe({
       next: (validatedData) => {
-        const updatedData = validatedData.map(branch => {
+        const updatedData = validatedData.map((branch) => {
           if (branch.imagePath) {
             branch.imagePath = `https://localhost:7089/${branch.imagePath}`;
           }
@@ -50,16 +51,37 @@ export class BranchService {
     });
   }
 
-  deleteImage(branch: Branch | null) {
-    if(!branch) return;
+  markImageForDeletion(branch: Branch | null) {
+    if (!branch) return;
+    this.imageToDelete = branch.imagePath?.substring(30) ?? null;
+  }
 
-    console.log(`img path ${branch.imagePath?.substring(30, branch.imagePath.length)}`)
-
-    console.log(`${this.dataUrl}/api/Branches/${branch.id}/image?imagePath=${branch.imagePath?.substring(30, branch.imagePath.length)}`)
-    return this.http.delete<void>(`${this.dataUrl}/api/Branches/${branch.id}/image?imagePath=images%5C%5C${branch.imagePath?.substring(30, branch.imagePath.length)}`);
+  confirmImageDeletion(branchId: string) {
+    if (this.imageToDelete) {
+      return this.http.delete<void>(
+        `${this.dataUrl}/api/Branches/${branchId}/image?imagePath=images%5C%5C${this.imageToDelete}`
+      );
+    }
+    return null;
   }
 
   updateBranch(id: string, branchData: FormData) {
+    if (this.imageToDelete) {
+      this.confirmImageDeletion(id)?.subscribe({
+        next: () => {
+          this.imageToDelete = null;
+          this.updateBranchData(id, branchData);
+        },
+        error: (error) => {
+          console.error(error);
+        },
+      });
+    } else {
+      this.updateBranchData(id, branchData);
+    }
+  }
+
+  private updateBranchData(id: string, branchData: FormData) {
     this.http
       .put<Branch>(`${this.dataUrl}/api/Branches/${id}`, branchData)
       .subscribe({
@@ -71,9 +93,6 @@ export class BranchService {
         },
       });
   }
-  // https://localhost:7089/api/Branches/b1dd3308-9006-459b-59f7-08dc97461acb/image?imagePath=20256571-49e1-4db8-a0da-936a88933ef7-id.nike.jpeg
-  // https://localhost:7089/api/Branches/b1dd3308-9006-459b-59f7-08dc97461acb/image?imagePath=images%5C%5C20256571-49e1-4db8-a0da-936a88933ef7-id.nike.jpeg
-
 
   addBranch(branchData: FormData) {
     this.http

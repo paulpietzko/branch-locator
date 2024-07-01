@@ -174,55 +174,41 @@ export class BranchFormComponent {
   }
 
   removeImage(): void {
-    if (!this.branch()?.id) return;
-
     if (this.isEditMode() && this.branch()) {
-      this.branchService.deleteImage(this.branch())?.subscribe(() => {
-        this.selectedFile = null;
-        this.imageName.set('');
-        this.fileSize.set(0);
-        this.imagePreview.set('');
-        this.uploadSuccess = false;
-        this.uploadError = false;
-        this.uploadProgress.set(0);
-        this.snackBar.open('Image deleted successfully', 'Close', {
-          duration: 3000,
-          panelClass: 'success',
-        });
-      });
-    } else {
-      this.selectedFile = null;
-      this.imageName.set('');
-      this.fileSize.set(0);
-      this.imagePreview.set('');
-      this.uploadSuccess = false;
-      this.uploadError = false;
-      this.uploadProgress.set(0);
+      this.branchService.markImageForDeletion(this.branch());
     }
+  
+    this.selectedFile = null;
+    this.imageName.set('');
+    this.fileSize.set(0);
+    this.imagePreview.set('');
+    this.uploadSuccess = false;
+    this.uploadError = false;
+    this.uploadProgress.set(0);
   }
 
   onSubmit(): void {
     if (this.branchForm.valid) {
       const branchData = this.branchForm.value;
       const formData = new FormData();
-
+  
       for (const key in branchData) {
         if (branchData.hasOwnProperty(key)) {
           formData.append(key, branchData[key]);
         }
       }
-
+  
       if (this.selectedFile) {
         formData.append('image', this.selectedFile);
       }
-
+  
       if (this.isEditMode()) {
         const updatedBranch = { ...this.branch(), ...branchData };
         this.branchService.updateBranch(updatedBranch.id, formData);
       } else {
         this.branchService.addBranch(formData);
       }
-
+  
       this.translate
         .get(['branchForm.ACTION_SUCCESS', 'actions.CLOSE'])
         .subscribe((translations) => {
@@ -234,7 +220,7 @@ export class BranchFormComponent {
             }
           );
         });
-
+  
       this.dialogRef.close();
     }
   }
