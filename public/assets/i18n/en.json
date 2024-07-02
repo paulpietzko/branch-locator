@@ -71,5 +71,9 @@
     "DELETE": "Delete",
     "UPLOAD_PLACEHOLDER": "Drag and drop or click",
     "DOWNLOAD": "Download"
+  },
+  "info": {
+    "TABLE": "Table",
+    "BRANCHES": "Branches"
   }
 }

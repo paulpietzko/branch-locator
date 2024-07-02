@@ -1,0 +1,21 @@
+<button mat-button [matMenuTriggerFor]="menu">
+  {{ "actions.DOWNLOAD" | translate }}
+</button>
+<mat-menu #menu="matMenu">
+  <button mat-menu-item (click)="download(DownloadFormat.Excel)">
+    <mat-icon>file_download</mat-icon>
+    Excel
+  </button>
+  <button mat-menu-item (click)="download(DownloadFormat.Pdf)">
+    <mat-icon>file_download</mat-icon>
+    PDF
+  </button>
+  <button mat-menu-item (click)="download(DownloadFormat.Json)">
+    <mat-icon>file_download</mat-icon>
+    JSON
+  </button>
+  <button mat-menu-item (click)="download(DownloadFormat.Csv)">
+    <mat-icon>file_download</mat-icon>
+    CSV
+  </button>
+</mat-menu>

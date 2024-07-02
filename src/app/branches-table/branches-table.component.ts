@@ -15,7 +15,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { RouterModule, Router } from '@angular/router';
 import { BranchService } from '../services/branch.service';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Branch } from '../models';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatPaginatorIntl } from '@angular/material/paginator';
@@ -28,34 +28,36 @@ import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Title } from '@angular/platform-browser';
 import { BranchFormComponent } from '../branch-form/branch-form.component';
-import { DownloadDialogComponent } from '../download-dialog/download-dialog.component';
+import { BranchesTableDownloadComponent } from '../branches-table-download/branches-table-download.component';
+import { Meta } from '@angular/platform-browser';
 
 @Component({
-  selector: 'app-branches-table',
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatTableModule,
-    MatIconModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
-    MatCheckboxModule,
-    RouterModule,
-    TranslateModule,
-    MatPaginatorModule,
-    ReactiveFormsModule,
-    MatMenuModule,
-    MatDividerModule,
-    MatSortModule,
-  ],
-  providers: [
-    BranchService,
-    { provide: MatPaginatorIntl, useClass: CustomMatPaginatorIntl },
-  ],
-  templateUrl: './branches-table.component.html',
-  styleUrls: ['./branches-table.component.scss'],
+    selector: 'app-branches-table',
+    standalone: true,
+    providers: [
+        BranchService,
+        { provide: MatPaginatorIntl, useClass: CustomMatPaginatorIntl },
+    ],
+    templateUrl: './branches-table.component.html',
+    styleUrls: ['./branches-table.component.scss'],
+    imports: [
+        CommonModule,
+        MatTableModule,
+        MatIconModule,
+        MatButtonModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatSelectModule,
+        MatCheckboxModule,
+        RouterModule,
+        TranslateModule,
+        MatPaginatorModule,
+        ReactiveFormsModule,
+        MatMenuModule,
+        MatDividerModule,
+        MatSortModule,
+        BranchesTableDownloadComponent
+    ]
 })
 export class BranchesTableComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
@@ -71,6 +73,7 @@ export class BranchesTableComponent implements AfterViewInit {
   branches = computed(() => this.branchService.getBranches());
   dataSource = new MatTableDataSource<Branch>([]);
   filterForm: FormGroup;
+  filteredData: Branch[] = [];
 
   uniqueLocations: string[] = [];
 
@@ -80,13 +83,16 @@ export class BranchesTableComponent implements AfterViewInit {
     private router: Router,
     public dialog: MatDialog,
     private _liveAnnouncer: LiveAnnouncer,
-    private titleService: Title
+    private titleService: Title,
+    private translate: TranslateService,
+    private metaTagService: Meta
   ) {
     effect(() => {
       this.dataSource.data = this.branches();
       this.uniqueLocations = this.getUniqueLocations(this.branches());
       this.applyFilter();
-      this.titleService.setTitle(`Table: ${this.branches().length} Branches`);
+      // TODO: translate all strings
+      this.titleService.setTitle(`${this.translate.instant('info.TABLE')}: ${this.branches().length} ${this.translate.instant('info.BRANCHES')}`);
     });
 
     this.filterForm = this.fb.group({
@@ -111,28 +117,15 @@ export class BranchesTableComponent implements AfterViewInit {
 
       return matchesSearch && matchesLocation;
     };
-  }
 
-  downloadData() {
-    const filteredData: Branch[] = this.dataSource.filteredData.map(branch => ({
-      id: branch.id,
-      name: branch.name,
-      postCode: branch.postCode,
-      location: branch.location,
-      canton: branch.canton,
-      email: branch.email,
-      website: branch.website,
-      openingHours: branch.openingHours,
-      phone: branch.phone,
-      lat: branch.lat,
-      lng: branch.lng,
-      imagePath: branch.imagePath,
-    }));
-
-    this.dialog.open(DownloadDialogComponent, {
-      width: '100px',
-      data: { filteredData },
-    });
+    this.metaTagService.addTags([
+      { name: 'keywords', content: 'Branches, Locator, Finder, CRUD, Table' },
+      { name: 'robots', content: 'index, follow' },
+      { name: 'author', content: 'Paul Pietko' },
+      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      { name: 'date', content: '2024-07-02', scheme: 'YYYY-MM-DD' },
+      { charset: 'UTF-8' }
+    ]);
   }
 
   viewDetails(id: string) {

@@ -48,10 +48,6 @@ import { MatDialogModule } from '@angular/material/dialog';
   ],
   providers: [
     BranchService,
-    {
-      provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
-      useValue: { appearance: 'outline' },
-    },
   ],
 })
 export class BranchFormComponent {
