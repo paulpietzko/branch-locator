@@ -9,7 +9,6 @@
     "CANTON": "Canton",
     "DETAILS": "Show Details",
     "MAP": "Map",
-    "ADD": "Add",
     "SEARCH": "Search..",
     "SEARCH_PLACEHOLDER": "Company Name",
     "LOCATIONS": "Localities",
@@ -64,13 +63,15 @@
     "VAXIS_TITLE": "Count"
   },
   "actions": {
+    "ADD": "Add",
     "BACK": "Back to overview",
     "SAVE": "Save",
     "CLOSE": "Close",
     "EDIT": "Edit",
     "DELETE": "Delete",
     "UPLOAD_PLACEHOLDER": "Drag and drop or click",
-    "DOWNLOAD": "Download"
+    "DOWNLOAD": "Download",
+    "IMPORT": "Import"
   },
   "info": {
     "TABLE": "Table",

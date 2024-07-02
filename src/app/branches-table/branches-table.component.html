@@ -31,8 +31,10 @@
       </mat-form-field>
     </div>
   </form>
-  
-  <app-branches-table-download [branchData]="this.dataSource.filteredData"></app-branches-table-download>
+
+  <app-branches-table-download
+    [branchData]="this.dataSource.filteredData"
+  ></app-branches-table-download>
 </div>
 <div class="table-responsive">
   <table
@@ -124,7 +126,11 @@
       color="primary"
       class="mb-2 mb-md-0 me-md-2"
     >
-      {{ "branchTable.ADD" | translate }}
+      {{ "actions.ADD" | translate }}
+    </button>
+    <input type="file" style="display:none" id="fileInput" accept=".csv,.json,.xlsx">
+    <button mat-button color="primary">
+      {{ "actions.IMPORT" | translate }}
     </button>
   </div>
 </div>

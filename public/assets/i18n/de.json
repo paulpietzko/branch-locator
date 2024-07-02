@@ -9,7 +9,6 @@
     "CANTON": "Kanton",
     "DETAILS": "Details anzeigen",
     "MAP": "Karte",
-    "ADD": "Hinzufügen",
     "SEARCH": "Suchen..",
     "SEARCH_PLACEHOLDER": "Name der Firma",
     "LOCATIONS": "Ortschaften",
@@ -64,13 +63,15 @@
     "VAXIS_TITLE": "Anzahl"
   },
   "actions": {
+    "ADD": "Hinzufügen",
     "BACK": "Zurück zur Übersicht",
     "SAVE": "Speichern",
     "CLOSE": "Schliessen",
     "EDIT": "Bearbeiten",
     "DELETE": "Löschen",
     "UPLOAD_PLACEHOLDER": "Ziehen und ablegen oder klicken",
-    "DOWNLOAD": "Herunterladen"
+    "DOWNLOAD": "Herunterladen",
+    "IMPORT": "Importieren"
   },
   "info": {
     "TABLE": "Tabelle",
