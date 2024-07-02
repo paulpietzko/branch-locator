@@ -77,10 +77,10 @@
           <mat-icon>more_horiz</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
-          <button mat-menu-item (click)="viewDetails(element.id)">
+          <a mat-menu-item [routerLink]="['detail', element.id]">
             <mat-icon>info</mat-icon>
             <span>{{ "branchTable.DETAILS" | translate }}</span>
-          </button>
+          </a>
           <button mat-menu-item (click)="editBranch(element.id)">
             <mat-icon>edit</mat-icon>
             <span>{{ "actions.EDIT" | translate }}</span>
@@ -97,12 +97,11 @@
     <tr
       mat-row
       *matRowDef="let row; columns: displayedColumns"
-      (click)="viewDetails(row.id)"
+      [routerLink]="['detail', row.id]"
       class="clickable-row"
     ></tr>
   </table>
 </div>
-
 <div
   class="d-flex flex-column flex-md-row justify-content-between align-items-center mt-3"
 >

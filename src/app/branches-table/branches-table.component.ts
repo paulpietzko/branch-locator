@@ -80,7 +80,7 @@ export class BranchesTableComponent implements AfterViewInit {
   constructor(
     private branchService: BranchService,
     private fb: FormBuilder,
-    private router: Router,
+    public router: Router,
     public dialog: MatDialog,
     private _liveAnnouncer: LiveAnnouncer,
     private titleService: Title,
@@ -91,7 +91,6 @@ export class BranchesTableComponent implements AfterViewInit {
       this.dataSource.data = this.branches();
       this.uniqueLocations = this.getUniqueLocations(this.branches());
       this.applyFilter();
-      // TODO: translate all strings
       this.titleService.setTitle(`${this.translate.instant('info.TABLE')}: ${this.branches().length} ${this.translate.instant('info.BRANCHES')}`);
     });
 
@@ -126,10 +125,6 @@ export class BranchesTableComponent implements AfterViewInit {
       { name: 'date', content: '2024-07-02', scheme: 'YYYY-MM-DD' },
       { charset: 'UTF-8' }
     ]);
-  }
-
-  viewDetails(id: string) {
-    this.router.navigate(['/filialen/detail', id]);
   }
 
   deleteBranch(id: string) {
