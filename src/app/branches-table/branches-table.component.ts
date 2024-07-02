@@ -24,10 +24,10 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatDialog } from '@angular/material/dialog';
-import { BranchFormComponent } from '../branch-form/branch-form.component';
 import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Title } from '@angular/platform-browser';
+import { BranchFormComponent } from '../branch-form/branch-form.component';
 import { DownloadDialogComponent } from '../download-dialog/download-dialog.component';
 
 @Component({

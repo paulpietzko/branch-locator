@@ -32,26 +32,21 @@ p {
   }
 }
 
-table {
+.table-responsive {
   width: 100%;
   margin-bottom: 1.5rem;
-
-  th.mat-header-cell {
-    font-weight: bold;
-  }
-
-  td.mat-cell {
-    font-size: 1rem;
-  }
-
-  mat-icon {
-    vertical-align: middle;
-  }
 }
 
-mat-paginator {
-  display: flex;
-  justify-content: center;
+.mat-header-cell {
+  font-weight: bold;
+}
+
+.mat-cell {
+  font-size: 1rem;
+}
+
+.mat-icon {
+  vertical-align: middle;
 }
 
 .branch-table .clickable-row {
@@ -62,15 +57,44 @@ mat-paginator {
   background-color: #f5f5f5;
 }
 
-.action-bar {
+.d-flex {
   display: flex;
-  align-items: center;
-  width: 100%;
-  justify-content: space-between;
-  margin-top: 1rem;
+}
 
-  mat-paginator {
-    flex: 1;
-    margin: 0 1rem;
-  }
+.justify-content-between {
+  justify-content: space-between;
+}
+
+.align-items-center {
+  align-items: center;
+}
+
+.mt-3 {
+  margin-top: 1rem;
+}
+
+.flex-grow-1 {
+  flex-grow: 1;
+}
+
+.mx-0 {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.mx-md-3 {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+.mb-2 {
+  margin-bottom: 0.5rem;
+}
+
+.mb-md-0 {
+  margin-bottom: 0;
+}
+
+.me-md-2 {
+  margin-right: 0.5rem;
 }
