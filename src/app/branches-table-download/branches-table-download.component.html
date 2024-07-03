@@ -1,5 +1,5 @@
 <button mat-button [matMenuTriggerFor]="menu">
-  {{ "ACTIONS.DOWNLOAD" | translate }}
+  <mat-icon>download</mat-icon>
 </button>
 <mat-menu #menu="matMenu">
   <button mat-menu-item (click)="download(FileFormat.Excel)">

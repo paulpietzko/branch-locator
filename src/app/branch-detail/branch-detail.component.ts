@@ -5,6 +5,7 @@ import {
   ViewChild,
   PLATFORM_ID,
   Inject,
+  OnInit,
 } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
@@ -40,7 +41,7 @@ import { MatDialog } from '@angular/material/dialog';
   templateUrl: './branch-detail.component.html',
   styleUrls: ['./branch-detail.component.scss'],
 })
-export class BRANCH_DETAILComponent {
+export class BRANCH_DETAILComponent implements OnInit {
   @ViewChild(MapInfoWindow) infoWindow: MapInfoWindow | undefined;
 
   qrCodeUrl: string = '';

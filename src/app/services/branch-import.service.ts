@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as XLSX from 'xlsx';
 import { Branch } from '../models';
+import { BranchService } from './branch.service';
 
 @Injectable({
   providedIn: 'root',
@@ -8,10 +9,11 @@ import { Branch } from '../models';
 export class BranchImportService {
   importedData: Branch[] = [];
 
-  constructor() {}
+  constructor(
+    private branchService: BranchService
+  ) {}
 
-  // Import
-  onFileSelected(event: any) {
+  onFileSelected(event: any) { // TODO: fetch branches after finishing and update the table
     const file: File = event.target.files[0];
     if (!file) return;
 
@@ -42,6 +44,7 @@ export class BranchImportService {
             return;
         }
         this.importedData = importedData as Branch[];
+        this.branchService.addBranches(this.importedData);
       } catch (error) {
         console.error('Error parsing file:', error);
       }
@@ -58,7 +61,6 @@ export class BranchImportService {
     const lines = csvData.split('\n');
     return lines.map((line) => {
       const values = line.split(',');
-      // Create and return a Branch object, trimming quotes and whitespace from each value
       return {
         id: values[0].trim().replace(/^"|"$/g, ''),
         postCode: values[1].trim().replace(/^"|"$/g, ''),

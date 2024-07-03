@@ -72,8 +72,8 @@ export class BranchesTableComponent
     'postCode',
     'location',
     'canton',
-    'edit',
     'detailLink',
+    'edit',
   ];
   branches = computed(() => this.branchService.getBranches());
   dataSource = new MatTableDataSource<Branch>([]);
@@ -82,7 +82,7 @@ export class BranchesTableComponent
 
   constructor(
     private branchService: BranchService,
-    public BranchImportService: BranchImportService,
+    public branchImportService: BranchImportService,
     private fb: FormBuilder,
     public router: Router,
     public dialog: MatDialog,
@@ -160,6 +160,11 @@ export class BranchesTableComponent
     }
   }
 
+  onFileSelected($event: any) { // help
+    this.branchImportService.onFileSelected($event);
+    this.applyFilter();
+  }
+
   getUniqueLocations(branches: Branch[]): string[] {
     const locations = branches.map((branch) => branch.location);
     return [...new Set(locations)];
@@ -197,10 +202,6 @@ export class BranchesTableComponent
     dialogRef.afterClosed().subscribe(() => {
       this.branchService.fetchBranches();
     });
-  }
-
-  addBranches() {
-    this.branchService.addBranches(this.BranchImportService.importedData);
   }
 
   ngOnDestroy(): void {
