@@ -16,8 +16,7 @@
     "NEXT_PAGE": "Next page",
     "PREVIOUS_PAGE": "Previous page",
     "PAGE_OF": "of",
-    "DELETE_CONFIRMATION": "Are you sure you want to delete this branch?",
-    "DELETE_SUCCESS": "Successfully deleted"
+    "DELETE_CONFIRMATION": "Are you sure you want to delete this branch?"
   },
   "branchDetail": {
     "TITLE": "Our branch in {{ location }}",
@@ -74,6 +73,7 @@
     "IMPORT": "Import"
   },
   "info": {
+    "DELETE_SUCCESS": "Successfully deleted",
     "TABLE": "Table",
     "BRANCHES": "Branches"
   }

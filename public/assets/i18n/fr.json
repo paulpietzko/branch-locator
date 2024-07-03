@@ -16,8 +16,7 @@
     "NEXT_PAGE": "Page suivante",
     "PREVIOUS_PAGE": "Page précédente",
     "PAGE_OF": "de",
-    "DELETE_CONFIRMATION": "Voulez-vous vraiment supprimer cette succursale ?",
-    "DELETE_SUCCESS": "Suppression réussie"
+    "DELETE_CONFIRMATION": "Voulez-vous vraiment supprimer cette succursale ?"
   },
   "branchDetail": {
     "TITLE": "Notre succursale à {{ location }}",
@@ -74,6 +73,7 @@
     "IMPORT": "Importer"
   },
   "info": {
+    "DELETE_SUCCESS": "Suppression réussie",
     "TABLE": "Tableau",
     "BRANCHES": "Filiales"
   }

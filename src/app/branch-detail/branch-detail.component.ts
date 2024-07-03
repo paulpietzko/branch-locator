@@ -126,10 +126,10 @@ export class BranchDetailComponent {
     this.branchService.deleteBranch(id);
 
     this.translate
-      .get(['branchDetail.DELETE_SUCCESS', 'actions.CLOSE'])
+      .get(['info.DELETE_SUCCESS', 'actions.CLOSE'])
       .subscribe((translations) => {
         this.snackBar.open(
-          translations['branchDetail.DELETE_SUCCESS'],
+          translations['info.DELETE_SUCCESS'],
           translations['actions.CLOSE'],
           {
             duration: 5000,

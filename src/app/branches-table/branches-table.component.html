@@ -128,9 +128,13 @@
     >
       {{ "actions.ADD" | translate }}
     </button>
-    <input type="file" style="display:none" id="fileInput" accept=".csv,.json,.xlsx">
-    <button mat-button color="primary">
-      {{ "actions.IMPORT" | translate }}
-    </button>
+    <input
+    type="file"
+    (change)="onFileSelected($event)"
+    accept=".json,.csv,.xlsx"
+  />
+  <button mat-button color="primary" (click)="addBranches()">
+    {{ "actions.IMPORT" | translate }}
+  </button>
   </div>
 </div>

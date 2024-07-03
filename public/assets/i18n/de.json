@@ -16,8 +16,7 @@
     "NEXT_PAGE": "Nächste Seite",
     "PREVIOUS_PAGE": "Vorherige Seite",
     "PAGE_OF": "von",
-    "DELETE_CONFIRMATION": "Möchten Sie diese Filiale wirklich löschen?",
-    "DELETE_SUCCESS": "Erfolgreich gelöscht"
+    "DELETE_CONFIRMATION": "Möchten Sie diese Filiale wirklich löschen?"
   },
   "branchDetail": {
     "TITLE": "Unsere Filiale in {{ location }}",
@@ -74,6 +73,7 @@
     "IMPORT": "Importieren"
   },
   "info": {
+    "DELETE_SUCCESS": "Erfolgreich gelöscht",
     "TABLE": "Tabelle",
     "BRANCHES": "Filialen"
   }

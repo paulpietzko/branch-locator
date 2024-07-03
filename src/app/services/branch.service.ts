@@ -106,4 +106,19 @@ export class BranchService {
         },
       });
   }
+
+  addBranches(importedBranchData: Branch[]) {
+    this.http
+      .post(`${this.dataUrl}/api/Branches/import`, importedBranchData, {
+        responseType: 'text',
+      })
+      .subscribe({
+        next: (response) => {
+          this.fetchBranches();
+        },
+        error: (error) => {
+          console.error(error);
+        },
+      });
+  }
 }

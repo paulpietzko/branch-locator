@@ -32,32 +32,32 @@ import { BranchesTableDownloadComponent } from '../branches-table-download/branc
 import { Meta } from '@angular/platform-browser';
 
 @Component({
-    selector: 'app-branches-table',
-    standalone: true,
-    providers: [
-        BranchService,
-        { provide: MatPaginatorIntl, useClass: CustomMatPaginatorIntl },
-    ],
-    templateUrl: './branches-table.component.html',
-    styleUrls: ['./branches-table.component.scss'],
-    imports: [
-        CommonModule,
-        MatTableModule,
-        MatIconModule,
-        MatButtonModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatSelectModule,
-        MatCheckboxModule,
-        RouterModule,
-        TranslateModule,
-        MatPaginatorModule,
-        ReactiveFormsModule,
-        MatMenuModule,
-        MatDividerModule,
-        MatSortModule,
-        BranchesTableDownloadComponent
-    ]
+  selector: 'app-branches-table',
+  standalone: true,
+  providers: [
+    BranchService,
+    { provide: MatPaginatorIntl, useClass: CustomMatPaginatorIntl },
+  ],
+  templateUrl: './branches-table.component.html',
+  styleUrls: ['./branches-table.component.scss'],
+  imports: [
+    CommonModule,
+    MatTableModule,
+    MatIconModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatCheckboxModule,
+    RouterModule,
+    TranslateModule,
+    MatPaginatorModule,
+    ReactiveFormsModule,
+    MatMenuModule,
+    MatDividerModule,
+    MatSortModule,
+    BranchesTableDownloadComponent,
+  ],
 })
 export class BranchesTableComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
@@ -73,7 +73,7 @@ export class BranchesTableComponent implements AfterViewInit {
   branches = computed(() => this.branchService.getBranches());
   dataSource = new MatTableDataSource<Branch>([]);
   filterForm: FormGroup;
-  filteredData: Branch[] = [];
+  importedData: Branch[] = [];
 
   uniqueLocations: string[] = [];
 
@@ -91,7 +91,11 @@ export class BranchesTableComponent implements AfterViewInit {
       this.dataSource.data = this.branches();
       this.uniqueLocations = this.getUniqueLocations(this.branches());
       this.applyFilter();
-      this.titleService.setTitle(`${this.translate.instant('info.TABLE')}: ${this.branches().length} ${this.translate.instant('info.BRANCHES')}`);
+      this.titleService.setTitle(
+        `${this.translate.instant('info.TABLE')}: ${
+          this.branches().length
+        } ${this.translate.instant('info.BRANCHES')}`
+      );
     });
 
     this.filterForm = this.fb.group({
@@ -123,7 +127,7 @@ export class BranchesTableComponent implements AfterViewInit {
       { name: 'author', content: 'Paul Pietko' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { name: 'date', content: '2024-07-02', scheme: 'YYYY-MM-DD' },
-      { charset: 'UTF-8' }
+      { charset: 'UTF-8' },
     ]);
   }
 
@@ -161,10 +165,9 @@ export class BranchesTableComponent implements AfterViewInit {
     };
     this.dataSource.filter = JSON.stringify(filterValue);
 
-    if (!this.dataSource.paginator)
-      return;
+    if (!this.dataSource.paginator) return;
 
-      this.dataSource.paginator.firstPage();
+    this.dataSource.paginator.firstPage();
   }
 
   editBranch(id: string) {
@@ -187,5 +190,25 @@ export class BranchesTableComponent implements AfterViewInit {
     dialogRef.afterClosed().subscribe(() => {
       this.branchService.fetchBranches();
     });
+  }
+
+  // Import
+  onFileSelected(event: any) {
+    const file: File = event.target.files[0];
+    const fileReader: FileReader = new FileReader();
+
+    fileReader.onload = (e) => {
+      const contents = fileReader.result as string;
+
+      try {
+        this.importedData = JSON.parse(contents) as Branch[];
+      } catch (error) {}
+    };
+
+    fileReader.readAsText(file);
+  }
+
+  addBranches() {
+    this.branchService.addBranches(this.importedData);
   }
 }
