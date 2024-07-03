@@ -16,16 +16,16 @@ export class CustomMatPaginatorIntl extends MatPaginatorIntl {
   getAndInitTranslations() {
     this.translate
       .get([
-        'branchTable.ITEMS_PER_PAGE',
-        'branchTable.NEXT_PAGE',
-        'branchTable.PREVIOUS_PAGE',
-        'branchTable.PAGE_OF'
+        'BRANCH_TABLE.ITEMS_PER_PAGE',
+        'BRANCH_TABLE.NEXT_PAGE',
+        'BRANCH_TABLE.PREVIOUS_PAGE',
+        'BRANCH_TABLE.PAGE_OF'
       ])
       .subscribe((translation) => {
-        this.itemsPerPageLabel = translation['branchTable.ITEMS_PER_PAGE'];
-        this.nextPageLabel = translation['branchTable.NEXT_PAGE'];
-        this.previousPageLabel = translation['branchTable.PREVIOUS_PAGE'];
-        this.pageOf = translation['branchTable.PAGE_OF'];
+        this.itemsPerPageLabel = translation['BRANCH_TABLE.ITEMS_PER_PAGE'];
+        this.nextPageLabel = translation['BRANCH_TABLE.NEXT_PAGE'];
+        this.previousPageLabel = translation['BRANCH_TABLE.PREVIOUS_PAGE'];
+        this.pageOf = translation['BRANCH_TABLE.PAGE_OF'];
         this.changes.next(); // Notify about the changes
       });
   }

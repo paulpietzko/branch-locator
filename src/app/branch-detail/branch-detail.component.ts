@@ -20,7 +20,7 @@ import * as QRCode from 'qrcode';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Title } from '@angular/platform-browser';
-import { BranchFormComponent } from '../branch-form/branch-form.component';
+import { BRANCH_FORMComponent } from '../branch-form/branch-form.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
 
@@ -40,7 +40,7 @@ import { MatDialog } from '@angular/material/dialog';
   templateUrl: './branch-detail.component.html',
   styleUrls: ['./branch-detail.component.scss'],
 })
-export class BranchDetailComponent {
+export class BRANCH_DETAILComponent {
   @ViewChild(MapInfoWindow) infoWindow: MapInfoWindow | undefined;
 
   qrCodeUrl: string = '';
@@ -84,7 +84,7 @@ export class BranchDetailComponent {
 
   editBranch() {
     const id = this.branchId();
-    const dialogRef = this.dialog.open(BranchFormComponent, {
+    const dialogRef = this.dialog.open(BRANCH_FORMComponent, {
       width: '1000px',
       data: { id },
     });
@@ -130,11 +130,11 @@ export class BranchDetailComponent {
     this.branchService.deleteBranch(id);
 
     this.translate
-      .get(['info.DELETE_SUCCESS', 'actions.CLOSE'])
+      .get(['INFO.DELETE_SUCCESS', 'ACTIONS.CLOSE'])
       .subscribe((translations) => {
         this.snackBar.open(
-          translations['info.DELETE_SUCCESS'],
-          translations['actions.CLOSE'],
+          translations['INFO.DELETE_SUCCESS'],
+          translations['ACTIONS.CLOSE'],
           {
             duration: 5000,
           }

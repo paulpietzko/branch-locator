@@ -8,7 +8,7 @@ export const routes: Routes = [
   },
   {
     path: 'filialen/detail/:id',
-    loadComponent: () => import('./branch-detail/branch-detail.component').then(m => m.BranchDetailComponent)
+    loadComponent: () => import('./branch-detail/branch-detail.component').then(m => m.BRANCH_DETAILComponent)
   },
   {
     path: 'filialen/karte',

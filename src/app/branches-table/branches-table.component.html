@@ -1,20 +1,20 @@
-<h3>{{ "branchTable.BRANCHES" | translate }}</h3>
-<p>{{ "branchTable.DESCRIPTION" | translate }}</p>
+<h3>{{ "BRANCH_TABLE.BRANCHES" | translate }}</h3>
+<p>{{ "BRANCH_TABLE.DESCRIPTION" | translate }}</p>
 <div class="filter-menu">
   <form [formGroup]="filterForm" class="row g-3">
     <div class="col-md-6">
       <mat-form-field>
-        <mat-label>{{ "branchTable.SEARCH" | translate }}</mat-label>
+        <mat-label>{{ "BRANCH_TABLE.SEARCH" | translate }}</mat-label>
         <input
           matInput
           formControlName="search"
-          placeholder="{{ 'branchTable.SEARCH_PLACEHOLDER' | translate }}"
+          placeholder="{{ 'BRANCH_TABLE.SEARCH_PLACEHOLDER' | translate }}"
         />
       </mat-form-field>
     </div>
     <div class="col-md-6">
       <mat-form-field>
-        <mat-label>{{ "branchTable.LOCATIONS" | translate }}</mat-label>
+        <mat-label>{{ "BRANCH_TABLE.LOCATIONS" | translate }}</mat-label>
         <mat-select
           multiple
           formControlName="locations"
@@ -44,25 +44,25 @@
   >
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>
-        {{ "branchTable.NAME" | translate }}
+        {{ "BRANCH_TABLE.NAME" | translate }}
       </th>
       <td mat-cell *matCellDef="let element">{{ element.name }}</td>
     </ng-container>
     <ng-container matColumnDef="postCode">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>
-        {{ "branchTable.POSTCODE" | translate }}
+        {{ "BRANCH_TABLE.POSTCODE" | translate }}
       </th>
       <td mat-cell *matCellDef="let element">{{ element.postCode }}</td>
     </ng-container>
     <ng-container matColumnDef="location">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>
-        {{ "branchTable.LOCATION" | translate }}
+        {{ "BRANCH_TABLE.LOCATION" | translate }}
       </th>
       <td mat-cell *matCellDef="let element">{{ element.location }}</td>
     </ng-container>
     <ng-container matColumnDef="canton">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>
-        {{ "branchTable.CANTON" | translate }}
+        {{ "BRANCH_TABLE.CANTON" | translate }}
       </th>
       <td mat-cell *matCellDef="let element">{{ element.canton }}</td>
     </ng-container>
@@ -72,7 +72,7 @@
       </th>
       <td mat-cell *matCellDef="let element">
         <a [routerLink]="['detail', element.id]">
-          <span>{{ "branchTable.DETAILS" | translate }}</span>
+          <span>{{ "BRANCH_TABLE.DETAILS" | translate }}</span>
         </a>
       </td>
     </ng-container>
@@ -90,12 +90,12 @@
           
           <button mat-menu-item (click)="editBranch(element.id)">
             <mat-icon>edit</mat-icon>
-            <span>{{ "actions.EDIT" | translate }}</span>
+            <span>{{ "ACTIONS.EDIT" | translate }}</span>
           </button>
           <mat-divider></mat-divider>
           <button mat-menu-item (click)="deleteBranch(element.id)">
             <mat-icon>delete</mat-icon>
-            <span>{{ "actions.DELETE" | translate }}</span>
+            <span>{{ "ACTIONS.DELETE" | translate }}</span>
           </button>
         </mat-menu>
       </td>
@@ -114,7 +114,7 @@
 >
   <a class="map-button mb-2 mb-md-0" [routerLink]="['/filialen/karte']">
     <button mat-button color="primary">
-      {{ "branchTable.MAP" | translate }}
+      {{ "BRANCH_TABLE.MAP" | translate }}
     </button>
   </a>
   <div class="flex-grow-1 mx-0 mx-md-3 mb-2 mb-md-0">
@@ -131,7 +131,7 @@
       color="primary"
       class="mb-2 mb-md-0 me-md-2"
     >
-      {{ "actions.ADD" | translate }}
+      {{ "ACTIONS.ADD" | translate }}
     </button>
     <input
     type="file"
@@ -139,7 +139,7 @@
     accept=".json,.csv,.xlsx"
   />
   <button mat-button color="primary" (click)="addBranches()">
-    {{ "actions.IMPORT" | translate }}
+    {{ "ACTIONS.IMPORT" | translate }}
   </button>
   </div>
 </div>

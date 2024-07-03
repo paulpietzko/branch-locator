@@ -4,10 +4,10 @@
   </a></span>
   <span class="spacer"></span>
   <a [routerLink]="['/']">
-    <button mat-button type="button">{{ 'navbar.HOME' | translate }}</button>
+    <button mat-button type="button">{{ 'NAVBAR.HOME' | translate }}</button>
   </a>
   <a [routerLink]="['/filialen/charts']">
-    <button mat-button type="button">{{ 'navbar.CHARTS' | translate }}</button>
+    <button mat-button type="button">{{ 'NAVBAR.CHARTS' | translate }}</button>
   </a>
   <mat-menu #languageMenu="matMenu">
     <button class="language-button" mat-menu-item *ngFor="let language of languages" (click)="changeLang(language)">

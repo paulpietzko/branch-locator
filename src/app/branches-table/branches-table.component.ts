@@ -4,6 +4,8 @@ import {
   effect,
   ViewChild,
   AfterViewInit,
+  OnInit,
+  OnDestroy,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
@@ -27,7 +29,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Title } from '@angular/platform-browser';
-import { BranchFormComponent } from '../branch-form/branch-form.component';
+import { BRANCH_FORMComponent } from '../branch-form/branch-form.component';
 import { BranchesTableDownloadComponent } from '../branches-table-download/branches-table-download.component';
 import { Meta } from '@angular/platform-browser';
 import * as XLSX from 'xlsx';
@@ -59,7 +61,9 @@ import * as XLSX from 'xlsx';
     BranchesTableDownloadComponent,
   ],
 })
-export class BranchesTableComponent implements AfterViewInit {
+export class BranchesTableComponent
+  implements OnInit, AfterViewInit, OnDestroy
+{
   @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
   @ViewChild(MatSort) sort: MatSort | null = null;
 
@@ -92,9 +96,9 @@ export class BranchesTableComponent implements AfterViewInit {
       this.uniqueLocations = this.getUniqueLocations(this.branches());
       this.applyFilter();
       this.titleService.setTitle(
-        `${this.translate.instant('info.TABLE')}: ${
+        `${this.translate.instant('INFO.TABLE')}: ${
           this.branches().length
-        } ${this.translate.instant('info.BRANCHES')}`
+        } ${this.translate.instant('INFO.BRANCHES')}`
       );
     });
 
@@ -121,9 +125,11 @@ export class BranchesTableComponent implements AfterViewInit {
       return matchesSearch && matchesLocation;
     };
 
-    this.filterForm.valueChanges.subscribe(() => {
+    const subs1 = this.filterForm.valueChanges.subscribe(() => {
       this.applyFilter();
     });
+
+    subs1.unsubscribe();
 
     this.metaTagService.addTags([
       { name: 'keywords', content: 'Branches, Locator, Finder, CRUD, Table' },
@@ -175,7 +181,7 @@ export class BranchesTableComponent implements AfterViewInit {
   }
 
   editBranch(id: string) {
-    const dialogRef = this.dialog.open(BranchFormComponent, {
+    const dialogRef = this.dialog.open(BRANCH_FORMComponent, {
       width: '1000px',
       data: { id },
     });
@@ -186,7 +192,7 @@ export class BranchesTableComponent implements AfterViewInit {
   }
 
   addBranch() {
-    const dialogRef = this.dialog.open(BranchFormComponent, {
+    const dialogRef = this.dialog.open(BRANCH_FORMComponent, {
       width: '1000px',
       data: {},
     });
@@ -266,5 +272,9 @@ export class BranchesTableComponent implements AfterViewInit {
 
   addBranches() {
     this.branchService.addBranches(this.importedData);
+  }
+
+  ngOnDestroy(): void {
+    
   }
 }

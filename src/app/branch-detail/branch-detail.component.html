@@ -1,6 +1,6 @@
 <div class="detail-page" *ngIf="branch()">
   <h3>
-    {{ "branchDetail.TITLE" | translate : { location: branch()?.location } }}
+    {{ "BRANCH_DETAIL.TITLE" | translate : { location: branch()?.location } }}
   </h3>
   <div class="branch-info">
     <div class="info-text">
@@ -10,15 +10,15 @@
         {{ branch()?.canton }}
       </p>
       <p>
-        {{ "branchDetail.PHONE" | translate }}: {{ branch()?.phone }}<br />{{
-          "branchDetail.EMAIL" | translate
-        }}: {{ branch()?.email }}<br />{{ "branchDetail.WEB" | translate }}:
+        {{ "BRANCH_DETAIL.PHONE" | translate }}: {{ branch()?.phone }}<br />{{
+          "BRANCH_DETAIL.EMAIL" | translate
+        }}: {{ branch()?.email }}<br />{{ "BRANCH_DETAIL.WEB" | translate }}:
         <a [href]="branch()?.website" target="_blank">{{
           branch()?.website
         }}</a>
       </p>
       <p>
-        {{ "branchDetail.OPENING_HOURS" | translate }}<br />{{
+        {{ "BRANCH_DETAIL.OPENING_HOURS" | translate }}<br />{{
           branch()?.openingHours
         }}
       </p>
@@ -33,7 +33,7 @@
       <img
         *ngIf="branch()?.imagePath"
         [src]="branch()?.imagePath"
-        alt="{{ 'branchDetail.PHOTO_ALT' | translate }}"
+        alt="{{ 'BRANCH_DETAIL.PHOTO_ALT' | translate }}"
       />
     </div>
   </div>
@@ -55,21 +55,21 @@
   </google-map>
   <div class="buttons">
     <a routerLink="/"
-      ><button mat-button>← {{ "actions.BACK" | translate }}</button></a
+      ><button mat-button>← {{ "ACTIONS.BACK" | translate }}</button></a
     >
     <div>
       <button mat-button (click)="editBranch()">
-        {{ "actions.EDIT" | translate }}
+        {{ "ACTIONS.EDIT" | translate }}
       </button>
       <button mat-button (click)="deleteBranch()">
-        {{ "actions.DELETE" | translate }}
+        {{ "ACTIONS.DELETE" | translate }}
       </button>
     </div>
   </div>
 </div>
 <div *ngIf="!branch()">
-  {{ "branchDetail.NO_BRANCH" | translate }}
+  {{ "BRANCH_DETAIL.NO_BRANCH" | translate }}
   <a routerLink="/"
-    ><button mat-button>← {{ "actions.BACK" | translate }}</button></a
+    ><button mat-button>← {{ "ACTIONS.BACK" | translate }}</button></a
   >
 </div>

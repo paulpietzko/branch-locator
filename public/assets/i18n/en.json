@@ -1,5 +1,5 @@
 {
-  "branchTable": {
+  "BRANCH_TABLE": {
     "BRANCHES": "Our Branches",
     "DESCRIPTION": "Here comes some text... our products are of course also available in specialist shops. Here you can find sales outlets near you.",
     "RANGE": "Range",
@@ -18,7 +18,7 @@
     "PAGE_OF": "of",
     "DELETE_CONFIRMATION": "Are you sure you want to delete this branch?"
   },
-  "branchDetail": {
+  "BRANCH_DETAIL": {
     "TITLE": "Our branch in {{ location }}",
     "PHONE": "Phone",
     "EMAIL": "Email",
@@ -30,7 +30,7 @@
     "NO_BRANCH": "No branch found.",
     "DELETE_ERROR": "Error while deleting"
   },
-  "branchForm": {
+  "BRANCH_FORM": {
     "EDIT_TITLE": "Edit Branch",
     "ADD_TITLE": "Add New Branch",
     "NAME": "Name",
@@ -46,22 +46,21 @@
     "IMAGE_URL": "Image URL",
     "ACTION_SUCCESS": "Action successful!"
   },
-  "mapPage": {
+  "MAP_PAGE": {
     "TITLE": "Our Branches",
     "DESCRIPTION": "Here comes some text... our products are of course also available in specialized shops. Here you can find sales locations near you.",
     "DETAILS_BUTTON": "Show details"
   },
-  "navbar": {
+  "NAVBAR": {
     "HOME": "Home",
-    "CHARTS": "Charts",
-    "BRANCHES": "Branches"
+    "CHARTS": "Charts"
   },
-  "chart": {
+  "CHART": {
     "TITLE": "Branches Overview",
     "HAXIS_TITLE": "Location",
     "VAXIS_TITLE": "Count"
   },
-  "actions": {
+  "ACTIONS": {
     "ADD": "Add",
     "BACK": "Back to overview",
     "SAVE": "Save",
@@ -72,7 +71,7 @@
     "DOWNLOAD": "Download",
     "IMPORT": "Import"
   },
-  "info": {
+  "INFO": {
     "DELETE_SUCCESS": "Successfully deleted",
     "TABLE": "Table",
     "BRANCHES": "Branches"

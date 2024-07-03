@@ -1,50 +1,50 @@
 <h2 mat-dialog-title *ngIf="isEditMode(); else addMode">
-  {{ "branchForm.EDIT_TITLE" | translate }}
+  {{ "BRANCH_FORM.EDIT_TITLE" | translate }}
 </h2>
 <ng-template #addMode>
-  <h2 mat-dialog-title>{{ "branchForm.ADD_TITLE" | translate }}</h2>
+  <h2 mat-dialog-title>{{ "BRANCH_FORM.ADD_TITLE" | translate }}</h2>
 </ng-template>
 
-<form [formGroup]="branchForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="BRANCH_FORM" (ngSubmit)="onSubmit()">
   <mat-dialog-content class="mat-typography">
     <mat-form-field>
-      <mat-label>{{ "branchForm.NAME" | translate }}</mat-label>
+      <mat-label>{{ "BRANCH_FORM.NAME" | translate }}</mat-label>
       <input matInput formControlName="name" required />
     </mat-form-field>
     <mat-form-field>
-      <mat-label>{{ "branchForm.CANTON" | translate }}</mat-label>
+      <mat-label>{{ "BRANCH_FORM.CANTON" | translate }}</mat-label>
       <input matInput formControlName="canton" required />
     </mat-form-field>
     <mat-form-field>
-      <mat-label>{{ "branchForm.PHONE" | translate }}</mat-label>
+      <mat-label>{{ "BRANCH_FORM.PHONE" | translate }}</mat-label>
       <input matInput formControlName="phone" required />
     </mat-form-field>
     <mat-form-field>
-      <mat-label>{{ "branchForm.POSTCODE" | translate }}</mat-label>
+      <mat-label>{{ "BRANCH_FORM.POSTCODE" | translate }}</mat-label>
       <input matInput formControlName="postCode" required />
     </mat-form-field>
     <mat-form-field>
-      <mat-label>{{ "branchForm.LOCATION" | translate }}</mat-label>
+      <mat-label>{{ "BRANCH_FORM.LOCATION" | translate }}</mat-label>
       <input matInput formControlName="location" required />
     </mat-form-field>
     <mat-form-field>
-      <mat-label>{{ "branchForm.EMAIL" | translate }}</mat-label>
-      <input matInput formControlName="email" required />
+      <mat-label>{{ "BRANCH_FORM.EMAIL" | translate }}</mat-label>
+      <input matInput formControlName="email" type="email" required />
     </mat-form-field>
     <mat-form-field>
-      <mat-label>{{ "branchForm.WEBSITE" | translate }}</mat-label>
-      <input matInput formControlName="website" required />
+      <mat-label>{{ "BRANCH_FORM.WEBSITE" | translate }}</mat-label>
+      <input matInput formControlName="website" type="url" required />
     </mat-form-field>
     <mat-form-field>
-      <mat-label>{{ "branchForm.OPENING_HOURS" | translate }}</mat-label>
+      <mat-label>{{ "BRANCH_FORM.OPENING_HOURS" | translate }}</mat-label>
       <input matInput formControlName="openingHours" required />
     </mat-form-field>
     <mat-form-field>
-      <mat-label>{{ "branchForm.LATITUDE" | translate }}</mat-label>
+      <mat-label>{{ "BRANCH_FORM.LATITUDE" | translate }}</mat-label>
       <input matInput formControlName="lat" required />
     </mat-form-field>
     <mat-form-field>
-      <mat-label>{{ "branchForm.LONGITUDE" | translate }}</mat-label>
+      <mat-label>{{ "BRANCH_FORM.LONGITUDE" | translate }}</mat-label>
       <input matInput formControlName="lng" required />
     </mat-form-field>
     <div
@@ -63,7 +63,7 @@
       />
       <div class="file-dropper" (click)="fileInput.click()">
         <mat-icon>upload</mat-icon>
-        <p>{{ "actions.UPLOAD_PLACEHOLDER" | translate }}</p>
+        <p>{{ "ACTIONS.UPLOAD_PLACEHOLDER" | translate }}</p>
         <div *ngIf="imageName()">
           <div *ngIf="selectedFile || imagePreview">
             <img
@@ -87,10 +87,10 @@
   </mat-dialog-content>
   <mat-dialog-actions align="start">
     <button mat-button mat-dialog-close>
-      {{ "actions.CLOSE" | translate }}
+      {{ "ACTIONS.CLOSE" | translate }}
     </button>
-    <button mat-button type="submit" [disabled]="!branchForm.valid">
-      {{ "actions.SAVE" | translate }}
+    <button mat-button type="submit" [disabled]="!BRANCH_FORM.valid">
+      {{ "ACTIONS.SAVE" | translate }}
     </button>
   </mat-dialog-actions>
 </form>

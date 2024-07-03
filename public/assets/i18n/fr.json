@@ -1,5 +1,5 @@
 {
-  "branchTable": {
+  "BRANCH_TABLE": {
     "BRANCHES": "Nos succursales",
     "DESCRIPTION": "Voici un texte... nos produits sont également disponibles chez les détaillants spécialisés. Trouvez des points de vente près de chez vous.",
     "RANGE": "Gamme de produits",
@@ -18,7 +18,7 @@
     "PAGE_OF": "de",
     "DELETE_CONFIRMATION": "Voulez-vous vraiment supprimer cette succursale ?"
   },
-  "branchDetail": {
+  "BRANCH_DETAIL": {
     "TITLE": "Notre succursale à {{ location }}",
     "PHONE": "Téléphone",
     "EMAIL": "E-mail",
@@ -30,7 +30,7 @@
     "NO_BRANCH": "Aucune succursale trouvée.",
     "DELETE_ERROR": "Erreur lors de la suppression"
   },
-  "branchForm": {
+  "BRANCH_FORM": {
     "EDIT_TITLE": "Éditer la succursale",
     "ADD_TITLE": "Ajouter une nouvelle succursale",
     "NAME": "Nom",
@@ -46,22 +46,21 @@
     "IMAGE_URL": "URL de l'image",
     "ACTION_SUCCESS": "Action réussie!"
   },
-  "mapPage": {
+  "MAP_PAGE": {
     "TITLE": "Nos succursales",
     "DESCRIPTION": "Voici un texte... nos produits sont également disponibles chez les détaillants spécialisés. Trouvez des points de vente près de chez vous.",
     "DETAILS_BUTTON": "Voir les détails"
   },
-  "navbar": {
+  "NAVBAR": {
     "HOME": "Accueil",
-    "CHARTS": "Graphiques",
-    "BRANCHES": "Succursales"
+    "CHARTS": "Graphiques"
   },
-  "chart": {
+  "CHART": {
     "TITLE": "Aperçu des succursales",
     "HAXIS_TITLE": "Lieu",
     "VAXIS_TITLE": "Nombre"
   },
-  "actions": {
+  "ACTIONS": {
     "ADD": "Ajouter",
     "BACK": "Retour à l'aperçu",
     "SAVE": "Enregistrer",
@@ -72,7 +71,7 @@
     "DOWNLOAD": "Télécharger",
     "IMPORT": "Importer"
   },
-  "info": {
+  "INFO": {
     "DELETE_SUCCESS": "Suppression réussie",
     "TABLE": "Tableau",
     "BRANCHES": "Filiales"

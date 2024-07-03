@@ -50,7 +50,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     BranchService,
   ],
 })
-export class BranchFormComponent {
+export class BRANCH_FORMComponent {
   imageName = signal('');
   fileSize = signal(0);
   uploadProgress = signal(0);
@@ -63,7 +63,7 @@ export class BranchFormComponent {
     const id = this.branchId();
     return id !== null ? this.branchService.getBranchById(id) : null;
   });
-  branchForm: FormGroup;
+  BRANCH_FORM: FormGroup;
   selectedFile: File | null = null;
   uploadSuccess: boolean = false;
   uploadError: boolean = false;
@@ -73,10 +73,10 @@ export class BranchFormComponent {
     private fb: FormBuilder,
     private snackBar: MatSnackBar,
     private translate: TranslateService,
-    public dialogRef: MatDialogRef<BranchFormComponent>,
+    public dialogRef: MatDialogRef<BRANCH_FORMComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Branch
   ) {
-    this.branchForm = this.createBranchForm();
+    this.BRANCH_FORM = this.createBRANCH_FORM();
 
     if (data && data.id) {
       this.branchId.set(data.id);
@@ -86,7 +86,7 @@ export class BranchFormComponent {
       () => {
         const branch = this.branch();
         if (branch) {
-          this.branchForm.patchValue(branch);
+          this.BRANCH_FORM.patchValue(branch);
           if (branch.imagePath) {
             this.uploadSuccess = true;
             this.imagePreview.set(branch.imagePath);
@@ -107,7 +107,7 @@ export class BranchFormComponent {
       : 'No Image Path';
   }
 
-  createBranchForm(): FormGroup {
+  createBRANCH_FORM(): FormGroup {
     return this.fb.group({
       name: ['', Validators.required],
       canton: ['', Validators.required],
@@ -193,8 +193,8 @@ export class BranchFormComponent {
   }
 
   onSubmit(): void {
-    if (this.branchForm.valid) {
-      const branchData = this.branchForm.value;
+    if (this.BRANCH_FORM.valid) {
+      const branchData = this.BRANCH_FORM.value;
       const formData = new FormData();
 
       for (const key in branchData) {
@@ -215,11 +215,11 @@ export class BranchFormComponent {
       }
 
       this.translate
-        .get(['branchForm.ACTION_SUCCESS', 'actions.CLOSE'])
+        .get(['BRANCH_FORM.ACTION_SUCCESS', 'ACTIONS.CLOSE'])
         .subscribe((translations) => {
           this.snackBar.open(
-            translations['branchForm.ACTION_SUCCESS'],
-            translations['actions.CLOSE'],
+            translations['BRANCH_FORM.ACTION_SUCCESS'],
+            translations['ACTIONS.CLOSE'],
             {
               duration: 5000,
             }

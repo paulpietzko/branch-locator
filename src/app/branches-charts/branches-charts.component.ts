@@ -66,7 +66,7 @@ export class BranchesChartsComponent implements AfterViewInit {
   }
 
   private loadTranslationsAndDrawChart(): void {
-    this.translate.get(['chart.TITLE', 'chart.HAXIS_TITLE', 'chart.VAXIS_TITLE']).subscribe(translations => {
+    this.translate.get(['CHART.TITLE', 'CHART.HAXIS_TITLE', 'CHART.VAXIS_TITLE']).subscribe(translations => {
       const branches = this.branchService.getBranches();
       const locationCount: { [key: string]: number } = {};
       branches.forEach(branch => {
@@ -74,7 +74,7 @@ export class BranchesChartsComponent implements AfterViewInit {
       });
 
       const dataArray: (string | number)[][] = [
-        [translations['chart.HAXIS_TITLE'], translations['chart.VAXIS_TITLE']],
+        [translations['CHART.HAXIS_TITLE'], translations['CHART.VAXIS_TITLE']],
       ];
       for (const [key, value] of Object.entries(locationCount)) {
         dataArray.push([key, value]);
@@ -82,9 +82,9 @@ export class BranchesChartsComponent implements AfterViewInit {
 
       const data = google.visualization.arrayToDataTable(dataArray);
       const options = {
-        title: translations['chart.TITLE'],
-        hAxis: { title: translations['chart.HAXIS_TITLE'] },
-        vAxis: { title: translations['chart.VAXIS_TITLE'] },
+        title: translations['CHART.TITLE'],
+        hAxis: { title: translations['CHART.HAXIS_TITLE'] },
+        vAxis: { title: translations['CHART.VAXIS_TITLE'] },
         seriesType: 'bars',
         series: { 5: { type: 'line' } },
       };

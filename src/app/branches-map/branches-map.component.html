@@ -1,6 +1,6 @@
-<h3>{{ 'mapPage.TITLE' | translate }}</h3>
+<h3>{{ 'MAP_PAGE.TITLE' | translate }}</h3>
 <p>
-  {{ 'mapPage.DESCRIPTION' | translate }}
+  {{ 'MAP_PAGE.DESCRIPTION' | translate }}
 </p>
 <google-map [center]="center" [zoom]="zoom" height="500px" width="100%">
   <map-marker
@@ -20,11 +20,11 @@
       {{ selectedBranch()?.location }}
     </p>
     <a [routerLink]="['/filialen/detail', selectedBranch()?.id]">
-      <button mat-button>{{ 'mapPage.DETAILS_BUTTON' | translate }}</button>
+      <button mat-button>{{ 'MAP_PAGE.DETAILS_BUTTON' | translate }}</button>
     </a>
   </map-info-window>
 </google-map>
 
 <a [routerLink]="['/']">
-  <button mat-button type="button">← {{ 'actions.BACK' | translate }}</button>
+  <button mat-button type="button">← {{ 'ACTIONS.BACK' | translate }}</button>
 </a>

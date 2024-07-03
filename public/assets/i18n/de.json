@@ -1,5 +1,5 @@
 {
-  "branchTable": {
+  "BRANCH_TABLE": {
     "BRANCHES": "Unsere Filialen",
     "DESCRIPTION": "Hier kommt etwas Text... unsere Produkte gibt es natürlich auch im Fachhandel. Hier finden Sie Verkaufsstellen in Ihrer Nähe.",
     "RANGE": "Sortiment",
@@ -18,7 +18,7 @@
     "PAGE_OF": "von",
     "DELETE_CONFIRMATION": "Möchten Sie diese Filiale wirklich löschen?"
   },
-  "branchDetail": {
+  "BRANCH_DETAIL": {
     "TITLE": "Unsere Filiale in {{ location }}",
     "PHONE": "Telefon",
     "EMAIL": "E-Mail",
@@ -30,7 +30,7 @@
     "NO_BRANCH": "Keine Filiale gefunden.",
     "DELETE_ERROR": "Fehler beim Löschen"
   },
-  "branchForm": {
+  "BRANCH_FORM": {
     "EDIT_TITLE": "Filiale bearbeiten",
     "ADD_TITLE": "Neue Filiale hinzufügen",
     "NAME": "Name",
@@ -46,22 +46,21 @@
     "IMAGE_URL": "Bild-URL",
     "ACTION_SUCCESS": "Aktion erfolgreich!"
   },
-  "mapPage": {
+  "MAP_PAGE": {
     "TITLE": "Unsere Filialen",
     "DESCRIPTION": "Hier kommt etwas Text... unsere Produkte gibt es natürlich auch im Fachhandel. Hier finden Sie Verkaufsstellen in Ihrer Nähe.",
     "DETAILS_BUTTON": "Details anzeigen"
   },
-  "navbar": {
+  "NAVBAR": {
     "HOME": "Startseite",
-    "CHARTS": "Grafiken",
-    "BRANCHES": "Filialen"
+    "CHARTS": "Grafiken"
   },
-  "chart": {
+  "CHART": {
     "TITLE": "Filialübersicht",
     "HAXIS_TITLE": "Standort",
     "VAXIS_TITLE": "Anzahl"
   },
-  "actions": {
+  "ACTIONS": {
     "ADD": "Hinzufügen",
     "BACK": "Zurück zur Übersicht",
     "SAVE": "Speichern",
@@ -72,7 +71,7 @@
     "DOWNLOAD": "Herunterladen",
     "IMPORT": "Importieren"
   },
-  "info": {
+  "INFO": {
     "DELETE_SUCCESS": "Erfolgreich gelöscht",
     "TABLE": "Tabelle",
     "BRANCHES": "Filialen"
