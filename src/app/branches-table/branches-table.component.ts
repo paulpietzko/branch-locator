@@ -16,7 +16,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { RouterModule, Router } from '@angular/router';
 import { BranchService } from '../services/branch.service';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { Branch } from '../models';
+import { Branch, DataObject } from '../models';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { CustomMatPaginatorIntl } from '../providers/custom-paginator-intl';
@@ -30,7 +30,7 @@ import { Title } from '@angular/platform-browser';
 import { BranchFormComponent } from '../branch-form/branch-form.component';
 import { BranchesTableDownloadComponent } from '../branches-table-download/branches-table-download.component';
 import { Meta } from '@angular/platform-browser';
-
+import * as XLSX from 'xlsx';
 @Component({
   selector: 'app-branches-table',
   standalone: true,
@@ -69,12 +69,12 @@ export class BranchesTableComponent implements AfterViewInit {
     'location',
     'canton',
     'edit',
+    'detailLink',
   ];
   branches = computed(() => this.branchService.getBranches());
   dataSource = new MatTableDataSource<Branch>([]);
   filterForm: FormGroup;
   importedData: Branch[] = [];
-
   uniqueLocations: string[] = [];
 
   constructor(
@@ -121,13 +121,17 @@ export class BranchesTableComponent implements AfterViewInit {
       return matchesSearch && matchesLocation;
     };
 
+    this.filterForm.valueChanges.subscribe(() => {
+      this.applyFilter();
+    });
+
     this.metaTagService.addTags([
       { name: 'keywords', content: 'Branches, Locator, Finder, CRUD, Table' },
       { name: 'robots', content: 'index, follow' },
       { name: 'author', content: 'Paul Pietko' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { name: 'date', content: '2024-07-02', scheme: 'YYYY-MM-DD' },
-      { charset: 'UTF-8' },
+      // { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      // { name: 'date', content: '2024-07-02', scheme: 'YYYY-MM-DD' },
+      // { charset: 'UTF-8' },
     ]);
   }
 
@@ -195,17 +199,69 @@ export class BranchesTableComponent implements AfterViewInit {
   // Import
   onFileSelected(event: any) {
     const file: File = event.target.files[0];
+    if (!file) return;
+
+    const fileExtension = file.name.split('.').pop();
     const fileReader: FileReader = new FileReader();
 
     fileReader.onload = (e) => {
-      const contents = fileReader.result as string;
+      let importedData;
+      const contents = fileReader.result;
 
       try {
-        this.importedData = JSON.parse(contents) as Branch[];
-      } catch (error) {}
+        switch (fileExtension) {
+          case 'json':
+            importedData = JSON.parse(contents as string);
+            break;
+          case 'csv':
+            const csvData = (contents as string).trim();
+            importedData = this.parseCSVtoJSON(csvData);
+            break;
+          case 'xlsx':
+            const workbook = XLSX.read(contents, { type: 'binary' });
+            const sheetName = workbook.SheetNames[0];
+            const worksheet = workbook.Sheets[sheetName];
+            importedData = XLSX.utils.sheet_to_json(worksheet);
+            break;
+          default:
+            console.error('Unsupported file type');
+            return;
+        }
+        this.importedData = importedData as Branch[];
+      } catch (error) {
+        console.error('Error parsing file:', error);
+      }
     };
 
-    fileReader.readAsText(file);
+    if (fileExtension === 'xlsx') {
+      fileReader.readAsArrayBuffer(file);
+    } else {
+      fileReader.readAsText(file);
+    }
+  }
+
+  parseCSVtoJSON(csvData: string): Branch[] {
+    const lines = csvData.split('\n');
+    return lines.map((line) => {
+      const values = line.split(',');
+      // Create and return a Branch object, trimming quotes and whitespace from each value
+      return {
+        id: values[0].trim().replace(/^"|"$/g, ''),
+        postCode: values[1].trim().replace(/^"|"$/g, ''),
+        name: values[2].trim().replace(/^"|"$/g, ''),
+        location: values[3].trim().replace(/^"|"$/g, ''),
+        email: values[4].trim().replace(/^"|"$/g, ''),
+        canton: values[5].trim().replace(/^"|"$/g, ''),
+        website: values[6].trim().replace(/^"|"$/g, ''),
+        openingHours: values[7].trim().replace(/^"|"$/g, ''),
+        phone: values[8].trim().replace(/^"|"$/g, ''),
+        lat: parseFloat(values[9].trim().replace(/^"|"$/g, '')),
+        lng: parseFloat(values[10].trim().replace(/^"|"$/g, '')),
+        imagePath: values[11]
+          ? values[11].trim().replace(/^"|"$/g, '')
+          : undefined,
+      };
+    });
   }
 
   addBranches() {

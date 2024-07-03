@@ -9,7 +9,6 @@
           matInput
           formControlName="search"
           placeholder="{{ 'branchTable.SEARCH_PLACEHOLDER' | translate }}"
-          (input)="applyFilter()"
         />
       </mat-form-field>
     </div>
@@ -19,7 +18,6 @@
         <mat-select
           multiple
           formControlName="locations"
-          (selectionChange)="applyFilter()"
         >
           <mat-option
             *ngFor="let location of uniqueLocations"
@@ -68,6 +66,16 @@
       </th>
       <td mat-cell *matCellDef="let element">{{ element.canton }}</td>
     </ng-container>
+    <ng-container matColumnDef="detailLink">
+      <th mat-header-cell *matHeaderCellDef >
+        
+      </th>
+      <td mat-cell *matCellDef="let element">
+        <a [routerLink]="['detail', element.id]">
+          <span>{{ "branchTable.DETAILS" | translate }}</span>
+        </a>
+      </td>
+    </ng-container>
     <ng-container matColumnDef="edit">
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let element">
@@ -79,10 +87,7 @@
           <mat-icon>more_horiz</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
-          <a mat-menu-item [routerLink]="['detail', element.id]">
-            <mat-icon>info</mat-icon>
-            <span>{{ "branchTable.DETAILS" | translate }}</span>
-          </a>
+          
           <button mat-menu-item (click)="editBranch(element.id)">
             <mat-icon>edit</mat-icon>
             <span>{{ "actions.EDIT" | translate }}</span>

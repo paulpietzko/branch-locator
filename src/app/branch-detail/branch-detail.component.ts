@@ -80,6 +80,8 @@ export class BranchDetailComponent {
     });
   }
 
+  // #region Branch Actions
+
   editBranch() {
     const id = this.branchId();
     const dialogRef = this.dialog.open(BranchFormComponent, {
@@ -91,6 +93,8 @@ export class BranchDetailComponent {
       this.branchService.fetchBranches();
     });
   }
+
+  // #endregion
 
   constructor(
     private titleService: Title,

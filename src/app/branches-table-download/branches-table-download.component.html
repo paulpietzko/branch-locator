@@ -2,19 +2,19 @@
   {{ "actions.DOWNLOAD" | translate }}
 </button>
 <mat-menu #menu="matMenu">
-  <button mat-menu-item (click)="download(DownloadFormat.Excel)">
+  <button mat-menu-item (click)="download(FileFormat.Excel)">
     <mat-icon>file_download</mat-icon>
     Excel
   </button>
-  <button mat-menu-item (click)="download(DownloadFormat.Pdf)">
+  <button mat-menu-item (click)="download(FileFormat.Pdf)">
     <mat-icon>file_download</mat-icon>
     PDF
   </button>
-  <button mat-menu-item (click)="download(DownloadFormat.Json)">
+  <button mat-menu-item (click)="download(FileFormat.Json)">
     <mat-icon>file_download</mat-icon>
     JSON
   </button>
-  <button mat-menu-item (click)="download(DownloadFormat.Csv)">
+  <button mat-menu-item (click)="download(FileFormat.Csv)">
     <mat-icon>file_download</mat-icon>
     CSV
   </button>

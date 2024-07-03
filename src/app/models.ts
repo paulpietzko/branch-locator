@@ -26,3 +26,14 @@ export interface BranchMapMarker {
   label: string;
   click?: () => void;
 }
+
+export interface DataObject {
+  [key: string]: string;
+}
+
+export enum FileFormat {
+  Excel = 'excel',
+  Pdf = 'pdf',
+  Json = 'json',
+  Csv = 'csv',
+}

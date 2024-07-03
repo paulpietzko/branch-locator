@@ -2,19 +2,11 @@ import { Component, Inject, Input } from '@angular/core';
 import * as XLSX from 'xlsx';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
-import { Branch } from '../models';
+import { Branch, FileFormat } from '../models';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
-// DOWNLOAD_DATA
-
-export enum DownloadFormat {
-  Excel = 'excel',
-  Pdf = 'pdf',
-  Json = 'json',
-  Csv = 'csv',
-}
 
 @Component({
   selector: 'app-branches-table-download',
@@ -26,27 +18,27 @@ export enum DownloadFormat {
 export class BranchesTableDownloadComponent {
   @Input() branchData: Branch[] = [];
 
-  DownloadFormat = DownloadFormat;
+  FileFormat = FileFormat;
 
   constructor() {}
 
-  download(format: DownloadFormat) {
+  download(format: FileFormat) {
     switch (format) {
-      case DownloadFormat.Excel:
+      case FileFormat.Excel:
         const worksheet = XLSX.utils.json_to_sheet(this.branchData);
         const workbook = { Sheets: { data: worksheet }, SheetNames: ['data'] };
         XLSX.writeFile(workbook, 'branches.xlsx');
         break;
-      case DownloadFormat.Pdf:
+      case FileFormat.Pdf:
         const doc = new jsPDF();
         this.generatePdf(doc);
         doc.save('branches.pdf');
         break;
-      case DownloadFormat.Json:
+      case FileFormat.Json:
         const jsonContent = JSON.stringify(this.branchData, null, 2);
         this.downloadFile(jsonContent, 'branches.json', 'application/json');
         break;
-      case DownloadFormat.Csv:
+      case FileFormat.Csv:
         const csvContent = this.convertArrayOfObjectsToCSV(this.branchData);
         this.downloadFile(csvContent, 'branches.csv', 'text/csv');
         break;

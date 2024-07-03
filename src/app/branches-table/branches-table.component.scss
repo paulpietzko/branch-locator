@@ -36,6 +36,19 @@ p {
   }
 }
 
+.file-upload {
+  display: flex;
+  align-items: center;
+}
+
+.file-input {
+  display: none;
+}
+
+.import-button {
+  margin-left: 10px;
+}
+
 .table-responsive {
   width: 100%;
 
