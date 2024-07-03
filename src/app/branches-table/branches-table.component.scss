@@ -1,3 +1,23 @@
+/* === Host === */
+:host {
+  height: 100%;
+  margin: 5rem auto;
+  background: #e5e5e5; 
+  width: 100%;
+}
+
+/* === Action BAR === */
+.action-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 5rem;
+  background: #ebebeb; // Temporary color
+}
+
+
+/* === Branches Table === */
 .branches-table {
   overflow-x: scroll;
+  box-shadow: none;
 }
