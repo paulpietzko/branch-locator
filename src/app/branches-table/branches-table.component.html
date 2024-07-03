@@ -135,7 +135,7 @@
     </button>
     <input
     type="file"
-    (change)="onFileSelected($event)"
+    (change)="this.BranchImportService.onFileSelected($event)"
     accept=".json,.csv,.xlsx"
   />
   <button mat-button color="primary" (click)="addBranches()">
