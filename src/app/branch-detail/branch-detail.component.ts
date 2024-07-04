@@ -1,3 +1,5 @@
+// #region Imports
+
 import {
   Component,
   signal,
@@ -25,6 +27,8 @@ import { BRANCH_FORMComponent } from '../branch-form/branch-form.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
 
+// #endregion
+
 @Component({
   selector: 'app-branch-detail',
   standalone: true,
@@ -35,7 +39,7 @@ import { MatDialog } from '@angular/material/dialog';
     GoogleMapsModule,
     TranslateModule,
     MatSnackBarModule,
-    MatIconModule
+    MatIconModule,
   ],
   providers: [BranchService],
   templateUrl: './branch-detail.component.html',
@@ -44,58 +48,7 @@ import { MatDialog } from '@angular/material/dialog';
 export class BRANCH_DETAILComponent implements OnInit {
   @ViewChild(MapInfoWindow) infoWindow: MapInfoWindow | undefined;
 
-  qrCodeUrl: string = '';
-  infoContent = signal<Branch | null>(null); // Signal to hold branch info for info window
-  branchId = signal<string | null>(null); // Signal to hold branch ID from route params
-  branch = computed<Branch | null>(() => {
-    const id = this.branchId(); // Current branch ID
-    const branchData = id ? this.branchService.getBranchById(id) : null;
-    if (branchData) {
-      this.mapCenter = { lat: branchData.lat, lng: branchData.lng }; // Set map center to branch location
-      this.titleService.setTitle(`${branchData.name} - Branch Details`);
-      return branchData;
-    } else {
-      return null;
-    }
-  });
-  mapCenter = { lat: 0, lng: 0 }; // Initial center of the map
-
-  openInfoWindow(marker: MapMarker): void {
-    this.infoContent.set(this.branch());
-
-    if (this.infoWindow) {
-      this.infoWindow.open(marker);
-    } else {
-      console.error('InfoWindow is undefined');
-    }
-  }
-
-  generateQRCode(): void {
-    const currentUrl = window.location.href; // Get the current URL
-    QRCode.toDataURL(currentUrl, { errorCorrectionLevel: 'H' }, (err, url) => {
-      if (err) {
-        console.error('Error generating QR Code: ', err);
-        return;
-      }
-      this.qrCodeUrl = url; // Set the generated QR code URL
-    });
-  }
-
-  // #region Branch Actions
-
-  editBranch() {
-    const id = this.branchId();
-    const dialogRef = this.dialog.open(BRANCH_FORMComponent, {
-      width: '1000px',
-      data: { id },
-    });
-
-    dialogRef.afterClosed().subscribe(() => {
-      this.branchService.fetchBranches();
-    });
-  }
-
-  // #endregion
+  // #region Constructor and Lifecycle Methods
 
   constructor(
     private titleService: Title,
@@ -124,6 +77,65 @@ export class BRANCH_DETAILComponent implements OnInit {
     });
   }
 
+  // #endregion
+
+  qrCodeUrl: string = '';
+  infoContent = signal<Branch | null>(null); // info Window content
+  branchId = signal<string | null>(null); // branch ID from route params
+  branch = computed<Branch | null>(() => {
+    const id = this.branchId(); // Current branch ID
+    const branchData = id ? this.branchService.getBranchById(id) : null;
+    if (branchData) {
+      this.mapCenter = { lat: branchData.lat, lng: branchData.lng }; // Set map center to branch location
+      this.titleService.setTitle(`${branchData.name} - Branch Details`);
+      return branchData;
+    } else return null;
+  });
+  mapCenter = { lat: 0, lng: 0 }; // Initial center of the map
+
+  // #region Map Methods
+
+  openInfoWindow(marker: MapMarker): void {
+    this.infoContent.set(this.branch());
+
+    if (this.infoWindow) {
+      this.infoWindow.open(marker);
+    } else {
+      console.error('InfoWindow is undefined');
+    }
+  }
+
+  // #endregion
+
+  // #region QR Code Methods
+
+  generateQRCode(): void {
+    const currentUrl = window.location.href; // Get the current URL
+    QRCode.toDataURL(currentUrl, { errorCorrectionLevel: 'H' }, (err, url) => {
+      if (err) {
+        console.error('Error generating QR Code: ', err);
+        return;
+      }
+      this.qrCodeUrl = url; // Set the generated QR code URL
+    });
+  }
+
+  // #endregion
+
+  // #region Branch Actions
+
+  editBranch() {
+    const id = this.branchId();
+    const dialogRef = this.dialog.open(BRANCH_FORMComponent, {
+      width: '1000px',
+      data: { id },
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      this.branchService.fetchBranches();
+    });
+  }
+
   deleteBranch(): void {
     const id = this.branchId();
     if (!id) return;
@@ -139,10 +151,11 @@ export class BRANCH_DETAILComponent implements OnInit {
           {
             duration: 5000,
           }
-
         );
       });
-      
-      this.router.navigate(['/filialen']);
+
+    this.router.navigate(['/filialen']);
   }
+
+  // #endregion
 }

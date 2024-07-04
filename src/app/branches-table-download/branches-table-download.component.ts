@@ -1,51 +1,89 @@
-import { Component, Inject, Input } from '@angular/core';
+// #region Imports
+
+import { Component, Input } from '@angular/core';
 import * as XLSX from 'xlsx';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import { Branch, FileFormat } from '../models';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
+
+// #endregion
 
 @Component({
   selector: 'app-branches-table-download',
   standalone: true,
   imports: [TranslateModule, MatButtonModule, MatIconModule, MatMenuModule],
   templateUrl: './branches-table-download.component.html',
-  styleUrl: './branches-table-download.component.scss',
+  styleUrls: ['./branches-table-download.component.scss'],
 })
 export class BranchesTableDownloadComponent {
   @Input() branchData: Branch[] = [];
 
   FileFormat = FileFormat;
 
+  // #region Constructor
+
   constructor() {}
+  
+  // #endregion
 
   download(format: FileFormat) {
     switch (format) {
       case FileFormat.Excel:
-        const worksheet = XLSX.utils.json_to_sheet(this.branchData);
-        const workbook = { Sheets: { data: worksheet }, SheetNames: ['data'] };
-        XLSX.writeFile(workbook, 'branches.xlsx');
+        this.downloadExcel();
         break;
       case FileFormat.Pdf:
-        const doc = new jsPDF();
-        this.generatePdf(doc);
-        doc.save('branches.pdf');
+        this.downloadPdf();
         break;
       case FileFormat.Json:
-        const jsonContent = JSON.stringify(this.branchData, null, 2);
-        this.downloadFile(jsonContent, 'branches.json', 'application/json');
+        this.downloadJson();
         break;
       case FileFormat.Csv:
-        const csvContent = this.convertArrayOfObjectsToCSV(this.branchData);
-        this.downloadFile(csvContent, 'branches.csv', 'text/csv');
+        this.downloadCsv();
         break;
       default:
         console.error('Unsupported format');
     }
   }
+
+  // #region Download methods
+
+  private downloadPdf() {
+    const doc = new jsPDF();
+    this.generatePdf(doc);
+    doc.save('branches.pdf');
+  }
+
+  private downloadExcel() {
+    const worksheet = XLSX.utils.json_to_sheet(this.branchData);
+    const workbook = { Sheets: { data: worksheet }, SheetNames: ['data'] };
+    XLSX.writeFile(workbook, 'branches.xlsx');
+  }
+
+  private downloadJson() {
+    const jsonContent = JSON.stringify(this.branchData, null, 2);
+    this.downloadFile(jsonContent, 'branches.json', 'application/json');
+  }
+
+  private downloadCsv() {
+    const csvContent = this.convertArrayOfObjectsToCSV(this.branchData);
+    this.downloadFile(csvContent, 'branches.csv', 'text/csv');
+  }
+
+  private downloadFile(content: string, fileName: string, contentType: string) {
+    const a = document.createElement('a');
+    const file = new Blob([content], { type: contentType });
+    a.href = URL.createObjectURL(file);
+    a.download = fileName;
+    a.click();
+  }
+
+  // #endregion
+
+  // #region Generation and conversion methods
 
   private generatePdf(doc: jsPDF) {
     autoTable(doc, {
@@ -59,14 +97,6 @@ export class BranchesTableDownloadComponent {
     });
   }
 
-  private downloadFile(content: string, fileName: string, contentType: string) {
-    const a = document.createElement('a');
-    const file = new Blob([content], { type: contentType });
-    a.href = URL.createObjectURL(file);
-    a.download = fileName;
-    a.click();
-  }
-
   private convertArrayOfObjectsToCSV(data: any[]): string {
     const csv = data
       .map((row) =>
@@ -77,4 +107,6 @@ export class BranchesTableDownloadComponent {
       .join('\n');
     return csv;
   }
+
+  // #endregion
 }

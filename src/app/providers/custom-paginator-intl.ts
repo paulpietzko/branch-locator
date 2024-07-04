@@ -1,10 +1,17 @@
+// #region Imports
+
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { TranslateService } from '@ngx-translate/core';
 import { Injectable } from '@angular/core';
 
+// #endregion
+
 @Injectable()
 export class CustomMatPaginatorIntl extends MatPaginatorIntl {
-  pageOf= '';
+  pageOf = '';
+
+  // #region Constructor
+
   constructor(private translate: TranslateService) {
     super(); // Calling constructor of superclass -> MatPaginatorIntl
     this.getAndInitTranslations();
@@ -13,13 +20,17 @@ export class CustomMatPaginatorIntl extends MatPaginatorIntl {
     });
   }
 
+  // #endregion
+
+  // #region Translation Methods
+
   getAndInitTranslations() {
     this.translate
       .get([
         'BRANCH_TABLE.ITEMS_PER_PAGE',
         'BRANCH_TABLE.NEXT_PAGE',
         'BRANCH_TABLE.PREVIOUS_PAGE',
-        'BRANCH_TABLE.PAGE_OF'
+        'BRANCH_TABLE.PAGE_OF',
       ])
       .subscribe((translation) => {
         this.itemsPerPageLabel = translation['BRANCH_TABLE.ITEMS_PER_PAGE'];
@@ -38,4 +49,6 @@ export class CustomMatPaginatorIntl extends MatPaginatorIntl {
     const currentPage = page + 1;
     return `${currentPage} ${this.pageOf} ${amountPages}`;
   };
+
+  // #endregion
 }

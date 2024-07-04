@@ -1,3 +1,5 @@
+// #region Imports
+
 import { Component, ViewChild, signal, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
@@ -12,6 +14,8 @@ import { Branch, BranchMapMarker } from '../models';
 import { MatButtonModule } from '@angular/material/button';
 import { TranslateModule } from '@ngx-translate/core';
 import { Title } from '@angular/platform-browser';
+
+// #endregion
 
 @Component({
   selector: 'app-branches-map',
@@ -34,8 +38,10 @@ export class BranchesMapComponent {
   center: google.maps.LatLngLiteral = { lat: 46.8182, lng: 8.2275 }; // Center of Switzerland
   zoom = 8;
   markers: BranchMapMarker[] = [];
-  // Signal for currently selected branch
-  selectedBranch = signal<Branch | null>(null);
+  selectedBranch = signal<Branch | null>(null); // Signal for currently selected branch
+
+
+  // #region Constructor
 
   constructor(
     private branchService: BranchService,
@@ -43,7 +49,14 @@ export class BranchesMapComponent {
     private titleService: Title
   ) {
     this.titleService.setTitle(`Branches Map`);
-    // Fetch branches and update markers when data changes
+    this.loadBranchData();
+  }
+
+  // #endregion
+
+  // #region Data Loading
+
+  private loadBranchData(): void {
     effect(
       () => {
         const data = this.branchService.getBranches();
@@ -54,19 +67,16 @@ export class BranchesMapComponent {
     );
   }
 
-  getMarkers() {
+  private getMarkers(): BranchMapMarker[] {
     if (typeof google !== 'undefined') {
       return this.branches()
-        .map((branch) => {
-          const marker: BranchMapMarker = {
-            label: '',
-            position: { lat: branch.lat, lng: branch.lng },
-            title: branch.name,
-            options: { animation: google.maps.Animation.DROP },
-            branch: branch,
-          };
-          return marker;
-        })
+        .map((branch) => ({
+          label: '',
+          position: { lat: branch.lat, lng: branch.lng },
+          title: branch.name,
+          options: { animation: google.maps.Animation.DROP },
+          branch: branch,
+        }))
         .filter(
           (marker) => !isNaN(marker.position.lat) && !isNaN(marker.position.lng) // Filters markers with invalid positions
         );
@@ -75,6 +85,10 @@ export class BranchesMapComponent {
       return [];
     }
   }
+
+  // #endregion
+
+  // #region Info Window
 
   openInfoWindow(branch: Branch, marker: MapMarker): void {
     this.selectedBranch.set(branch); // Set the selected branch
@@ -85,4 +99,6 @@ export class BranchesMapComponent {
       console.error('InfoWindow is undefined');
     }
   }
+
+  // #endregion
 }

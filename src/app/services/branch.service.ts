@@ -1,6 +1,10 @@
+// #region Imports
+
 import { Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Branch } from '../models';
+
+// #endregion
 
 @Injectable({
   providedIn: 'root',
@@ -10,9 +14,15 @@ export class BranchService {
   private branchesSignal = signal<Branch[]>([]);
   private imageToDelete: string | null = null;
 
+  // #region Constructor
+
   constructor(private http: HttpClient) {
     this.fetchBranches();
   }
+
+  // #endregion
+
+  // #region Fetch Logic
 
   fetchBranches() {
     this.http.get<Branch[]>(`${this.dataUrl}/api/Branches`).subscribe({
@@ -31,6 +41,10 @@ export class BranchService {
       },
     });
   }
+
+  // #endregion
+
+  // #region Get Endpoints
 
   getBranches() {
     return this.branchesSignal();
@@ -51,6 +65,10 @@ export class BranchService {
     });
   }
 
+  // #endregion
+
+  // #region Delete Endpoints
+
   markImageForDeletion(branch: Branch | null) {
     if (!branch) return;
     this.imageToDelete = branch.imagePath?.substring(30) ?? null;
@@ -64,6 +82,10 @@ export class BranchService {
     }
     return null;
   }
+
+  // #endregion
+
+  // #region Update Endpoints
 
   updateBranch(id: string, branchData: FormData) {
     if (this.imageToDelete) {
@@ -94,6 +116,10 @@ export class BranchService {
       });
   }
 
+  // #endregion
+
+  // #region Add Endpoints
+
   addBranch(branchData: FormData) {
     this.http
       .post<Branch>(`${this.dataUrl}/api/Branches`, branchData)
@@ -121,4 +147,6 @@ export class BranchService {
         },
       });
   }
+
+  // #endregion
 }

@@ -1,3 +1,5 @@
+// #region Imports
+
 import {
   Component,
   signal,
@@ -28,6 +30,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Branch } from '../models';
 import { MatDialogModule } from '@angular/material/dialog';
+
+// #endregion
 
 @Component({
   selector: 'app-branch-form',
@@ -68,6 +72,8 @@ export class BRANCH_FORMComponent {
   uploadSuccess: boolean = false;
   uploadError: boolean = false;
 
+  // #region Constructor and Lifecycle Methods
+
   constructor(
     private branchService: BranchService,
     private fb: FormBuilder,
@@ -101,11 +107,9 @@ export class BRANCH_FORMComponent {
     );
   }
 
-  getFileNameFromPath(imagePath: string | undefined): string {
-    return imagePath
-      ? imagePath.split(/[/\\]/).pop()?.slice(37) || ''
-      : 'No Image Path';
-  }
+  // #endregion
+
+  // #region Form Methods
 
   createBRANCH_FORM(): FormGroup {
     return this.fb.group({
@@ -121,6 +125,54 @@ export class BRANCH_FORMComponent {
       lng: [null, Validators.required],
       image: [null],
     });
+  }
+
+  onSubmit(): void {
+    if (this.BRANCH_FORM.valid) {
+      const branchData = this.BRANCH_FORM.value;
+      const formData = new FormData();
+
+      for (const key in branchData) {
+        if (branchData.hasOwnProperty(key)) {
+          formData.append(key, branchData[key]);
+        }
+      }
+
+      if (this.selectedFile) {
+        formData.append('image', this.selectedFile);
+      }
+
+      if (this.isEditMode()) {
+        const updatedBranch = { ...this.branch(), ...branchData };
+        this.branchService.updateBranch(updatedBranch.id, formData);
+      } else {
+        this.branchService.addBranch(formData);
+      }
+
+      this.translate
+        .get(['BRANCH_FORM.ACTION_SUCCESS', 'ACTIONS.CLOSE'])
+        .subscribe((translations) => {
+          this.snackBar.open(
+            translations['BRANCH_FORM.ACTION_SUCCESS'],
+            translations['ACTIONS.CLOSE'],
+            {
+              duration: 5000,
+            }
+          );
+        });
+
+      this.dialogRef.close();
+    }
+  }
+
+  // #endregion
+
+  // #region File Handling Methods
+
+  getFileNameFromPath(imagePath: string | undefined): string {
+    return imagePath
+      ? imagePath.split(/[/\\]/).pop()?.slice(37) || ''
+      : 'No Image Path';
   }
 
   onFileChange(event: any): void {
@@ -192,41 +244,5 @@ export class BRANCH_FORMComponent {
     this.uploadProgress.set(0);
   }
 
-  onSubmit(): void {
-    if (this.BRANCH_FORM.valid) {
-      const branchData = this.BRANCH_FORM.value;
-      const formData = new FormData();
-
-      for (const key in branchData) {
-        if (branchData.hasOwnProperty(key)) {
-          formData.append(key, branchData[key]);
-        }
-      }
-
-      if (this.selectedFile) {
-        formData.append('image', this.selectedFile);
-      }
-
-      if (this.isEditMode()) {
-        const updatedBranch = { ...this.branch(), ...branchData };
-        this.branchService.updateBranch(updatedBranch.id, formData);
-      } else {
-        this.branchService.addBranch(formData);
-      }
-
-      this.translate
-        .get(['BRANCH_FORM.ACTION_SUCCESS', 'ACTIONS.CLOSE'])
-        .subscribe((translations) => {
-          this.snackBar.open(
-            translations['BRANCH_FORM.ACTION_SUCCESS'],
-            translations['ACTIONS.CLOSE'],
-            {
-              duration: 5000,
-            }
-          );
-        });
-
-      this.dialogRef.close();
-    }
-  }
+  // #endregion
 }

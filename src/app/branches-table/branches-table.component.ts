@@ -1,3 +1,5 @@
+// #region Imports
+
 import {
   Component,
   computed,
@@ -33,6 +35,9 @@ import { Title } from '@angular/platform-browser';
 import { BRANCH_FORMComponent } from '../branch-form/branch-form.component';
 import { BranchesTableDownloadComponent } from '../branches-table-download/branches-table-download.component';
 import { Meta } from '@angular/platform-browser';
+
+// #endregion
+
 @Component({
   selector: 'app-branches-table',
   standalone: true,
@@ -80,6 +85,8 @@ export class BranchesTableComponent
   filterForm: FormGroup;
   uniqueLocations: string[] = [];
 
+  // #region Constructor
+
   constructor(
     private branchService: BranchService,
     public branchImportService: BranchImportService,
@@ -89,26 +96,43 @@ export class BranchesTableComponent
     private _liveAnnouncer: LiveAnnouncer,
     private titleService: Title,
     private translate: TranslateService,
-    private metaTagService: Meta,
+    private metaTagService: Meta
   ) {
-    effect(() => {
-      this.dataSource.data = this.branches();
-      this.uniqueLocations = this.getUniqueLocations(this.branches());
-      this.applyFilter();
-      this.titleService.setTitle(
-        `${this.translate.instant('INFO.TABLE')}: ${
-          this.branches().length
-        } ${this.translate.instant('INFO.BRANCHES')}`
-      );
-    });
+    this.initializeEffects();
+    this.filterForm = this.createFilterForm();
+    this.initializeMetaTags();
+  }
 
-    this.filterForm = this.fb.group({
+  // #endregion
+
+  // #region Lifecycle Methods
+
+  ngOnInit() {
+    this.initializeFilterPredicate();
+    this.subscribeToFilterFormChanges();
+  }
+
+  ngAfterViewInit() {
+    if (this.paginator) {
+      this.dataSource.paginator = this.paginator;
+    }
+    if (this.sort) {
+      this.dataSource.sort = this.sort;
+    }
+  }
+
+  // #endregion
+
+  // #region Filter and Sorting
+
+  private createFilterForm(): FormGroup {
+    return this.fb.group({
       search: [''],
       locations: [[]],
     });
   }
 
-  ngOnInit() {
+  private initializeFilterPredicate() {
     this.dataSource.filterPredicate = (
       data: Branch,
       filter: string
@@ -124,31 +148,23 @@ export class BranchesTableComponent
 
       return matchesSearch && matchesLocation;
     };
+  }
 
-    const subs1 = this.filterForm.valueChanges.subscribe(() => {
+  private subscribeToFilterFormChanges() {
+    this.filterForm.valueChanges.subscribe(() => {
       this.applyFilter();
     });
-
-    subs1.unsubscribe();
-
-    this.metaTagService.addTags([
-      { name: 'keywords', content: 'Branches, Locator, Finder, CRUD, Table' },
-      { name: 'robots', content: 'index, follow' },
-      { name: 'author', content: 'Paul Pietko' },
-    ]);
   }
 
-  deleteBranch(id: string) {
-    this.branchService.deleteBranch(id);
-    this.branchService.getBranches();
-  }
+  applyFilter() {
+    const filterValue = {
+      search: this.filterForm.get('search')?.value.trim().toLowerCase() || '',
+      locations: this.filterForm.get('locations')?.value || [],
+    };
+    this.dataSource.filter = JSON.stringify(filterValue);
 
-  ngAfterViewInit() {
-    if (this.paginator) {
-      this.dataSource.paginator = this.paginator;
-    }
-    if (this.sort) {
-      this.dataSource.sort = this.sort;
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
     }
   }
 
@@ -160,26 +176,13 @@ export class BranchesTableComponent
     }
   }
 
-  onFileSelected($event: any) { // help
-    this.branchImportService.onFileSelected($event);
-    this.applyFilter();
-  }
+  // #endregion
 
-  getUniqueLocations(branches: Branch[]): string[] {
-    const locations = branches.map((branch) => branch.location);
-    return [...new Set(locations)];
-  }
+  // #region Branch Actions
 
-  applyFilter() {
-    const filterValue = {
-      search: this.filterForm.get('search')?.value.trim().toLowerCase() || '',
-      locations: this.filterForm.get('locations')?.value || [],
-    };
-    this.dataSource.filter = JSON.stringify(filterValue);
-
-    if (!this.dataSource.paginator) return;
-
-    this.dataSource.paginator.firstPage();
+  deleteBranch(id: string) {
+    this.branchService.deleteBranch(id);
+    this.branchService.getBranches();
   }
 
   editBranch(id: string) {
@@ -204,7 +207,48 @@ export class BranchesTableComponent
     });
   }
 
+  onFileSelected($event: any) {
+    this.branchImportService.onFileSelected($event);
+    this.applyFilter();
+  }
+
+  // #endregion
+
+  // #region Data Handling
+
+  private initializeEffects() {
+    effect(() => {
+      this.dataSource.data = this.branches();
+      this.uniqueLocations = this.getUniqueLocations(this.branches());
+      this.applyFilter();
+      this.updateTitle();
+    });
+  }
+
+  private getUniqueLocations(branches: Branch[]): string[] {
+    const locations = branches.map((branch) => branch.location);
+    return [...new Set(locations)];
+  }
+
+  private updateTitle() {
+    this.titleService.setTitle(
+      `${this.translate.instant('INFO.TABLE')}: ${
+        this.branches().length
+      } ${this.translate.instant('INFO.BRANCHES')}`
+    );
+  }
+
+  private initializeMetaTags() {
+    this.metaTagService.addTags([
+      { name: 'keywords', content: 'Branches, Locator, Finder, CRUD, Table' },
+      { name: 'robots', content: 'index, follow' },
+      { name: 'author', content: 'Paul Pietko' },
+    ]);
+  }
+
+  // #endregion
+
   ngOnDestroy(): void {
-    
+    // Add any necessary cleanup code here
   }
 }

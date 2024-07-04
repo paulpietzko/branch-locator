@@ -1,7 +1,11 @@
+// #region Imports
+
 import { Injectable } from '@angular/core';
 import * as XLSX from 'xlsx';
 import { Branch } from '../models';
 import { BranchService } from './branch.service';
+
+// #endregion
 
 @Injectable({
   providedIn: 'root',
@@ -9,9 +13,15 @@ import { BranchService } from './branch.service';
 export class BranchImportService {
   importedData: Branch[] = [];
 
+  // #region Constructor
+
   constructor(
     private branchService: BranchService
   ) {}
+  
+  // #endregion 
+  
+  // #region OnFileSelected Method
 
   onFileSelected(event: any) { // TODO: fetch branches after finishing and update the table
     const file: File = event.target.files[0];
@@ -56,6 +66,10 @@ export class BranchImportService {
       fileReader.readAsText(file);
     }
   }
+  
+  // #endregion 
+
+  // #region ParseCSVtoJSON Method
 
   parseCSVtoJSON(csvData: string): Branch[] {
     const lines = csvData.split('\n');
@@ -79,4 +93,6 @@ export class BranchImportService {
       };
     });
   }
+  
+  // #endregion 
 }
