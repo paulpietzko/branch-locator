@@ -27,10 +27,8 @@
   background: white;
   padding: 2rem;
   border-radius: 15px 15px 0 0;
-  
-  @media (max-width: 768px) {
-    width: 95%;
-  }
+  box-shadow: -5px -5px 9px rgba(255,255,255,0.45), 5px 5px 9px rgba(94,104,121,0.3);
+
 }
 
 google-map {
@@ -151,12 +149,5 @@ google-map {
   @media (min-width: 768px) {
     flex-direction: row;
   }
-}
 
-.buttons div button {
-  margin: 10px 0;
-
-  @media (min-width: 768px) {
-    margin-left: 10px;
-  }
 }

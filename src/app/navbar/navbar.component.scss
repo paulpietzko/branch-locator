@@ -1,5 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Playwrite+IT+Moderna:wght@100..400&display=swap");
-
 mat-toolbar {
   background: transparent;
 }
@@ -9,17 +7,16 @@ mat-toolbar {
   height: 40px;
 }
 
-a {
+a button {
   text-decoration: none;
-  @import url("https://fonts.googleapis.com/css2?family=Playwrite+IT+Moderna:wght@100..400&display=swap");
-  font-family: "Playwrite IT Moderna", cursive;
-  color: white;
+  font-weight: bold;
+  font-size: large;
 }
 
 .spacer {
   flex: 1 1 auto;
 }
 
-.language-button {
-  text-transform: uppercase;
+button mat-icon, a button {
+  color: white;
 }
