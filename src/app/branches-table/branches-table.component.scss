@@ -7,10 +7,11 @@
   flex-direction: column;
   margin: 0 auto;
   width: 80%;
+  background: white;
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: -5px -5px 9px rgba(255,255,255,0.45), 5px 5px 9px rgba(94,104,121,0.3);
 
-  @media (max-width: 768px) {
-    width: 95%;
-  }
 }
 
 :host ::ng-deep .mdc-text-field--outlined {
@@ -21,7 +22,6 @@
 .text-content {
   font-family: "Playwrite IT Moderna", cursive;
   font-weight: bold;
-  color: whitesmoke;
   font-size: large;
   margin-bottom: 5rem;
 
