@@ -1,8 +1,9 @@
-<h3>{{ "BRANCH_TABLE.BRANCHES" | translate }}</h3>
-<p>{{ "BRANCH_TABLE.DESCRIPTION" | translate }}</p>
+<div class="text-content">
+  <h1>{{ "BRANCH_TABLE.BRANCHES" | translate }}</h1>
+  <p>{{ "BRANCH_TABLE.DESCRIPTION" | translate }}</p>
+</div>
 
 <!-- Action Bar -->
-
 <div class="action-bar">
   <!-- Filter Options -->
   <form [formGroup]="filterForm" class="filters-form">
@@ -28,7 +29,7 @@
   </form>
 
   <!-- Action Buttons -->
-  <div>
+  <div class="action-buttons">
     <button mat-button color="primary" (click)="fileInput.click()">
       {{ "ACTIONS.IMPORT" | translate }}
     </button>
@@ -40,9 +41,11 @@
       style="display: none"
     />
 
-    <app-branches-table-download
-      [branchData]="this.dataSource.filteredData"
-    ></app-branches-table-download>
+    <button mat-button>
+      <app-branches-table-download
+        [branchData]="this.dataSource.filteredData"
+      ></app-branches-table-download>
+    </button>
 
     <button
       mat-button
@@ -121,7 +124,11 @@
           </mat-menu>
         </td>
       </ng-container>
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr
+        class="branches-table-header"
+        mat-header-row
+        *matHeaderRowDef="displayedColumns"
+      ></tr>
       <tr
         mat-row
         *matRowDef="let row; columns: displayedColumns"
@@ -131,21 +138,21 @@
     </table>
   </div>
 
+  <hr class="devider" />
+
   <!-- Table Action Buttons -->
   <div
-    class="d-flex flex-column flex-md-row justify-content-between align-items-center mt-3"
+    class="action-buttons d-flex flex-column flex-md-row justify-content-between align-items-center mt-3"
   >
     <a class="map-button mb-2 mb-md-0" [routerLink]="['/filialen/karte']">
       <button mat-button color="primary">
         {{ "BRANCH_TABLE.MAP" | translate }}
       </button>
     </a>
-    <div class="flex-grow-1 mx-0 mx-md-3 mb-2 mb-md-0">
-      <mat-paginator
-        [length]="dataSource.filteredData.length"
-        [pageSizeOptions]="[5, 10]"
-        showFirstLastButtons
-      ></mat-paginator>
-    </div>
+    <mat-paginator
+      [length]="dataSource.filteredData.length"
+      [pageSizeOptions]="[5, 10]"
+      showFirstLastButtons
+    ></mat-paginator>
   </div>
 </div>

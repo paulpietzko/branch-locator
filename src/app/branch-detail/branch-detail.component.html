@@ -1,7 +1,9 @@
 <div class="detail-page" *ngIf="branch()">
-  <h3>
-    {{ "BRANCH_DETAIL.TITLE" | translate : { location: branch()?.location } }}
-  </h3>
+  <div class="text-content">
+    <h1>
+      {{ "BRANCH_DETAIL.TITLE" | translate : { location: branch()?.location } }}
+    </h1>
+  </div>
   <div class="branch-info">
     <div class="info-text">
       <p>
@@ -28,7 +30,10 @@
     </div>
     <div class="branch-photo">
       <div *ngIf="!branch()?.imagePath">
-        <img src="assets/images/placeholder_image.png" alt="Branch Placeholder Image">
+        <img
+          src="assets/images/placeholder_image.png"
+          alt="Branch Placeholder Image"
+        />
       </div>
       <img
         *ngIf="branch()?.imagePath"

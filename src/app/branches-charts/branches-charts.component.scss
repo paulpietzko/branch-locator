@@ -1,3 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Niconne&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Playwrite+IT+Moderna:wght@100..400&display=swap");
+
+/* === Text Content === */
+.text-content {
+  font-family: "Playwrite IT Moderna", cursive;
+  font-weight: bold;
+  color: whitesmoke;
+  font-size: large;
+  margin-bottom: 5rem;
+
+  h1 {
+    font-size: 90px;
+    font-weight: 600;
+    font-family: 'Niconne', cursive;
+    color: #e0d6e9;
+    text-shadow: 2px 2px 0px  #957dad,
+                 4px 4px 0px #ee4b2b,
+  }
+}
+
 .chart-container {
   width: 80%;
   margin: 1rem auto;
