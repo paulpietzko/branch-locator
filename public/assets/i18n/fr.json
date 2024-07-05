@@ -12,10 +12,6 @@
     "SEARCH": "Rechercher...",
     "SEARCH_PLACEHOLDER": "Nom de l'entreprise",
     "LOCATIONS": "Lieux",
-    "ITEMS_PER_PAGE": "Articles par page",
-    "NEXT_PAGE": "Page suivante",
-    "PREVIOUS_PAGE": "Page précédente",
-    "PAGE_OF": "de",
     "DELETE_CONFIRMATION": "Voulez-vous vraiment supprimer cette succursale ?"
   },
   "BRANCH_DETAIL": {
@@ -72,6 +68,10 @@
     "IMPORT": "Importer"
   },
   "INFO": {
+    "ITEMS_PER_PAGE": "Articles par page",
+    "NEXT_PAGE": "Page suivante",
+    "PREVIOUS_PAGE": "Page précédente",
+    "PAGE_OF": "de",
     "DELETE_SUCCESS": "Suppression réussie",
     "TABLE": "Tableau",
     "BRANCHES": "Filiales"

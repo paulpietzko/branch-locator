@@ -12,10 +12,6 @@
     "SEARCH": "Search..",
     "SEARCH_PLACEHOLDER": "Company Name",
     "LOCATIONS": "Localities",
-    "ITEMS_PER_PAGE": "Items per page",
-    "NEXT_PAGE": "Next page",
-    "PREVIOUS_PAGE": "Previous page",
-    "PAGE_OF": "of",
     "DELETE_CONFIRMATION": "Are you sure you want to delete this branch?"
   },
   "BRANCH_DETAIL": {
@@ -72,6 +68,10 @@
     "IMPORT": "Import"
   },
   "INFO": {
+    "ITEMS_PER_PAGE": "Items per page",
+    "NEXT_PAGE": "Next page",
+    "PREVIOUS_PAGE": "Previous page",
+    "PAGE_OF": "of",
     "DELETE_SUCCESS": "Successfully deleted",
     "TABLE": "Table",
     "BRANCHES": "Branches"
