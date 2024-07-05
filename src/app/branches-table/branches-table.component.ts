@@ -1,5 +1,3 @@
-// #region Imports
-
 import {
   Component,
   computed,
@@ -37,8 +35,6 @@ import { BranchesTableDownloadComponent } from '../branches-table-download/branc
 import { Meta } from '@angular/platform-browser';
 import metadata from '../../../public/assets/metadata/metadata.json';
 import { SubSink } from 'subsink';
-
-// #endregion
 
 @Component({
   selector: 'app-branches-table',
@@ -88,8 +84,6 @@ export class BranchesTableComponent
   filterForm: FormGroup;
   uniqueLocations: string[] = [];
 
-  // #region Constructor
-
   constructor(
     private branchService: BranchService,
     public branchImportService: BranchImportService,
@@ -106,10 +100,6 @@ export class BranchesTableComponent
     this.initializeMetaTags('branchesTable');
   }
 
-  // #endregion
-
-  // #region Lifecycle Methods
-
   ngOnInit() {
     this.initializeFilterPredicate();
     this.subscribeToFilterFormChanges();
@@ -123,8 +113,6 @@ export class BranchesTableComponent
       this.dataSource.sort = this.sort;
     }
   }
-
-  // #endregion
 
   // #region Data Handling
 
@@ -244,8 +232,9 @@ export class BranchesTableComponent
     );
   }
 
-  onFileSelected($event: any) {
-    this.branchImportService.onFileSelected($event);
+  onFileSelected(event: Event) {
+    
+    this.branchImportService.onFileSelected(event);
     this.applyFilter();
   }
 

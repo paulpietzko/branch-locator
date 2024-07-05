@@ -1,5 +1,3 @@
-// #region Imports
-
 import { Component, ViewChild, signal, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
@@ -14,8 +12,6 @@ import { Branch, BranchMapMarker } from '../models';
 import { MatButtonModule } from '@angular/material/button';
 import { TranslateModule } from '@ngx-translate/core';
 import { Title } from '@angular/platform-browser';
-
-// #endregion
 
 @Component({
   selector: 'app-branches-map',
@@ -40,9 +36,6 @@ export class BranchesMapComponent {
   markers: BranchMapMarker[] = [];
   selectedBranch = signal<Branch | null>(null); // Signal for currently selected branch
 
-
-  // #region Constructor
-
   constructor(
     private branchService: BranchService,
     private router: Router,
@@ -51,8 +44,6 @@ export class BranchesMapComponent {
     this.titleService.setTitle(`Branches Map`);
     this.loadBranchData();
   }
-
-  // #endregion
 
   // #region Data Loading
 
@@ -88,8 +79,6 @@ export class BranchesMapComponent {
 
   // #endregion
 
-  // #region Info Window
-
   openInfoWindow(branch: Branch, marker: MapMarker): void {
     this.selectedBranch.set(branch); // Set the selected branch
 
@@ -99,6 +88,4 @@ export class BranchesMapComponent {
       console.error('InfoWindow is undefined');
     }
   }
-
-  // #endregion
 }

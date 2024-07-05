@@ -1,19 +1,12 @@
-// #region Imports
-
 import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { isPlatformBrowser } from '@angular/common';
-
-// #endregion
 
 @Injectable({
   providedIn: 'root',
 })
 export class TranslationService {
   defaultLang = 'de';
-
-  // #region Constructor
-
   constructor(
     private translateService: TranslateService,
     @Inject(PLATFORM_ID) private platformId: Object
@@ -28,18 +21,12 @@ export class TranslationService {
     }
   }
 
-  // #endregion
-
-  // #region ChangeLang Method
-
   changeLang(lang: string) {
     this.translateService.use(lang);
     if (isPlatformBrowser(this.platformId)) {
       this.setCookie('lng', lang, 365);
     }
   }
-
-  // #endregion
 
   // #region Coockie Get Set Methods
 

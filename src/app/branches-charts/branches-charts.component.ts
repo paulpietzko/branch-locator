@@ -1,5 +1,3 @@
-// #region Imports
-
 import {
   Component,
   AfterViewInit,
@@ -15,9 +13,7 @@ import { RouterModule } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { SubSink } from 'subsink';
 
-// #endregion
-
-declare var google: any;
+declare var google: any; // TODO: No any
 
 @Component({
   selector: 'app-branches-charts',
@@ -29,8 +25,6 @@ declare var google: any;
 export class BranchesChartsComponent implements AfterViewInit, OnDestroy {
   private subs = new SubSink();
   isBrowser: boolean;
-
-  // #region Constructor and Lifecycle Methods
 
   constructor(
     private branchService: BranchService,
@@ -58,10 +52,8 @@ export class BranchesChartsComponent implements AfterViewInit, OnDestroy {
         });
     }
   }
-
-  // #endregion
-
-  // #region Google Charts Library
+  
+  // #region Google Chart Methods
 
   private loadGoogleChartsLibrary(): Promise<void> {
     return new Promise((resolve, reject) => {
@@ -85,10 +77,6 @@ export class BranchesChartsComponent implements AfterViewInit, OnDestroy {
       }
     });
   }
-
-  // #endregion
-
-  // #region Chart Rendering
 
   private loadTranslationsAndDrawChart(): void {
     this.subs.add(

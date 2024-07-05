@@ -1,5 +1,3 @@
-// #region Imports
-
 import {
   Component,
   signal,
@@ -33,8 +31,6 @@ import { Branch } from '../models';
 import { MatDialogModule } from '@angular/material/dialog';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { SubSink } from 'subsink';
-
-// #endregion
 
 @Component({
   selector: 'app-branch-form',
@@ -77,8 +73,6 @@ export class BRANCH_FORMComponent implements OnDestroy {
   mapCenter: google.maps.LatLngLiteral = { lat: 46.8182, lng: 8.2275 }; // Center of Switzerland
   zoom = 8;
 
-  // #region Constructor and Lifecycle Methods
-
   constructor(
     private branchService: BranchService,
     private fb: FormBuilder,
@@ -112,8 +106,6 @@ export class BRANCH_FORMComponent implements OnDestroy {
       { allowSignalWrites: true }
     );
   }
-
-  // #endregion
 
   // #region Form Methods
 
@@ -196,8 +188,9 @@ export class BRANCH_FORMComponent implements OnDestroy {
       : 'No Image Path';
   }
 
-  onFileChange(event: any): void {
-    const file = event.target.files[0] as File | null;
+  onFileChange(event: Event) {
+    const fileInput = event.target as HTMLInputElement;
+    const file = fileInput.files?.[0] as File | null;
     this.uploadFile(file);
   }
 

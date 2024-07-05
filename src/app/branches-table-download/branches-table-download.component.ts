@@ -1,5 +1,3 @@
-// #region Imports
-
 import { Component, Input } from '@angular/core';
 import * as XLSX from 'xlsx';
 import jsPDF from 'jspdf';
@@ -9,8 +7,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
-
-// #endregion
 
 @Component({
   selector: 'app-branches-table-download',
@@ -24,12 +20,10 @@ export class BranchesTableDownloadComponent {
 
   FileFormat = FileFormat;
 
-  // #region Constructor
-
   constructor() {}
   
-  // #endregion
-
+  // #region Download methods
+  
   download(format: FileFormat) {
     switch (format) {
       case FileFormat.Excel:
@@ -48,8 +42,6 @@ export class BranchesTableDownloadComponent {
         console.error('Unsupported format');
     }
   }
-
-  // #region Download methods
 
   private downloadPdf() {
     const doc = new jsPDF();
@@ -97,7 +89,7 @@ export class BranchesTableDownloadComponent {
     });
   }
 
-  private convertArrayOfObjectsToCSV(data: any[]): string {
+  private convertArrayOfObjectsToCSV(data: Branch[]): string {
     const csv = data
       .map((row) =>
         Object.values(row)

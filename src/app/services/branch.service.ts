@@ -1,11 +1,7 @@
-// #region Imports
-
 import { Injectable, OnDestroy, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Branch } from '../models';
 import { SubSink } from 'subsink';
-
-// #endregion
 
 @Injectable({
   providedIn: 'root',
@@ -16,15 +12,9 @@ export class BranchService implements OnDestroy {
   private branchesSignal = signal<Branch[]>([]);
   private imageToDelete: string | null = null;
 
-  // #region Constructor
-
   constructor(private http: HttpClient) {
     this.fetchBranches();
   }
-
-  // #endregion
-
-  // #region Fetch Logic
 
   fetchBranches() {
     this.http.get<Branch[]>(`${this.dataUrl}/api/Branches`).subscribe({
@@ -43,8 +33,6 @@ export class BranchService implements OnDestroy {
       },
     });
   }
-
-  // #endregion
 
   // #region Get Endpoints
 

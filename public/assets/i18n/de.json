@@ -68,12 +68,14 @@
     "IMPORT": "Importieren"
   },
   "INFO": {
-    "ITEMS_PER_PAGE": "Artikel pro Seite",
-    "NEXT_PAGE": "Nächste Seite",
-    "PREVIOUS_PAGE": "Vorherige Seite",
-    "PAGE_OF": "von",
     "DELETE_SUCCESS": "Erfolgreich gelöscht",
     "TABLE": "Tabelle",
     "BRANCHES": "Filialen"
+  },
+  "PAGINATION": {
+    "ITEMS_PER_PAGE": "Artikel pro Seite",
+    "NEXT_PAGE": "Nächste Seite",
+    "PREVIOUS_PAGE": "Vorherige Seite",
+    "PAGE_OF": "von"
   }
 }
