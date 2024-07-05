@@ -8,6 +8,7 @@ import {
   Inject,
   ViewChild,
   ElementRef,
+  OnDestroy,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -31,6 +32,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Branch } from '../models';
 import { MatDialogModule } from '@angular/material/dialog';
 import { GoogleMapsModule } from '@angular/google-maps';
+import { SubSink } from 'subsink';
 
 // #endregion
 
@@ -54,7 +56,8 @@ import { GoogleMapsModule } from '@angular/google-maps';
   ],
   providers: [BranchService],
 })
-export class BRANCH_FORMComponent {
+export class BRANCH_FORMComponent implements OnDestroy {
+  private subs = new SubSink();
   imageName = signal('');
   fileSize = signal(0);
   uploadProgress = signal(0);
@@ -165,17 +168,19 @@ export class BRANCH_FORMComponent {
         this.branchService.addBranch(formData);
       }
 
-      this.translate
-        .get(['BRANCH_FORM.ACTION_SUCCESS', 'ACTIONS.CLOSE'])
-        .subscribe((translations) => {
-          this.snackBar.open(
-            translations['BRANCH_FORM.ACTION_SUCCESS'],
-            translations['ACTIONS.CLOSE'],
-            {
-              duration: 5000,
-            }
-          );
-        });
+      this.subs.add(
+        this.translate
+          .get(['BRANCH_FORM.ACTION_SUCCESS', 'ACTIONS.CLOSE'])
+          .subscribe((translations) => {
+            this.snackBar.open(
+              translations['BRANCH_FORM.ACTION_SUCCESS'],
+              translations['ACTIONS.CLOSE'],
+              {
+                duration: 5000,
+              }
+            );
+          })
+      );
 
       this.dialogRef.close();
     }
@@ -261,4 +266,8 @@ export class BRANCH_FORMComponent {
   }
 
   // #endregion
+
+  ngOnDestroy() {
+    this.subs.unsubscribe();
+  }
 }

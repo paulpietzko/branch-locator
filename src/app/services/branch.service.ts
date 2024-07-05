@@ -1,15 +1,17 @@
 // #region Imports
 
-import { Injectable, signal } from '@angular/core';
+import { Injectable, OnDestroy, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Branch } from '../models';
+import { SubSink } from 'subsink';
 
 // #endregion
 
 @Injectable({
   providedIn: 'root',
 })
-export class BranchService {
+export class BranchService implements OnDestroy {
+  private subs = new SubSink();
   private dataUrl = 'https://localhost:7089';
   private branchesSignal = signal<Branch[]>([]);
   private imageToDelete: string | null = null;
@@ -89,31 +91,35 @@ export class BranchService {
 
   updateBranch(id: string, branchData: FormData) {
     if (this.imageToDelete) {
-      this.confirmImageDeletion(id)?.subscribe({
-        next: () => {
-          this.imageToDelete = null;
-          this.updateBranchData(id, branchData);
-        },
-        error: (error) => {
-          console.error(error);
-        },
-      });
+      this.subs.add(
+        this.confirmImageDeletion(id)?.subscribe({
+          next: () => {
+            this.imageToDelete = null;
+            this.updateBranchData(id, branchData);
+          },
+          error: (error) => {
+            console.error(error);
+          },
+        })
+      );
     } else {
       this.updateBranchData(id, branchData);
     }
   }
 
   private updateBranchData(id: string, branchData: FormData) {
-    this.http
-      .put<Branch>(`${this.dataUrl}/api/Branches/${id}`, branchData)
-      .subscribe({
-        next: () => {
-          this.fetchBranches();
-        },
-        error: (error) => {
-          console.error(error);
-        },
-      });
+    this.subs.add(
+      this.http
+        .put<Branch>(`${this.dataUrl}/api/Branches/${id}`, branchData)
+        .subscribe({
+          next: () => {
+            this.fetchBranches();
+          },
+          error: (error) => {
+            console.error(error);
+          },
+        })
+    );
   }
 
   // #endregion
@@ -121,16 +127,18 @@ export class BranchService {
   // #region Add Endpoints
 
   addBranch(branchData: FormData) {
-    this.http
-      .post<Branch>(`${this.dataUrl}/api/Branches`, branchData)
-      .subscribe({
-        next: () => {
-          this.fetchBranches();
-        },
-        error: (error) => {
-          console.error(error);
-        },
-      });
+    this.subs.add(
+      this.http
+        .post<Branch>(`${this.dataUrl}/api/Branches`, branchData)
+        .subscribe({
+          next: () => {
+            this.fetchBranches();
+          },
+          error: (error) => {
+            console.error(error);
+          },
+        })
+    );
   }
 
   addBranches(importedBranchData: Branch[]) {
@@ -149,4 +157,8 @@ export class BranchService {
   }
 
   // #endregion
+
+  ngOnDestroy() {
+    this.subs.unsubscribe();
+  }
 }

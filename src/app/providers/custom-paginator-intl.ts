@@ -2,12 +2,17 @@
 
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { TranslateService } from '@ngx-translate/core';
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
+import { SubSink } from 'subsink';
 
 // #endregion
 
 @Injectable()
-export class CustomMatPaginatorIntl extends MatPaginatorIntl {
+export class CustomMatPaginatorIntl
+  extends MatPaginatorIntl
+  implements OnDestroy
+{
+  private subs = new SubSink();
   pageOf = '';
 
   // #region Constructor
@@ -25,20 +30,22 @@ export class CustomMatPaginatorIntl extends MatPaginatorIntl {
   // #region Translation Methods
 
   getAndInitTranslations() {
-    this.translate
-      .get([
-        'INFO.ITEMS_PER_PAGE',
-        'INFO.NEXT_PAGE',
-        'INFO.PREVIOUS_PAGE',
-        'INFO.PAGE_OF',
-      ])
-      .subscribe((translation) => {
-        this.itemsPerPageLabel = translation['INFO.ITEMS_PER_PAGE'];
-        this.nextPageLabel = translation['INFO.NEXT_PAGE'];
-        this.previousPageLabel = translation['INFO.PREVIOUS_PAGE'];
-        this.pageOf = translation['INFO.PAGE_OF'];
-        this.changes.next(); // Notify about the changes
-      });
+    this.subs.add(
+      this.translate
+        .get([
+          'INFO.ITEMS_PER_PAGE',
+          'INFO.NEXT_PAGE',
+          'INFO.PREVIOUS_PAGE',
+          'INFO.PAGE_OF',
+        ])
+        .subscribe((translation) => {
+          this.itemsPerPageLabel = translation['INFO.ITEMS_PER_PAGE'];
+          this.nextPageLabel = translation['INFO.NEXT_PAGE'];
+          this.previousPageLabel = translation['INFO.PREVIOUS_PAGE'];
+          this.pageOf = translation['INFO.PAGE_OF'];
+          this.changes.next(); // Notify about the changes
+        })
+    );
   }
 
   override getRangeLabel = (page: number, pageSize: number, length: number) => {
@@ -51,4 +58,8 @@ export class CustomMatPaginatorIntl extends MatPaginatorIntl {
   };
 
   // #endregion
+
+  ngOnDestroy() {
+    this.subs.unsubscribe();
+  }
 }

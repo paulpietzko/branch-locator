@@ -1,12 +1,19 @@
 // #region Imports
 
-import { Component, AfterViewInit, Inject, PLATFORM_ID } from '@angular/core';
+import {
+  Component,
+  AfterViewInit,
+  Inject,
+  PLATFORM_ID,
+  OnDestroy,
+} from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { BranchService } from '../services/branch.service';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 import { Title } from '@angular/platform-browser';
+import { SubSink } from 'subsink';
 
 // #endregion
 
@@ -19,7 +26,8 @@ declare var google: any;
   templateUrl: './branches-charts.component.html',
   styleUrls: ['./branches-charts.component.scss'],
 })
-export class BranchesChartsComponent implements AfterViewInit {
+export class BranchesChartsComponent implements AfterViewInit, OnDestroy {
+  private subs = new SubSink();
   isBrowser: boolean;
 
   // #region Constructor and Lifecycle Methods
@@ -32,9 +40,11 @@ export class BranchesChartsComponent implements AfterViewInit {
   ) {
     this.titleService.setTitle(`Branches Chart`);
     this.isBrowser = isPlatformBrowser(this.platformId);
-    this.translate.onLangChange.subscribe(() => {
-      this.loadTranslationsAndDrawChart();
-    });
+    this.subs.add(
+      this.translate.onLangChange.subscribe(() => {
+        this.loadTranslationsAndDrawChart();
+      })
+    );
   }
 
   ngAfterViewInit() {
@@ -69,7 +79,8 @@ export class BranchesChartsComponent implements AfterViewInit {
             reject(new Error('Google Charts library not available.'));
           }
         };
-        script.onerror = () => reject(new Error('Failed to load Google Charts library.'));
+        script.onerror = () =>
+          reject(new Error('Failed to load Google Charts library.'));
         document.head.appendChild(script);
       }
     });
@@ -80,6 +91,7 @@ export class BranchesChartsComponent implements AfterViewInit {
   // #region Chart Rendering
 
   private loadTranslationsAndDrawChart(): void {
+    this.subs.add(
     this.translate
       .get(['CHART.TITLE', 'CHART.HAXIS_TITLE', 'CHART.VAXIS_TITLE'])
       .subscribe((translations) => {
@@ -91,7 +103,10 @@ export class BranchesChartsComponent implements AfterViewInit {
         });
 
         const dataArray: (string | number)[][] = [
-          [translations['CHART.HAXIS_TITLE'], translations['CHART.VAXIS_TITLE']],
+          [
+            translations['CHART.HAXIS_TITLE'],
+            translations['CHART.VAXIS_TITLE'],
+          ],
         ];
         for (const [key, value] of Object.entries(locationCount)) {
           dataArray.push([key, value]);
@@ -110,8 +125,13 @@ export class BranchesChartsComponent implements AfterViewInit {
           document.getElementById('chart_div')
         );
         chart.draw(data, options);
-      });
+      })
+    );
   }
 
   // #endregion
+
+  ngOnDestroy() {
+    this.subs.unsubscribe();
+  }
 }

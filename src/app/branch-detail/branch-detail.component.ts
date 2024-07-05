@@ -8,6 +8,7 @@ import {
   PLATFORM_ID,
   Inject,
   OnInit,
+  OnDestroy,
 } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
@@ -26,6 +27,7 @@ import { Title } from '@angular/platform-browser';
 import { BRANCH_FORMComponent } from '../branch-form/branch-form.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
+import { SubSink } from 'subsink';
 
 // #endregion
 
@@ -45,8 +47,9 @@ import { MatDialog } from '@angular/material/dialog';
   templateUrl: './branch-detail.component.html',
   styleUrls: ['./branch-detail.component.scss'],
 })
-export class BRANCH_DETAILComponent implements OnInit {
+export class BRANCH_DETAILComponent implements OnInit, OnDestroy {
   @ViewChild(MapInfoWindow) infoWindow: MapInfoWindow | undefined;
+  private subs = new SubSink();
 
   // #region Constructor and Lifecycle Methods
 
@@ -67,14 +70,16 @@ export class BRANCH_DETAILComponent implements OnInit {
     }
 
     // Subscribe to route params for branch ID
-    this.route.paramMap.subscribe((params) => {
-      const id = params.get('id');
-      if (id !== null) {
-        this.branchId.set(id);
-      } else {
-        console.error('Invalid branch ID');
-      }
-    });
+    this.subs.add(
+      this.route.paramMap.subscribe((params) => {
+        const id = params.get('id');
+        if (id !== null) {
+          this.branchId.set(id);
+        } else {
+          console.error('Invalid branch ID');
+        }
+      })
+    );
   }
 
   // #endregion
@@ -131,9 +136,11 @@ export class BRANCH_DETAILComponent implements OnInit {
       data: { id },
     });
 
-    dialogRef.afterClosed().subscribe(() => {
-      this.branchService.fetchBranches();
-    });
+    this.subs.add(
+      dialogRef.afterClosed().subscribe(() => {
+        this.branchService.fetchBranches();
+      })
+    );
   }
 
   deleteBranch(): void {
@@ -142,20 +149,26 @@ export class BRANCH_DETAILComponent implements OnInit {
 
     this.branchService.deleteBranch(id);
 
-    this.translate
-      .get(['INFO.DELETE_SUCCESS', 'ACTIONS.CLOSE'])
-      .subscribe((translations) => {
-        this.snackBar.open(
-          translations['INFO.DELETE_SUCCESS'],
-          translations['ACTIONS.CLOSE'],
-          {
-            duration: 5000,
-          }
-        );
-      });
+    this.subs.add(
+      this.translate
+        .get(['INFO.DELETE_SUCCESS', 'ACTIONS.CLOSE'])
+        .subscribe((translations) => {
+          this.snackBar.open(
+            translations['INFO.DELETE_SUCCESS'],
+            translations['ACTIONS.CLOSE'],
+            {
+              duration: 5000,
+            }
+          );
+        })
+    );
 
     this.router.navigate(['/filialen']);
   }
 
   // #endregion
+
+  ngOnDestroy() {
+    this.subs.unsubscribe();
+  }
 }

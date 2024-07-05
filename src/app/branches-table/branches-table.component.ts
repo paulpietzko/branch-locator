@@ -36,6 +36,7 @@ import { BRANCH_FORMComponent } from '../branch-form/branch-form.component';
 import { BranchesTableDownloadComponent } from '../branches-table-download/branches-table-download.component';
 import { Meta } from '@angular/platform-browser';
 import metadata from '../../../public/assets/metadata/metadata.json';
+import { SubSink } from 'subsink';
 
 // #endregion
 
@@ -49,22 +50,22 @@ import metadata from '../../../public/assets/metadata/metadata.json';
   templateUrl: './branches-table.component.html',
   styleUrls: ['./branches-table.component.scss'],
   imports: [
-    CommonModule, 
-    MatTableModule, 
-    MatIconModule, 
-    MatButtonModule, 
-    MatFormFieldModule, 
-    MatInputModule, 
-    MatSelectModule, 
-    MatCheckboxModule, 
-    RouterModule, 
-    TranslateModule, 
-    MatPaginatorModule, 
-    ReactiveFormsModule, 
-    MatMenuModule, 
-    MatDividerModule, 
-    MatSortModule, 
-    BranchesTableDownloadComponent, 
+    CommonModule,
+    MatTableModule,
+    MatIconModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatCheckboxModule,
+    RouterModule,
+    TranslateModule,
+    MatPaginatorModule,
+    ReactiveFormsModule,
+    MatMenuModule,
+    MatDividerModule,
+    MatSortModule,
+    BranchesTableDownloadComponent,
   ],
 })
 export class BranchesTableComponent
@@ -72,6 +73,7 @@ export class BranchesTableComponent
 {
   @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
   @ViewChild(MatSort) sort: MatSort | null = null;
+  private subs = new SubSink();
 
   displayedColumns: string[] = [
     'name',
@@ -148,9 +150,7 @@ export class BranchesTableComponent
     );
   }
 
-  private initializeMetaTags(section: string) {
-
-  }
+  private initializeMetaTags(section: string) {}
 
   // #endregion
 
@@ -182,9 +182,11 @@ export class BranchesTableComponent
   }
 
   private subscribeToFilterFormChanges() {
-    this.filterForm.valueChanges.subscribe(() => {
-      this.applyFilter();
-    });
+    this.subs.add(
+      this.filterForm.valueChanges.subscribe(() => {
+        this.applyFilter();
+      })
+    );
   }
 
   applyFilter() {
@@ -222,9 +224,11 @@ export class BranchesTableComponent
       data: { id },
     });
 
-    dialogRef.afterClosed().subscribe(() => {
-      this.branchService.fetchBranches();
-    });
+    this.subs.add(
+      dialogRef.afterClosed().subscribe(() => {
+        this.branchService.fetchBranches();
+      })
+    );
   }
 
   addBranch() {
@@ -233,9 +237,11 @@ export class BranchesTableComponent
       data: {},
     });
 
-    dialogRef.afterClosed().subscribe(() => {
-      this.branchService.fetchBranches();
-    });
+    this.subs.add(
+      dialogRef.afterClosed().subscribe(() => {
+        this.branchService.fetchBranches();
+      })
+    );
   }
 
   onFileSelected($event: any) {
@@ -245,7 +251,7 @@ export class BranchesTableComponent
 
   // #endregion
 
-  ngOnDestroy(): void {
-    // Add any necessary cleanup code here
+  ngOnDestroy() {
+    this.subs.unsubscribe();
   }
 }
