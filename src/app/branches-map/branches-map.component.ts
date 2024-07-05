@@ -35,7 +35,7 @@ export class BranchesMapComponent {
   @ViewChild(MapInfoWindow) infoWindow: MapInfoWindow | undefined;
 
   branches = signal<Branch[]>([]);
-  center: google.maps.LatLngLiteral = { lat: 46.8182, lng: 8.2275 }; // Center of Switzerland
+  mapCenter: google.maps.LatLngLiteral = { lat: 46.8182, lng: 8.2275 }; // mapCenter of Switzerland
   zoom = 8;
   markers: BranchMapMarker[] = [];
   selectedBranch = signal<Branch | null>(null); // Signal for currently selected branch

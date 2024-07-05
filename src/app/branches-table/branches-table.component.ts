@@ -9,7 +9,7 @@ import {
   OnInit,
   OnDestroy,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, getLocaleEraNames } from '@angular/common';
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -21,7 +21,7 @@ import { RouterModule, Router } from '@angular/router';
 import { BranchService } from '../services/branch.service';
 import { BranchImportService } from '../services/branch-import.service';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { Branch, DataObject } from '../models';
+import { Branch, MetaTag } from '../models';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { CustomMatPaginatorIntl } from '../providers/custom-paginator-intl';
@@ -35,6 +35,7 @@ import { Title } from '@angular/platform-browser';
 import { BRANCH_FORMComponent } from '../branch-form/branch-form.component';
 import { BranchesTableDownloadComponent } from '../branches-table-download/branches-table-download.component';
 import { Meta } from '@angular/platform-browser';
+import metadata from '../../../public/assets/metadata/metadata.json';
 
 // #endregion
 
@@ -48,22 +49,22 @@ import { Meta } from '@angular/platform-browser';
   templateUrl: './branches-table.component.html',
   styleUrls: ['./branches-table.component.scss'],
   imports: [
-    CommonModule,
-    MatTableModule,
-    MatIconModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
-    MatCheckboxModule,
-    RouterModule,
-    TranslateModule,
-    MatPaginatorModule,
-    ReactiveFormsModule,
-    MatMenuModule,
-    MatDividerModule,
-    MatSortModule,
-    BranchesTableDownloadComponent,
+    CommonModule, 
+    MatTableModule, 
+    MatIconModule, 
+    MatButtonModule, 
+    MatFormFieldModule, 
+    MatInputModule, 
+    MatSelectModule, 
+    MatCheckboxModule, 
+    RouterModule, 
+    TranslateModule, 
+    MatPaginatorModule, 
+    ReactiveFormsModule, 
+    MatMenuModule, 
+    MatDividerModule, 
+    MatSortModule, 
+    BranchesTableDownloadComponent, 
   ],
 })
 export class BranchesTableComponent
@@ -100,7 +101,7 @@ export class BranchesTableComponent
   ) {
     this.initializeEffects();
     this.filterForm = this.createFilterForm();
-    this.initializeMetaTags();
+    this.initializeMetaTags('branchesTable');
   }
 
   // #endregion
@@ -119,6 +120,36 @@ export class BranchesTableComponent
     if (this.sort) {
       this.dataSource.sort = this.sort;
     }
+  }
+
+  // #endregion
+
+  // #region Data Handling
+
+  private initializeEffects() {
+    effect(() => {
+      this.dataSource.data = this.branches();
+      this.uniqueLocations = this.getUniqueLocations(this.branches());
+      this.applyFilter();
+      this.updateTitle();
+    });
+  }
+
+  private getUniqueLocations(branches: Branch[]): string[] {
+    const locations = branches.map((branch) => branch.location);
+    return [...new Set(locations)];
+  }
+
+  private updateTitle() {
+    this.titleService.setTitle(
+      `${this.translate.instant('INFO.TABLE')}: ${
+        this.branches().length
+      } ${this.translate.instant('INFO.BRANCHES')}`
+    );
+  }
+
+  private initializeMetaTags(section: string) {
+
   }
 
   // #endregion
@@ -210,40 +241,6 @@ export class BranchesTableComponent
   onFileSelected($event: any) {
     this.branchImportService.onFileSelected($event);
     this.applyFilter();
-  }
-
-  // #endregion
-
-  // #region Data Handling
-
-  private initializeEffects() {
-    effect(() => {
-      this.dataSource.data = this.branches();
-      this.uniqueLocations = this.getUniqueLocations(this.branches());
-      this.applyFilter();
-      this.updateTitle();
-    });
-  }
-
-  private getUniqueLocations(branches: Branch[]): string[] {
-    const locations = branches.map((branch) => branch.location);
-    return [...new Set(locations)];
-  }
-
-  private updateTitle() {
-    this.titleService.setTitle(
-      `${this.translate.instant('INFO.TABLE')}: ${
-        this.branches().length
-      } ${this.translate.instant('INFO.BRANCHES')}`
-    );
-  }
-
-  private initializeMetaTags() {
-    this.metaTagService.addTags([
-      { name: 'keywords', content: 'Branches, Locator, Finder, CRUD, Table' },
-      { name: 'robots', content: 'index, follow' },
-      { name: 'author', content: 'Paul Pietko' },
-    ]);
   }
 
   // #endregion

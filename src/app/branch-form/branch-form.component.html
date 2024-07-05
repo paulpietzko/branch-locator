@@ -39,14 +39,18 @@
       <mat-label>{{ "BRANCH_FORM.OPENING_HOURS" | translate }}</mat-label>
       <input matInput formControlName="openingHours" required />
     </mat-form-field>
-    <mat-form-field>
-      <mat-label>{{ "BRANCH_FORM.LATITUDE" | translate }}</mat-label>
-      <input matInput formControlName="lat" required />
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>{{ "BRANCH_FORM.LONGITUDE" | translate }}</mat-label>
-      <input matInput formControlName="lng" required />
-    </mat-form-field>
+    <google-map
+    [center]="mapCenter"
+    [zoom]="zoom"
+    height="100px"
+    width="100%"
+    (mapClick)="onMapClick($event)"
+  >
+    <map-marker
+      *ngIf="BRANCH_FORM.get('lat')?.value && BRANCH_FORM.get('lng')?.value"
+      [position]="mapCenter"
+    ></map-marker>
+  </google-map>
     <div
       class="file-upload-wrapper"
       [class.success]="uploadSuccess"

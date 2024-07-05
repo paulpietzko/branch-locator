@@ -27,8 +27,9 @@ export interface BranchMapMarker {
   click?: () => void;
 }
 
-export interface DataObject {
-  [key: string]: string;
+export interface MetaTag {
+  title: string;
+  description: string;
 }
 
 export enum FileFormat {

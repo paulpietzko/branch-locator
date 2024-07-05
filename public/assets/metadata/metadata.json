@@ -1,0 +1,20 @@
+{
+  "branchesTable": [
+    { "name": "keywords", "content": "Branches, Locator, Finder, CRUD, Table" },
+    { "name": "robots", "content": "index, follow" },
+    { "name": "author", "content": "Paul Pietko" }
+  ],
+  "detailPage": [
+    { "name": "description", "content": "Detailed information about a branch." }
+  ],
+  "mapComponent": [
+    { "name": "keywords", "content": "Map, Branch Locations, Visualize" },
+    { "name": "robots", "content": "index, follow" },
+    { "name": "author", "content": "Paul Pietko" }
+  ],
+  "chartComponent": [
+    { "name": "keywords", "content": "Analytics, Charts, Visual Data" },
+    { "name": "robots", "content": "index, follow" },
+    { "name": "author", "content": "Paul Pietko" }
+  ]
+}

@@ -93,7 +93,7 @@ export class BRANCH_DETAILComponent implements OnInit {
   });
   mapCenter = { lat: 0, lng: 0 }; // Initial center of the map
 
-  // #region Map Methods
+  // #region openInfoWindow Method
 
   openInfoWindow(marker: MapMarker): void {
     this.infoContent.set(this.branch());

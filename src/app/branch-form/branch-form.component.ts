@@ -30,6 +30,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Branch } from '../models';
 import { MatDialogModule } from '@angular/material/dialog';
+import { GoogleMapsModule } from '@angular/google-maps';
 
 // #endregion
 
@@ -49,10 +50,9 @@ import { MatDialogModule } from '@angular/material/dialog';
     TranslateModule,
     MatIconModule,
     MatDialogModule,
+    GoogleMapsModule,
   ],
-  providers: [
-    BranchService,
-  ],
+  providers: [BranchService],
 })
 export class BRANCH_FORMComponent {
   imageName = signal('');
@@ -71,6 +71,8 @@ export class BRANCH_FORMComponent {
   selectedFile: File | null = null;
   uploadSuccess: boolean = false;
   uploadError: boolean = false;
+  mapCenter: google.maps.LatLngLiteral = { lat: 46.8182, lng: 8.2275 }; // Center of Switzerland
+  zoom = 8;
 
   // #region Constructor and Lifecycle Methods
 
@@ -101,6 +103,7 @@ export class BRANCH_FORMComponent {
               .then((size) => this.fileSize.set(size))
               .catch(() => this.fileSize.set(0));
           }
+          this.mapCenter = { lat: branch.lat, lng: branch.lng };
         }
       },
       { allowSignalWrites: true }
@@ -125,6 +128,19 @@ export class BRANCH_FORMComponent {
       lng: [null, Validators.required],
       image: [null],
     });
+  }
+
+  onMapClick(event: google.maps.MapMouseEvent): void {
+    if (event.latLng) {
+      this.mapCenter = {
+        lat: event.latLng.lat(),
+        lng: event.latLng.lng(),
+      };
+      this.BRANCH_FORM.patchValue({
+        lat: this.mapCenter.lat,
+        lng: this.mapCenter.lng,
+      });
+    }
   }
 
   onSubmit(): void {
